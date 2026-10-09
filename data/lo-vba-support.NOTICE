@@ -1,0 +1,18 @@
+LibreOffice VBA interface declaration snapshot
+
+Derived from LibreOffice/core, oovbaapi/ooo/vba/excel, revision
+1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2.
+Individual source URLs and SHA-256 hashes are retained in lo-vba-support.json.
+The snapshot includes extracted declarations and generated provenance metadata,
+not LibreOffice implementation code. Generator: scripts/generate_lo_support.py.
+
+The source files are part of the LibreOffice project and are subject to the
+Mozilla Public License, v. 2.0. A copy is in LICENSES/MPL-2.0.txt.
+
+The source headers also identify incorporated work licensed to the Apache
+Software Foundation (ASF) under contributor license agreements. The ASF
+licenses that work under the Apache License, Version 2.0; a copy is in
+LICENSES/Apache-2.0.txt. Upstream source headers identify LibreOffice and ASF contributors.
+
+Source example:
+https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XRange.idl

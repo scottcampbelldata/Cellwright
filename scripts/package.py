@@ -39,7 +39,7 @@ def main():
     name='macroferry-0.1.0-'+args.platform
     archive=args.out/(name+'.zip')
     files={}
-    for directory in ('.cargo','migration','harness','dashboard','docs','data','third-party-licenses'):
+    for directory in ('.cargo','migration','harness','dashboard','docs','data','LICENSES','third-party-licenses'):
         for path in (ROOT/directory).rglob('*'):
             if path.is_file() and '__pycache__' not in path.parts:files[path.relative_to(ROOT).as_posix()]=path.read_bytes()
     for filename in ('README.md','SECURITY.md','LICENSE','THIRD_PARTY_NOTICES.md','Cargo.lock','Cargo.toml','rust-toolchain.toml','requirements.txt'):

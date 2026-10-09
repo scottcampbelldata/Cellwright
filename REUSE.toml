@@ -1,13 +1,19 @@
 version = 1
 
 [[annotations]]
+path = ["data/lo-vba-support.json", "data/lo-vba-support.NOTICE"]
+precedence = "override"
+SPDX-FileCopyrightText = ["LibreOffice contributors", "The Apache Software Foundation", "2026 Scott Campbell (snapshot generation)"]
+SPDX-License-Identifier = "MPL-2.0 AND Apache-2.0"
+
+[[annotations]]
 path = [".cargo/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Scott Campbell"
 SPDX-License-Identifier = "EUPL-1.2"
 
 [[annotations]]
-path = ["Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".gitignore", "README.md", "SECURITY.md", "docs/**", "corpus/README.md", "corpus/expected.json", "corpus/*.bas", "corpus/*.m", "corpus/generated/sales-query.xlsx", "REUSE.toml", "THIRD_PARTY_NOTICES.md", "requirements.txt", "src/**", "tests/**", "scripts/**", "data/**", ".github/**", "migration/**", "harness/**", "dashboard/**", "examples/**", "fuzz/Cargo.toml", "fuzz/Cargo.lock", "fuzz/fuzz_targets/**"]
+path = ["Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".gitignore", "README.md", "SECURITY.md", "docs/**", "corpus/README.md", "corpus/expected.json", "corpus/*.bas", "corpus/*.m", "corpus/generated/sales-query.xlsx", "REUSE.toml", "THIRD_PARTY_NOTICES.md", "requirements.txt", "src/**", "tests/**", "scripts/**", "data/*.toml", ".github/**", "migration/**", "harness/**", "dashboard/**", "examples/**", "fuzz/Cargo.toml", "fuzz/Cargo.lock", "fuzz/fuzz_targets/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Scott Campbell"
 SPDX-License-Identifier = "EUPL-1.2"

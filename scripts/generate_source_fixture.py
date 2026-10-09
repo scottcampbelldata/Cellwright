@@ -3,22 +3,17 @@
 import subprocess
 import zipfile
 from pathlib import Path
-from xml.etree import ElementTree as ET
 
 import openpyxl
 
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def main():
-    output=ROOT/'corpus/generated/arithmetic-source-only.xlsm'
+def assemble(temporary, binary, output):
+    output=Path(output)
     if output.exists():raise FileExistsError(output)
     output.parent.mkdir(parents=True,exist_ok=True)
-    temporary=ROOT/'target/arithmetic.xlsx'
-    book=openpyxl.Workbook();book.active.title='Data';book.save(temporary)
-    binary=ROOT/'target/arithmetic-vba.bin'
-    subprocess.run(['cargo','run','--quiet','--example','generate_vba_fixture','--',str(binary)],check=True,cwd=ROOT)
-    with zipfile.ZipFile(temporary) as source,zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED) as target:
+    with zipfile.ZipFile(temporary) as source,zipfile.ZipFile(output,'x',zipfile.ZIP_DEFLATED) as target:
         for entry in source.infolist():
             value=source.read(entry.filename)
             if entry.filename=='[Content_Types].xml':
@@ -29,7 +24,17 @@ def main():
             elif entry.filename=='xl/workbook.xml':value=value.replace(b'<workbookPr',b'<workbookPr codeName="ThisWorkbook"',1)
             elif entry.filename=='xl/worksheets/sheet1.xml':value=value.replace(b'<sheetPr>',b'<sheetPr codeName="Sheet1">',1)
             target.writestr(entry.filename,value)
-        target.writestr('xl/vbaProject.bin',binary.read_bytes())
+        target.writestr('xl/vbaProject.bin',Path(binary).read_bytes())
+
+
+def main():
+    output=ROOT/'corpus/generated/arithmetic-source-only.xlsm'
+    if output.exists():raise FileExistsError(output)
+    temporary=ROOT/'target/arithmetic.xlsx'
+    book=openpyxl.Workbook();book.active.title='Data';book.save(temporary)
+    binary=ROOT/'target/arithmetic-vba.bin'
+    subprocess.run(['cargo','run','--quiet','--example','generate_vba_fixture','--',str(binary)],check=True,cwd=ROOT)
+    assemble(temporary,binary,output)
     print(output)
 
 

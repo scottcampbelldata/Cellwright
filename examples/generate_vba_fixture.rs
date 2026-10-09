@@ -65,13 +65,29 @@ fn main() -> Result<()> {
     record(&mut dir, 0x13, &0xffffu16.to_le_bytes());
     let arithmetic = format!(
         "Attribute VB_Name = \"Arithmetic\"\r\n{}",
-        std::fs::read_to_string("corpus/Arithmetic.bas")?.replace('\n', "\r\n")
+        std::fs::read_to_string(
+            std::env::args()
+                .nth(2)
+                .as_deref()
+                .unwrap_or("corpus/Arithmetic.bas")
+        )?
+        .replace("\r\n", "\n")
+        .replace('\n', "\r\n")
     );
     let this_workbook = "Attribute VB_Name = \"ThisWorkbook\"\r\nAttribute VB_Base = \"0{00020819-0000-0000-C000-000000000046}\"\r\nAttribute VB_PredeclaredId = True\r\nAttribute VB_Exposed = True\r\n";
+    let this_workbook = format!(
+        "{this_workbook}{}",
+        match std::env::args().nth(3) {
+            Some(path) => std::fs::read_to_string(path)?
+                .replace("\r\n", "\n")
+                .replace('\n', "\r\n"),
+            None => String::new(),
+        }
+    );
     let sheet = "Attribute VB_Name = \"Sheet1\"\r\nAttribute VB_Base = \"0{00020820-0000-0000-C000-000000000046}\"\r\nAttribute VB_PredeclaredId = True\r\nAttribute VB_Exposed = True\r\n";
     let modules = [
         ("Arithmetic", arithmetic.as_str(), 0x21),
-        ("ThisWorkbook", this_workbook, 0x22),
+        ("ThisWorkbook", this_workbook.as_str(), 0x22),
         ("Sheet1", sheet, 0x22),
     ];
     for (name, _, typ) in &modules {

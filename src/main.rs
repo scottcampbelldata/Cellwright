@@ -41,6 +41,9 @@ enum Commands {
         port: u16,
         #[arg(long, default_value = "reports/dashboard")]
         data: PathBuf,
+        /// Enable trusted macro verification; the dashboard is accessible to local processes
+        #[arg(long)]
+        allow_execution: bool,
     },
     /// Capture, compare or run converted macros using the Python migration tools
     Migrate {
@@ -231,17 +234,24 @@ fn run() -> Result<bool> {
             }
             run_python("migration", &args)
         }
-        Commands::Serve { port, data } => run_python(
-            "dashboard.server",
-            &[
+        Commands::Serve {
+            port,
+            data,
+            allow_execution,
+        } => {
+            let mut args = vec![
                 "--port".into(),
                 port.to_string(),
                 "--data".into(),
                 data.to_string_lossy().into_owned(),
                 "--binary".into(),
                 std::env::current_exe()?.to_string_lossy().into_owned(),
-            ],
-        ),
+            ];
+            if allow_execution {
+                args.push("--allow-execution".into());
+            }
+            run_python("dashboard.server", &args)
+        }
         Commands::Migrate { args } => run_python("migration", &args),
         Commands::Inspect(args) => {
             worker(args)?;
@@ -276,17 +286,30 @@ fn run_python(module: &str, args: &[String]) -> Result<bool> {
         .ancestors()
         .find(|path| path.join("migration/__init__.py").is_file())
         .context("Migration tools are missing; use the full distribution archive")?;
-    let python = std::env::var_os("MACROFERRY_PYTHON").unwrap_or_else(|| "python".into());
+    let override_python = std::env::var_os("MACROFERRY_PYTHON");
+    let python = override_python
+        .as_deref()
+        .unwrap_or_else(|| std::ffi::OsStr::new("python"));
     let mut search_path = vec![root.to_path_buf()];
     if let Some(existing) = std::env::var_os("PYTHONPATH") {
         search_path.extend(std::env::split_paths(&existing));
     }
-    let status = Command::new(python)
+    let mut command = Command::new(python);
+    command
         .args(["-m", module])
         .args(args)
-        .env("PYTHONPATH", std::env::join_paths(search_path)?)
-        .status()
-        .context("Starting Python tools; install Python 3.11+ or set MACROFERRY_PYTHON")?;
+        .env("PYTHONPATH", std::env::join_paths(&search_path)?);
+    let status = match command.status() {
+        Err(error) if override_python.is_none() && error.kind() == std::io::ErrorKind::NotFound => {
+            Command::new("python3")
+                .args(["-m", module])
+                .args(args)
+                .env("PYTHONPATH", std::env::join_paths(&search_path)?)
+                .status()
+        }
+        result => result,
+    }
+    .context("Starting Python tools; install Python 3.11+ or set MACROFERRY_PYTHON")?;
     Ok(status.success())
 }
 

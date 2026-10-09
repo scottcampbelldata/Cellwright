@@ -23,6 +23,60 @@ fn corpus(name: &str) -> PathBuf {
         .join(name)
 }
 
+#[cfg(unix)]
+#[test]
+fn python3_fallback_and_dashboard_execution_flag() {
+    use std::os::unix::fs::PermissionsExt;
+    let temp = tempfile::tempdir().unwrap();
+    let binary = temp.path().join("macroferry");
+    fs::copy(env!("CARGO_BIN_EXE_macroferry"), &binary).unwrap();
+    fs::create_dir(temp.path().join("migration")).unwrap();
+    fs::write(temp.path().join("migration/__init__.py"), "").unwrap();
+    let python3 = temp.path().join("python3");
+    fs::write(&python3, "#!/bin/sh\nprintf 'python3 %s\\n' \"$*\"\n").unwrap();
+    fs::set_permissions(&python3, fs::Permissions::from_mode(0o755)).unwrap();
+    let run = |args: &[&str], override_python: Option<&Path>| {
+        let mut command = Command::new(&binary);
+        command
+            .args(args)
+            .env("PATH", temp.path())
+            .env_remove("MACROFERRY_PYTHON");
+        if let Some(path) = override_python {
+            command.env("MACROFERRY_PYTHON", path);
+        }
+        command.output().unwrap()
+    };
+    let result = run(&["migrate", "compare", "--help"], None);
+    assert!(
+        result.status.success(),
+        "{}",
+        String::from_utf8_lossy(&result.stderr)
+    );
+    assert!(
+        String::from_utf8_lossy(&result.stdout).contains("python3 -m migration compare --help")
+    );
+    let result = run(&["serve", "--allow-execution"], None);
+    assert!(result.status.success());
+    assert!(String::from_utf8_lossy(&result.stdout).contains("--allow-execution"));
+    let result = run(&["serve"], None);
+    assert!(!String::from_utf8_lossy(&result.stdout).contains("--allow-execution"));
+    let result = run(
+        &["migrate", "compare", "--help"],
+        Some(&temp.path().join("missing-python")),
+    );
+    assert_eq!(result.status.code(), Some(2));
+    assert!(!String::from_utf8_lossy(&result.stdout).contains("python3"));
+    let python = temp.path().join("python");
+    fs::write(&python, "#!/bin/sh\nprintf 'first-python\\n'\nexit 42\n").unwrap();
+    fs::set_permissions(&python, fs::Permissions::from_mode(0o755)).unwrap();
+    let result = run(&["migrate", "compare", "--help"], None);
+    assert_eq!(result.status.code(), Some(1));
+    assert_eq!(
+        String::from_utf8_lossy(&result.stdout).trim(),
+        "first-python"
+    );
+}
+
 #[test]
 fn controlled_workbooks_inventory_code_page_owner_and_real_query() {
     let rules = macroferry::rules::load(None).unwrap();

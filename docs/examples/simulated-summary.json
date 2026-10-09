@@ -1,0 +1,480 @@
+{
+  "schema_version": "1",
+  "simulated": true,
+  "calibrated": false,
+  "measured_effort_hours": null,
+  "workbooks": 30,
+  "converted": 30,
+  "executed": 15,
+  "duplicate_groups": 10,
+  "scenario_checks_passed": true,
+  "scope": "Owned source-only VBA, business tables/formulas, COM/API blockers, document events and constant-record M. Formula recalculation and production effort are not measured.",
+  "assessment_seconds": 5.803,
+  "cases": [
+    {
+      "file": "budget-1.xlsm",
+      "scenario": "budget",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "budget-2.xlsm",
+      "scenario": "budget",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "budget-3.xlsm",
+      "scenario": "budget",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "payroll-1.xlsm",
+      "scenario": "payroll",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "payroll-2.xlsm",
+      "scenario": "payroll",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "payroll-3.xlsm",
+      "scenario": "payroll",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "inventory-1.xlsm",
+      "scenario": "inventory",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "inventory-2.xlsm",
+      "scenario": "inventory",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "inventory-3.xlsm",
+      "scenario": "inventory",
+      "rows": 1200,
+      "input": 200,
+      "base": 140,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "forecast-1.xlsm",
+      "scenario": "forecast",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "forecast-2.xlsm",
+      "scenario": "forecast",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "forecast-3.xlsm",
+      "scenario": "forecast",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "invoice-1.xlsm",
+      "scenario": "invoice",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "invoice-2.xlsm",
+      "scenario": "invoice",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "invoice-3.xlsm",
+      "scenario": "invoice",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [],
+      "verdict": "no_known_blockers",
+      "rules_found": [],
+      "todos": 0,
+      "execution": "value and formula text passed",
+      "manual_review_required": false
+    },
+    {
+      "file": "outlook-report-1.xlsm",
+      "scenario": "outlook-report",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [
+        "MF002",
+        "MF004"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF002",
+        "MF004"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "outlook-report-2.xlsm",
+      "scenario": "outlook-report",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [
+        "MF002",
+        "MF004"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF002",
+        "MF004"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "outlook-report-3.xlsm",
+      "scenario": "outlook-report",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [
+        "MF002",
+        "MF004"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF002",
+        "MF004"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "windows-api-1.xlsm",
+      "scenario": "windows-api",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [
+        "MF001"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF001"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "windows-api-2.xlsm",
+      "scenario": "windows-api",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [
+        "MF001"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF001"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "windows-api-3.xlsm",
+      "scenario": "windows-api",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [
+        "MF001"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF001"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "database-refresh-1.xlsm",
+      "scenario": "database-refresh",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [
+        "MF002",
+        "MF008"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF002",
+        "MF008",
+        "MF036",
+        "MFLO001"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "database-refresh-2.xlsm",
+      "scenario": "database-refresh",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [
+        "MF002",
+        "MF008"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF002",
+        "MF008",
+        "MF036",
+        "MFLO001"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "database-refresh-3.xlsm",
+      "scenario": "database-refresh",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [
+        "MF002",
+        "MF008"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF002",
+        "MF008",
+        "MF036",
+        "MFLO001"
+      ],
+      "todos": 2,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "open-event-1.xlsm",
+      "scenario": "open-event",
+      "rows": 12,
+      "input": 1.25,
+      "base": 100,
+      "expected_rules": [],
+      "verdict": "needs_edits",
+      "rules_found": [
+        "MF025",
+        "MF036",
+        "MFLO001"
+      ],
+      "todos": 0,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "open-event-2.xlsm",
+      "scenario": "open-event",
+      "rows": 120,
+      "input": 0,
+      "base": 120,
+      "expected_rules": [],
+      "verdict": "needs_edits",
+      "rules_found": [
+        "MF025",
+        "MF036",
+        "MFLO001"
+      ],
+      "todos": 0,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "open-event-3.xlsm",
+      "scenario": "open-event",
+      "rows": 1200,
+      "input": -2,
+      "base": 140,
+      "expected_rules": [],
+      "verdict": "needs_edits",
+      "rules_found": [
+        "MF025",
+        "MF036",
+        "MFLO001"
+      ],
+      "todos": 0,
+      "execution": "not run",
+      "manual_review_required": true
+    },
+    {
+      "file": "power-query-1.xlsx",
+      "scenario": "power-query",
+      "profile": "shared sales query",
+      "expected_rules": [
+        "MF053"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF053",
+        "MF054"
+      ],
+      "todos": 0,
+      "execution": "not run",
+      "manual_review_required": false
+    },
+    {
+      "file": "power-query-2.xlsx",
+      "scenario": "power-query",
+      "profile": "shared sales query",
+      "expected_rules": [
+        "MF053"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF053",
+        "MF054"
+      ],
+      "todos": 0,
+      "execution": "not run",
+      "manual_review_required": false
+    },
+    {
+      "file": "power-query-3.xlsx",
+      "scenario": "power-query",
+      "profile": "shared sales query",
+      "expected_rules": [
+        "MF053"
+      ],
+      "verdict": "needs_rewrite",
+      "rules_found": [
+        "MF053",
+        "MF054"
+      ],
+      "todos": 0,
+      "execution": "not run",
+      "manual_review_required": false
+    }
+  ]
+}

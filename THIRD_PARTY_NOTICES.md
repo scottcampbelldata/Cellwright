@@ -2,7 +2,7 @@
 
 Generated from the locked Cargo dependency graph, including build, test and platform-specific packages. Original copyright notices and license texts are copied unchanged into `third-party-licenses/`.
 
-`data/lo-vba-support.json` records API declaration facts from LibreOffice/core oovbaapi at the pinned revision and per-file source URLs/hashes; it contains no LibreOffice implementation. LibreOffice, Python, pandas and openpyxl runtimes are installed separately rather than bundled. Their own licenses and versions must be retained by deployments. Controlled fixture type-library reference metadata comes from the MIT calamine fixture; see `corpus/README.md`.
+`data/lo-vba-support.json` is derived from LibreOffice/core oovbaapi declarations at the pinned revision and retains per-file source URLs/hashes. Its REUSE label is `MPL-2.0 AND Apache-2.0`, preserving the source headers' MPL terms and incorporated Apache notices; see `data/lo-vba-support.NOTICE` and `LICENSES/`. It contains no LibreOffice implementation. LibreOffice, Python, pandas and openpyxl runtimes are installed separately rather than bundled. Their own licenses and versions must be retained by deployments. Controlled fixture type-library reference metadata comes from the MIT calamine fixture; see `corpus/README.md`.
 
 | Package | Version | Declared license | License files |
 |---|---|---|---|

@@ -11,7 +11,7 @@ macroferry.exe convert .\Budget.xlsm --out .\candidate --target basic
 macroferry.exe serve --port 8768 --data .\reports\dashboard
 ```
 
-Open http://127.0.0.1:8768 for scan history, assignments, schedules, conversion candidates and explicit execution comparisons. Python 3.11+ is required for these optional tools. Install `requirements.txt` for standalone workbook/pandas targets. On Linux use `macroferry` without `.exe`, set `MACROFERRY_PYTHON=python3` if necessary, and install `libreoffice-calc`/`python3-uno` for UNO targets.
+Open http://127.0.0.1:8768 or http://localhost:8768 for scan history, assignments, schedules and conversion candidates. Macro verification is disabled by default; enable it for trusted workbooks with `macroferry.exe serve --allow-execution`, then consent to each case in the dashboard. Local programs can access the dashboard, so the startup flag grants them execution capability too. Linux comparisons require a saved Excel capture JSON for the same routine, inputs and cells. Python 3.11+ is required for these optional tools; the launcher tries `python`, then `python3` if `python` is absent. `MACROFERRY_PYTHON` selects an explicit interpreter without fallback. Install `requirements.txt` for standalone workbook/pandas targets. On Linux use `macroferry` without `.exe` and install `libreoffice-calc`/`python3-uno` for UNO targets.
 
 From this checkout: `cargo build --locked --release`, then use `target/release/macroferry.exe`. Rust 1.99.0 is pinned. If Cargo is outside Windows PATH: `& "$env:USERPROFILE\.cargo\bin\cargo.exe" build --locked --release`.
 
@@ -62,7 +62,9 @@ python -m unittest discover -s tests -p "test_*.py"
 
 [Validation](docs/validation.md) records Windows/Linux checks, controlled engine comparisons and fuzzing. [Corpus origins](corpus/README.md) distinguish public extraction data from owned executable fixtures. `scripts/crosscheck.py` compares extraction with olevba. `scripts/verify_corpus.py` and `scripts/verify_query.py` retain controlled-case evidence.
 
-`scripts/package.py` creates full archives, CycloneDX SBOMs and hashes; see [release preparation](docs/releases.md). Local binaries are unsigned and unpublished. Signing, repository/mirror publication, representative pilots, language review and estimate calibration remain release gates.
+[Simulated estate validation](docs/calibration.md) generates 30 business workbooks and checks inventory, conversion and safe arithmetic candidates. These checks do not measure human migration effort or calibrate the hour estimates.
+
+`scripts/package.py` creates full archives, CycloneDX SBOMs and hashes; see [release preparation](docs/releases.md). Source is hosted in a private repository; local binaries are unsigned and have no public release. Signing, public repository/mirror publication, representative pilots, language review and estimate calibration remain release gates.
 
 [Français](docs/fr/quickstart.md) · [Deutsch](docs/de/quickstart.md) · [Security](SECURITY.md) · [JSON schema](docs/scan.schema.json)
 

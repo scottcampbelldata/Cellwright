@@ -21,8 +21,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class Store:
-    def __init__(self, directory, binary):
+    def __init__(self, directory, binary, allow_execution=False):
         self.directory, self.binary = Path(directory).resolve(), Path(binary).resolve()
+        self.allow_execution = allow_execution
         self.directory.mkdir(parents=True, exist_ok=True)
         self.database = self.directory / "dashboard.sqlite3"
         self.pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
@@ -55,6 +56,7 @@ class Store:
 
     def submit(self, kind, label, input_value, options):
         if kind not in ("scan", "convert", "verify"): raise ValueError("Unsupported job kind")
+        if kind == "verify" and not self.allow_execution: raise PermissionError("Restart the dashboard with --allow-execution to enable macro verification")
         identifier = uuid.uuid4().hex
         with self.connect() as db:
             db.execute("INSERT INTO jobs VALUES (?,?,?,?,?,?,?,?,?,?)", (identifier, kind, str(label)[:120], "queued", int(time.time()), None, json.dumps(input_value), json.dumps(options), None, None))
@@ -69,8 +71,9 @@ class Store:
         inputs, options = json.loads(job["input"]), json.loads(job["options"])
         try:
             if job["kind"] == "scan":
-                command = [str(self.binary), "scan", *inputs, "--out", str(directory), "--lang", options.get("lang", "en")]
+                command = [str(self.binary), "scan", "--out", str(directory), "--lang", options.get("lang", "en")]
                 if not options.get("source"): command.append("--no-source")
+                command.extend(["--", *inputs])
                 result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", timeout=3600)
                 if result.returncode not in (0, 1): raise RuntimeError(result.stderr[-4000:])
                 report = directory / "scan.json"
@@ -86,6 +89,7 @@ class Store:
                         if filename.is_file() and filename!=directory/'candidate.zip':archive.write(filename,filename.relative_to(directory).as_posix())
                 state = "completed"
             else:
+                if not self.allow_execution: raise PermissionError("Dashboard macro execution is disabled")
                 from migration.verify import verify
                 summary=verify(inputs,directory,allow_execution=True)
                 data={"passed":summary["passed"],"cells_checked":summary["cells_checked"],"differences":len(summary["differences"]),"conversion_id":options["conversion_id"]}
@@ -138,16 +142,19 @@ class Server(ThreadingHTTPServer):
         self.store = store
         self.token = secrets.token_urlsafe(32)
         self.authority = f"127.0.0.1:{self.server_port}"
+        self.authorities = {self.authority, f"localhost:{self.server_port}"}
+        self.requires_golden = os.name != "nt"
 
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, format, *args): pass
 
     def allowed_host(self):
-        if self.headers.get("Host") != self.server.authority:
+        host = self.headers.get("Host")
+        if host not in self.server.authorities:
             raise PermissionError("Invalid Host header")
         origin = self.headers.get("Origin")
-        if origin and origin != "http://" + self.server.authority:
+        if origin and origin != "http://" + host:
             raise PermissionError("Cross-origin requests are rejected")
 
     def authorize(self, cookie=False):
@@ -184,7 +191,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply((ROOT / "dashboard" / path[1:]).read_bytes(), content_type="text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8")
             elif path == "/api/state":
                 self.authorize()
-                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.0", "offline": True})
+                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.0", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden})
             elif path.startswith("/api/jobs/"):
                 self.authorize()
                 identifier = path.split("/")[-1]
@@ -227,7 +234,13 @@ class Handler(BaseHTTPRequestHandler):
                 self.server.store.assignment(value)
                 result = {"saved": True}
             elif self.path == "/api/verifications":
+                if not self.server.store.allow_execution:raise PermissionError("Restart the dashboard with --allow-execution to enable macro verification")
                 if value.get("allow_execution") is not True:raise PermissionError("Explicit execution consent required")
+                golden=value.get("golden")
+                if self.server.requires_golden and not golden:raise ValueError("Linux verification requires a saved Excel capture JSON path")
+                if golden:
+                    validate_paths([golden])
+                    if not Path(golden).is_file():raise ValueError("Saved Excel capture JSON not found")
                 job=self.server.store.job(value.get("conversion_id"))
                 if job["kind"]!='convert' or job["state"]!='completed':raise ValueError("Select a completed conversion")
                 target=json.loads(job["options"])["target"]
@@ -242,6 +255,7 @@ class Handler(BaseHTTPRequestHandler):
                     if not module:raise ValueError("Python module not found")
                     converted['python_module']=str(candidate/module['candidate']);converted['macro']=value["macro"].split('.')[-1]
                 case={"original":original,"converted":converted,"ranges":value["ranges"]}
+                if golden:case["golden"]=str(Path(golden).resolve())
                 result={"id":self.server.store.submit('verify','Verify '+job['label'],case,{"conversion_id":job['id']})}
             elif self.path == "/api/schedules":
                 result = {"id": self.server.store.schedule(value)}
@@ -259,11 +273,12 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8768)
+    parser.add_argument("--allow-execution", action="store_true", help="Enable trusted macro verification; any local process can access this dashboard")
     parser.add_argument("--data", type=Path, default=ROOT / "reports/dashboard")
     parser.add_argument("--binary", type=Path, default=ROOT / ("target/release/macroferry.exe" if os.name=='nt' else "target/release/macroferry"))
     args = parser.parse_args()
     if not 0 <= args.port <= 65535: parser.error("Invalid port")
-    store = Store(args.data, args.binary)
+    store = Store(args.data, args.binary, args.allow_execution)
     server = Server(("127.0.0.1", args.port), store)
     stop = threading.Event()
     def scheduler():
