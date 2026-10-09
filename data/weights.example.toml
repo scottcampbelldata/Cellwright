@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: EUPL-1.2
+# Uncalibrated planning defaults. Replace with observations from your estate.
+base_hours = 0.5
+hours_per_code_line = 0.02
+test_hours = 1.0
+occurrence_cap = 3
+low_multiplier = 0.5
+high_multiplier = 2.0

@@ -1,0 +1,542 @@
+# SPDX-License-Identifier: EUPL-1.2
+# EN, FR, DE messages; hours are uncalibrated planning defaults.
+
+[[rules]]
+id = "MF001"
+category = "windows"
+kind = "tokens"
+pattern = ["declare"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Windows API declaration requires a replacement.","Déclaration d’API Windows à remplacer.","Windows-API-Deklaration muss ersetzt werden."]
+
+[[rules]]
+id = "MF002"
+category = "automation"
+kind = "tokens"
+pattern = ["createobject"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["COM object creation needs review and replacement.","Création d’objet COM à vérifier et remplacer.","COM-Objekterstellung prüfen und ersetzen."]
+
+[[rules]]
+id = "MF003"
+category = "automation"
+kind = "tokens"
+pattern = ["getobject"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Binding to an external COM object needs replacement.","Connexion à un objet COM externe à remplacer.","Anbindung an externes COM-Objekt ersetzen."]
+
+[[rules]]
+id = "MF004"
+category = "office"
+kind = "com"
+pattern = ["outlook.application"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Outlook automation needs a new mail workflow.","Automatisation Outlook : prévoir un autre flux de messagerie.","Outlook-Automatisierung benötigt einen neuen E-Mail-Ablauf."]
+
+[[rules]]
+id = "MF005"
+category = "office"
+kind = "com"
+pattern = ["word.application"]
+verdict = "needs_rewrite"
+hours = 6
+messages = ["Word automation needs another document API.","Automatisation Word : utiliser une autre API documentaire.","Word-Automatisierung benötigt eine andere Dokument-API."]
+
+[[rules]]
+id = "MF006"
+category = "office"
+kind = "com"
+pattern = ["access.application"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Access automation requires redesign.","Automatisation Access à repenser.","Access-Automatisierung muss neu gestaltet werden."]
+
+[[rules]]
+id = "MF007"
+category = "office"
+kind = "com"
+pattern = ["powerpoint.application"]
+verdict = "needs_rewrite"
+hours = 6
+messages = ["PowerPoint automation requires replacement.","Automatisation PowerPoint à remplacer.","PowerPoint-Automatisierung muss ersetzt werden."]
+
+[[rules]]
+id = "MF008"
+category = "data"
+kind = "com"
+pattern = ["adodb."]
+verdict = "needs_rewrite"
+hours = 6
+messages = ["ADO COM data access needs a portable connector.","Accès ADO via COM : prévoir un connecteur portable.","ADO-Datenzugriff über COM benötigt einen portablen Connector."]
+
+[[rules]]
+id = "MF009"
+category = "data"
+kind = "tokens"
+pattern = ["dao","."]
+verdict = "needs_rewrite"
+hours = 6
+messages = ["DAO data access needs replacement.","Accès aux données DAO à remplacer.","DAO-Datenzugriff muss ersetzt werden."]
+
+[[rules]]
+id = "MF010"
+category = "filesystem"
+kind = "com"
+pattern = ["scripting.filesystemobject"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["FileSystemObject depends on Windows scripting.","FileSystemObject dépend des scripts Windows.","FileSystemObject hängt von Windows Scripting ab."]
+
+[[rules]]
+id = "MF011"
+category = "execution"
+kind = "tokens"
+pattern = ["shell"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Review external program execution and platform paths.","Vérifier les programmes externes et les chemins.","Externe Programmausführung und Plattformpfade prüfen."]
+
+[[rules]]
+id = "MF012"
+category = "execution"
+kind = "tokens"
+pattern = ["sendkeys"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Keystroke automation depends on UI focus and platform.","Automatisation clavier dépendante de l’interface et du système.","Tastaturautomatisierung hängt von Oberfläche und Plattform ab."]
+
+[[rules]]
+id = "MF013"
+category = "filesystem"
+kind = "path"
+pattern = ["windows_path"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Windows drive or UNC path needs review.","Chemin Windows ou UNC à vérifier.","Windows-Laufwerks- oder UNC-Pfad prüfen."]
+
+[[rules]]
+id = "MF014"
+category = "filesystem"
+kind = "tokens"
+pattern = ["kill"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Review file deletion behavior and paths.","Vérifier la suppression de fichiers et les chemins.","Dateilöschung und Pfade prüfen."]
+
+[[rules]]
+id = "MF015"
+category = "filesystem"
+kind = "tokens"
+pattern = ["filecopy"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Review file copy behavior and paths.","Vérifier la copie de fichiers et les chemins.","Dateikopien und Pfade prüfen."]
+
+[[rules]]
+id = "MF016"
+category = "filesystem"
+kind = "tokens"
+pattern = ["mkdir"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Review directory creation and permissions.","Vérifier la création de dossiers et les droits.","Verzeichniserstellung und Berechtigungen prüfen."]
+
+[[rules]]
+id = "MF017"
+category = "filesystem"
+kind = "tokens"
+pattern = ["rmdir"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Review directory deletion behavior.","Vérifier la suppression de dossiers.","Verzeichnislöschung prüfen."]
+
+[[rules]]
+id = "MF018"
+category = "filesystem"
+kind = "tokens"
+pattern = ["dir"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Review file enumeration and wildcard behavior.","Vérifier la recherche de fichiers et les jokers.","Dateisuche und Platzhalterverhalten prüfen."]
+
+[[rules]]
+id = "MF019"
+category = "environment"
+kind = "tokens"
+pattern = ["environ"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Environment variables can differ across platforms.","Les variables d’environnement peuvent différer.","Umgebungsvariablen können sich je nach Plattform unterscheiden."]
+
+[[rules]]
+id = "MF020"
+category = "filesystem"
+kind = "tokens"
+pattern = ["open"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Review file opening and workbook API behavior.","Vérifier l’ouverture de fichiers et l’API des classeurs.","Dateiöffnung und Arbeitsmappen-API prüfen."]
+
+[[rules]]
+id = "MF021"
+category = "filesystem"
+kind = "tokens"
+pattern = ["chdir"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Changing the working directory needs review.","Changement du dossier courant à vérifier.","Änderung des Arbeitsverzeichnisses prüfen."]
+
+[[rules]]
+id = "MF022"
+category = "filesystem"
+kind = "tokens"
+pattern = ["chdrive"]
+verdict = "needs_rewrite"
+hours = 2
+messages = ["Drive-letter switching is Windows-specific.","Changement de lecteur propre à Windows.","Laufwerkswechsel ist Windows-spezifisch."]
+
+[[rules]]
+id = "MF023"
+category = "events"
+kind = "tokens"
+pattern = ["application",".","ontime"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Verify timer scheduling and cancellation behavior.","Vérifier la planification et l’annulation des minuteries.","Timerplanung und Abbruchverhalten prüfen."]
+
+[[rules]]
+id = "MF024"
+category = "events"
+kind = "tokens"
+pattern = ["application",".","onkey"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Verify keyboard shortcut registration.","Vérifier l’enregistrement des raccourcis clavier.","Registrierung von Tastenkürzeln prüfen."]
+
+[[rules]]
+id = "MF025"
+category = "events"
+kind = "tokens"
+pattern = ["workbook_open"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Verify workbook-open event execution.","Vérifier l’exécution de l’événement d’ouverture.","Ausführung des Öffnungsereignisses prüfen."]
+
+[[rules]]
+id = "MF026"
+category = "events"
+kind = "tokens"
+pattern = ["auto_open"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Verify automatic startup behavior.","Vérifier le démarrage automatique.","Automatisches Startverhalten prüfen."]
+
+[[rules]]
+id = "MF027"
+category = "events"
+kind = "tokens"
+pattern = ["worksheet_change"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Verify worksheet-change event behavior.","Vérifier les événements de modification de feuille.","Verhalten bei Blattänderungen prüfen."]
+
+[[rules]]
+id = "MF028"
+category = "execution"
+kind = "tokens"
+pattern = ["application",".","run"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Dynamic macro dispatch requires manual verification.","Appel dynamique de macro à vérifier manuellement.","Dynamische Makroaufrufe manuell prüfen."]
+
+[[rules]]
+id = "MF029"
+category = "ui"
+kind = "tokens"
+pattern = ["application",".","dialogs"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Review Excel-specific dialogs.","Vérifier les boîtes de dialogue propres à Excel.","Excel-spezifische Dialoge prüfen."]
+
+[[rules]]
+id = "MF030"
+category = "ui"
+kind = "tokens"
+pattern = ["application",".","commandbars"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Custom command bars need a new UI.","Barres de commandes personnalisées à recréer.","Benutzerdefinierte Befehlsleisten benötigen eine neue Oberfläche."]
+
+[[rules]]
+id = "MF031"
+category = "ui"
+kind = "tokens"
+pattern = ["userforms"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["UserForms generally need new dialogs.","Les UserForms nécessitent généralement de nouveaux dialogues.","UserForms benötigen üblicherweise neue Dialoge."]
+
+[[rules]]
+id = "MF032"
+category = "ui"
+kind = "tokens"
+pattern = ["load"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Review form loading and lifecycle.","Vérifier le chargement et le cycle de vie des formulaires.","Laden und Lebenszyklus von Formularen prüfen."]
+
+[[rules]]
+id = "MF033"
+category = "data"
+kind = "tokens"
+pattern = ["querytables"]
+verdict = "needs_edits"
+hours = 4
+messages = ["Review query table connectors and refresh behavior.","Vérifier les connecteurs et l’actualisation des tables de requête.","Connectoren und Aktualisierung von Abfragetabellen prüfen."]
+
+[[rules]]
+id = "MF034"
+category = "data"
+kind = "tokens"
+pattern = ["connections"]
+verdict = "needs_edits"
+hours = 4
+messages = ["Workbook connection management requires verification.","Gestion des connexions du classeur à vérifier.","Verwaltung von Arbeitsmappenverbindungen prüfen."]
+
+[[rules]]
+id = "MF035"
+category = "data"
+kind = "tokens"
+pattern = ["pivotcaches"]
+verdict = "needs_edits"
+hours = 4
+messages = ["Verify pivot cache and external data behavior.","Vérifier les caches de tableaux croisés et les données externes.","Pivot-Caches und externe Daten prüfen."]
+
+[[rules]]
+id = "MF036"
+category = "data"
+kind = "tokens"
+pattern = ["refreshall"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Verify refresh order and supported data sources.","Vérifier l’ordre d’actualisation et les sources prises en charge.","Aktualisierungsreihenfolge und Datenquellen prüfen."]
+
+[[rules]]
+id = "MF037"
+category = "workbook"
+kind = "tokens"
+pattern = ["saveas"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Verify output format, file paths and macro preservation.","Vérifier le format, les chemins et la conservation des macros.","Ausgabeformat, Pfade und Erhalt von Makros prüfen."]
+
+[[rules]]
+id = "MF038"
+category = "execution"
+kind = "tokens"
+pattern = ["executeexcel4macro"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Excel 4 macro execution needs replacement.","Exécution de macros Excel 4 à remplacer.","Ausführung von Excel-4-Makros ersetzen."]
+
+[[rules]]
+id = "MF039"
+category = "execution"
+kind = "tokens"
+pattern = ["evaluate"]
+verdict = "needs_edits"
+hours = 2
+messages = ["Dynamic formula evaluation requires manual verification.","Évaluation dynamique de formules à vérifier manuellement.","Dynamische Formelauswertung manuell prüfen."]
+
+[[rules]]
+id = "MF040"
+category = "windows"
+kind = "tokens"
+pattern = ["registerxll"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Native Excel add-ins require replacement.","Compléments Excel natifs à remplacer.","Native Excel-Add-ins müssen ersetzt werden."]
+
+[[rules]]
+id = "MF041"
+category = "security"
+kind = "tokens"
+pattern = ["urldownloadtofile"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Windows download API requires replacement and review.","API de téléchargement Windows à remplacer et vérifier.","Windows-Download-API ersetzen und prüfen."]
+
+[[rules]]
+id = "MF042"
+category = "execution"
+kind = "com"
+pattern = ["wscript."]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Windows Script Host automation needs replacement.","Automatisation Windows Script Host à remplacer.","Windows-Script-Host-Automatisierung ersetzen."]
+
+[[rules]]
+id = "MF043"
+category = "network"
+kind = "com"
+pattern = ["msxml2.","microsoft.xmlhttp"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Windows XML/HTTP COM client needs replacement.","Client COM XML/HTTP Windows à remplacer.","Windows-COM-Client für XML/HTTP ersetzen."]
+
+[[rules]]
+id = "MF044"
+category = "windows"
+kind = "com"
+pattern = ["shell.application"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Windows shell automation needs replacement.","Automatisation du shell Windows à remplacer.","Windows-Shell-Automatisierung ersetzen."]
+
+[[rules]]
+id = "MF045"
+category = "data"
+kind = "reference"
+pattern = ["adodb","activex data objects"]
+verdict = "needs_rewrite"
+hours = 6
+messages = ["ADO library reference requires a portable data layer.","Référence à la bibliothèque ADO : prévoir un accès portable.","ADO-Bibliotheksreferenz benötigt portablen Datenzugriff."]
+
+[[rules]]
+id = "MF046"
+category = "office"
+kind = "reference"
+pattern = ["outlook"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Project references the Outlook library.","Le projet référence la bibliothèque Outlook.","Projekt referenziert die Outlook-Bibliothek."]
+
+[[rules]]
+id = "MF047"
+category = "office"
+kind = "reference"
+pattern = ["access"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Project references the Access library.","Le projet référence la bibliothèque Access.","Projekt referenziert die Access-Bibliothek."]
+
+[[rules]]
+id = "MF048"
+category = "office"
+kind = "reference"
+pattern = ["word"]
+verdict = "needs_rewrite"
+hours = 6
+messages = ["Project references the Word library.","Le projet référence la bibliothèque Word.","Projekt referenziert die Word-Bibliothek."]
+
+[[rules]]
+id = "MF049"
+category = "dependencies"
+kind = "feature"
+pattern = ["nonstandard_reference"]
+verdict = "unknown"
+hours = 2
+messages = ["Additional library reference needs manual assessment.","Référence de bibliothèque supplémentaire à évaluer manuellement.","Zusätzliche Bibliotheksreferenz manuell bewerten."]
+
+[[rules]]
+id = "MF050"
+category = "ui"
+kind = "feature"
+pattern = ["userforms"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Workbook contains a UserForm designer.","Le classeur contient un concepteur UserForm.","Arbeitsmappe enthält einen UserForm-Designer."]
+
+[[rules]]
+id = "MF051"
+category = "ui"
+kind = "feature"
+pattern = ["activex"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Workbook contains ActiveX controls.","Le classeur contient des contrôles ActiveX.","Arbeitsmappe enthält ActiveX-Steuerelemente."]
+
+[[rules]]
+id = "MF052"
+category = "dependencies"
+kind = "feature"
+pattern = ["embedded_ole"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Workbook contains embedded OLE objects.","Le classeur contient des objets OLE incorporés.","Arbeitsmappe enthält eingebettete OLE-Objekte."]
+
+[[rules]]
+id = "MF053"
+category = "data"
+kind = "feature"
+pattern = ["power_query"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Power Query needs another transformation runtime.","Power Query nécessite un autre moteur de transformation.","Power Query benötigt eine andere Transformationsumgebung."]
+
+[[rules]]
+id = "MF054"
+category = "data"
+kind = "feature"
+pattern = ["external_connections"]
+verdict = "needs_edits"
+hours = 4
+messages = ["External data connections need review.","Connexions de données externes à vérifier.","Externe Datenverbindungen prüfen."]
+
+[[rules]]
+id = "MF055"
+category = "data"
+kind = "feature"
+pattern = ["external_links"]
+verdict = "needs_edits"
+hours = 2
+messages = ["External workbook links need review.","Liens vers des classeurs externes à vérifier.","Verknüpfungen zu externen Arbeitsmappen prüfen."]
+
+[[rules]]
+id = "MF056"
+category = "data"
+kind = "feature"
+pattern = ["data_model"]
+verdict = "needs_rewrite"
+hours = 8
+messages = ["Excel Data Model requires redesign.","Modèle de données Excel à repenser.","Excel-Datenmodell muss neu gestaltet werden."]
+
+[[rules]]
+id = "MF057"
+category = "ui"
+kind = "feature"
+pattern = ["ribbon"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Custom ribbon needs a new UI.","Ruban personnalisé à recréer.","Benutzerdefiniertes Menüband benötigt eine neue Oberfläche."]
+
+[[rules]]
+id = "MF058"
+category = "events"
+kind = "feature"
+pattern = ["macro_assignment"]
+verdict = "needs_edits"
+hours = 1
+messages = ["Button or shape macro assignments need verification.","Affectations de macros aux boutons ou formes à vérifier.","Makrozuweisungen an Schaltflächen oder Formen prüfen."]
+
+[[rules]]
+id = "MF059"
+category = "security"
+kind = "feature"
+pattern = ["vba_signature"]
+verdict = "needs_edits"
+hours = 0
+messages = ["VBA signature is present; conversion requires re-signing.","Signature VBA présente ; la conversion nécessite une nouvelle signature.","VBA-Signatur vorhanden; Konvertierung erfordert erneutes Signieren."]
+
+[[rules]]
+id = "MF060"
+category = "coverage"
+kind = "feature"
+pattern = ["legacy_features_uninspected","binary_features_uninspected","forms_layout_uninspected","source_cache_discrepancy"]
+verdict = "unknown"
+hours = 0
+messages = ["Binary features, form layouts or source/cache discrepancies require manual assessment; a discrepancy is not proof of VBA stomping.","Fonctionnalités binaires, formulaires ou écarts source/cache à vérifier ; un écart ne prouve pas un VBA stomping.","Binärfunktionen, Formulare oder Quelltext/Cache-Abweichungen manuell prüfen; eine Abweichung beweist kein VBA-Stomping."]

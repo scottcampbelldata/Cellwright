@@ -1,0 +1,225 @@
+{
+  "fixture_sha256": "66b2e20415a50a49a3bd23e261336985a57ef4be96a3be68e94a4c872727c872",
+  "scope": "Controlled arithmetic fixture only, four scalar inputs and Data!A1:D5",
+  "environments": {
+    "windows": "LibreOffice 26.8.1.1, desktop Excel",
+    "linux": "Ubuntu WSL, LibreOffice 26.2.6.3, saved Excel goldens"
+  },
+  "cases": [
+    {
+      "target": "basic",
+      "input": 2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic",
+      "input": 0,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic",
+      "input": 2.5,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic",
+      "input": -2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic-uno",
+      "input": 2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic-uno",
+      "input": 0,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic-uno",
+      "input": 2.5,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic-uno",
+      "input": -2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "python-uno",
+      "input": 2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "python-uno",
+      "input": 0,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "python-uno",
+      "input": 2.5,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "python-uno",
+      "input": -2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "windows"
+    },
+    {
+      "target": "basic",
+      "input": 2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic",
+      "input": 0,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic",
+      "input": 2.5,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic",
+      "input": -2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic-uno",
+      "input": 2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic-uno",
+      "input": 0,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic-uno",
+      "input": 2.5,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "basic-uno",
+      "input": -2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "python-uno",
+      "input": 2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "python-uno",
+      "input": 0,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "python-uno",
+      "input": 2.5,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    },
+    {
+      "target": "python-uno",
+      "input": -2,
+      "passed": true,
+      "cells_checked": 20,
+      "differences": [],
+      "platform": "linux"
+    }
+  ],
+  "query_proof": {
+    "schema_version": "1",
+    "passed": true,
+    "cells_checked": 4,
+    "absolute_tolerance": 1e-09,
+    "relative_tolerance": 1e-09,
+    "compare_formulas": true,
+    "differences": []
+  },
+  "standalone": {
+    "schema_version": "1",
+    "passed": true,
+    "cells_checked": 19,
+    "absolute_tolerance": 1e-09,
+    "relative_tolerance": 1e-09,
+    "compare_formulas": true,
+    "differences": [],
+    "formula_text": {
+      "B1": true
+    },
+    "formula_results_compared": false,
+    "scope": "Standalone openpyxl output, scalar input 2; formula calculation requires UNO/Excel"
+  }
+}

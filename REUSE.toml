@@ -1,0 +1,673 @@
+version = 1
+
+[[annotations]]
+path = [".cargo/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Scott Campbell"
+SPDX-License-Identifier = "EUPL-1.2"
+
+[[annotations]]
+path = ["Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".gitignore", "README.md", "SECURITY.md", "docs/**", "corpus/README.md", "corpus/expected.json", "corpus/*.bas", "corpus/*.m", "corpus/generated/sales-query.xlsx", "REUSE.toml", "THIRD_PARTY_NOTICES.md", "requirements.txt", "src/**", "tests/**", "scripts/**", "data/**", ".github/**", "migration/**", "harness/**", "dashboard/**", "examples/**", "fuzz/Cargo.toml", "fuzz/Cargo.lock", "fuzz/fuzz_targets/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Scott Campbell"
+SPDX-License-Identifier = "EUPL-1.2"
+
+[[annotations]]
+path = ["corpus/generated/arithmetic-source-only.xlsm"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["2026 Scott Campbell", "2016-2026 calamine contributors (type-library reference metadata)"]
+SPDX-License-Identifier = "EUPL-1.2 AND MIT"
+
+[[annotations]]
+path = ["corpus/calamine-vba.xlsm", "corpus/encrypted.xlsb", "corpus/LICENSE-calamine.txt"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 calamine contributors"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["corpus/xlsxwriter-macro01.xlsm", "corpus/LICENSE-xlsxwriter.txt"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2013-2026 John McNamara"
+SPDX-License-Identifier = "BSD-2-Clause"
+
+[[annotations]]
+path = ["third-party-licenses/anstream-1.0.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of anstream; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/anstyle-1.0.14/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of anstyle; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/anstyle-parse-1.0.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of anstyle-parse; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/anstyle-query-1.1.5/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of anstyle-query; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/anstyle-wincon-3.0.11/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of anstyle-wincon; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/anyhow-1.0.104/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of anyhow; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/atoi_simd-0.18.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of atoi_simd; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/base64-0.23.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of base64; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/bitflags-2.13.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of bitflags; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/block-buffer-0.12.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of block-buffer; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/bumpalo-3.20.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of bumpalo; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/byteorder-1.5.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of byteorder; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/calamine-0.36.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of calamine; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/cfb-0.15.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of cfb; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/cfg-if-1.0.5/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of cfg-if; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/clap-4.6.7/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of clap; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/clap_builder-4.6.7/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of clap_builder; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/clap_derive-4.6.7/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of clap_derive; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/clap_lex-1.1.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of clap_lex; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/codepage-0.1.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of codepage; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/colorchoice-1.0.5/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of colorchoice; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/const-oid-0.10.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of const-oid; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/core_detect-1.0.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of core_detect; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/cpufeatures-0.3.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of cpufeatures; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/crc32fast-1.5.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of crc32fast; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/crossbeam-deque-0.8.8/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of crossbeam-deque; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/crossbeam-epoch-0.9.21/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of crossbeam-epoch; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/crossbeam-utils-0.8.23/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of crossbeam-utils; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/crypto-common-0.2.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of crypto-common; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/csv-1.4.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of csv; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/csv-core-0.1.13/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of csv-core; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/debug_unsafe-0.1.4/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of debug_unsafe; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/digest-0.11.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of digest; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/either-1.19.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of either; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/encoding_rs-0.8.42/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of encoding_rs; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT AND BSD-3-Clause"
+
+[[annotations]]
+path = ["third-party-licenses/equivalent-1.0.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of equivalent; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/errno-0.3.14/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of errno; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/fast-float2-0.2.4/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of fast-float2; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/fastrand-2.5.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of fastrand; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/flate2-1.1.10/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of flate2; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/fnv-1.0.7/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of fnv; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/futures-core-0.3.34/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of futures-core; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/futures-task-0.3.34/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of futures-task; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/futures-util-0.3.34/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of futures-util; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/getrandom-0.4.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of getrandom; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/hashbrown-0.17.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of hashbrown; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/heck-0.5.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of heck; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/hybrid-array-0.4.15/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of hybrid-array; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/indexmap-2.14.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of indexmap; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/is_terminal_polyfill-1.70.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of is_terminal_polyfill; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/itoa-1.0.18/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of itoa; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/js-sys-0.3.106/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of js-sys; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/libc-0.2.190/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of libc; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/linux-raw-sys-0.12.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of linux-raw-sys; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/log-0.4.34/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of log; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/memchr-2.8.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of memchr; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/multiversion_no_op-1.0.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of multiversion_no_op; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/once_cell-1.21.4/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of once_cell; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/once_cell_polyfill-1.70.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of once_cell_polyfill; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/pin-project-lite-0.2.17/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of pin-project-lite; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/proc-macro2-1.0.107/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of proc-macro2; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/quick-xml-0.41.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of quick-xml; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/quote-1.0.47/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of quote; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/r-efi-6.0.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of r-efi; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/rayon-1.12.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of rayon; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/rayon-core-1.13.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of rayon-core; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/rustix-1.1.5/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of rustix; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/rustversion-1.0.23/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of rustversion; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/ryu-1.0.23/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of ryu; copyright notices retained in license files"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["third-party-licenses/same-file-1.0.6/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of same-file; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/scopeguard-1.2.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of scopeguard; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/serde-1.0.229/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of serde; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/serde_core-1.0.229/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of serde_core; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/serde_derive-1.0.229/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of serde_derive; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/serde_json-1.0.151/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of serde_json; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/serde_spanned-1.1.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of serde_spanned; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/sha2-0.11.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of sha2; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/simd-adler32-0.3.10/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of simd-adler32; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/simdutf8-0.1.5/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of simdutf8; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/slab-0.4.12/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of slab; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/strsim-0.11.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of strsim; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/syn-3.0.6/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of syn; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/tempfile-3.27.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of tempfile; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/toml-0.9.12+spec-1.1.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of toml; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/toml_datetime-0.7.5+spec-1.1.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of toml_datetime; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/toml_parser-1.1.5+spec-1.1.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of toml_parser; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/toml_writer-1.1.3+spec-1.1.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of toml_writer; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/typed-path-0.12.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of typed-path; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/typenum-1.20.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of typenum; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/unicode-ident-1.0.26/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of unicode-ident; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT AND Unicode-3.0"
+
+[[annotations]]
+path = ["third-party-licenses/utf8parse-0.2.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of utf8parse; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/uuid-1.27.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of uuid; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/walkdir-2.5.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of walkdir; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/wasm-bindgen-0.2.129/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of wasm-bindgen; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/wasm-bindgen-macro-0.2.129/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of wasm-bindgen-macro; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/wasm-bindgen-macro-support-0.2.129/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of wasm-bindgen-macro-support; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/wasm-bindgen-shared-0.2.129/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of wasm-bindgen-shared; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/web-time-1.1.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of web-time; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/winapi-util-0.1.11/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of winapi-util; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/windows-link-0.2.1/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of windows-link; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/windows-sys-0.61.2/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of windows-sys; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/winnow-0.7.15/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of winnow; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/winnow-1.0.4/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of winnow; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/zip-8.6.0/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of zip; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/zlib-rs-0.6.8/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of zlib-rs; copyright notices retained in license files"
+SPDX-License-Identifier = "Zlib"
+
+[[annotations]]
+path = ["third-party-licenses/zmij-1.0.23/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of zmij; copyright notices retained in license files"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["third-party-licenses/zopfli-0.8.3/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Original authors of zopfli; copyright notices retained in license files"
+SPDX-License-Identifier = "Apache-2.0"

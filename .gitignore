@@ -1,0 +1,10 @@
+/target/
+/reports/
+/extract/
+*.tmp
+__pycache__/
+*.pyc
+/dist/
+/fuzz/target/
+/fuzz/artifacts/
+/fuzz/corpus/

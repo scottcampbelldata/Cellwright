@@ -1,0 +1,601 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MacroFerry scan schema 0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "tool_version": {
+      "type": "string"
+    },
+    "generated_unix_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "language": {
+      "enum": [
+        "en",
+        "fr",
+        "de"
+      ]
+    },
+    "source_included": {
+      "type": "boolean"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "estimate": {
+      "$ref": "#/$defs/weights"
+    },
+    "unique_modules": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "estimated_hours_low": {
+      "type": "number",
+      "minimum": 0
+    },
+    "estimated_hours_high": {
+      "type": "number",
+      "minimum": 0
+    },
+    "discovery_errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "duplicates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/duplicate"
+      }
+    },
+    "workbooks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/workbook"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "tool_version",
+    "generated_unix_seconds",
+    "language",
+    "source_included",
+    "rules",
+    "estimate",
+    "unique_modules",
+    "estimated_hours_low",
+    "estimated_hours_high",
+    "discovery_errors",
+    "duplicates",
+    "workbooks"
+  ],
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "line": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "verdict": {
+          "enum": [
+            "no_known_blockers",
+            "needs_edits",
+            "needs_rewrite",
+            "unknown"
+          ]
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "hours": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "rule_id",
+        "category",
+        "line",
+        "verdict",
+        "messages",
+        "hours"
+      ]
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "tokens",
+            "com",
+            "path",
+            "reference",
+            "feature"
+          ]
+        },
+        "pattern": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "verdict": {
+          "enum": [
+            "no_known_blockers",
+            "needs_edits",
+            "needs_rewrite",
+            "unknown"
+          ]
+        },
+        "hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "kind",
+        "pattern",
+        "verdict",
+        "hours",
+        "messages"
+      ]
+    },
+    "weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "hours_per_code_line": {
+          "type": "number",
+          "minimum": 0
+        },
+        "test_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "occurrence_cap": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "low_multiplier": {
+          "type": "number",
+          "minimum": 0
+        },
+        "high_multiplier": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "base_hours",
+        "hours_per_code_line",
+        "test_hours",
+        "occurrence_cap",
+        "low_multiplier",
+        "high_multiplier"
+      ]
+    },
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "code_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "normalized_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "verdict": {
+          "enum": [
+            "no_known_blockers",
+            "needs_edits",
+            "needs_rewrite",
+            "unknown"
+          ]
+        },
+        "estimated_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "source": {
+          "type": "string"
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        },
+        "api_usage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "object_type": {
+                "type": "string"
+              },
+              "member": {
+                "type": "string"
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "declared": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "object_type",
+              "member",
+              "line",
+              "declared"
+            ]
+          }
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "lines",
+        "code_lines",
+        "normalized_sha256",
+        "verdict",
+        "estimated_hours",
+        "findings"
+      ]
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source": {
+          "type": "string"
+        },
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "sha256"
+      ]
+    },
+    "workbook": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "modified_unix_seconds": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "inspected",
+            "encrypted",
+            "skipped_protected",
+            "error"
+          ]
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "protected": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/module"
+          }
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/query"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        },
+        "verdict": {
+          "enum": [
+            "no_known_blockers",
+            "needs_edits",
+            "needs_rewrite",
+            "unknown"
+          ]
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code_page": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "entry_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "macro_assignments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "controls": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "control_type": {
+                      "type": "string"
+                    },
+                    "cached_index": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 65535
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "control_type",
+                    "cached_index"
+                  ]
+                }
+              },
+              "error": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "layout": {
+                "type": "string",
+                "contentEncoding": "base64"
+              }
+            },
+            "required": [
+              "name",
+              "controls",
+              "error"
+            ]
+          }
+        }
+      },
+      "required": [
+        "path",
+        "size_bytes",
+        "modified_unix_seconds",
+        "status",
+        "error",
+        "protected",
+        "features",
+        "references",
+        "modules",
+        "queries",
+        "findings",
+        "verdict"
+      ]
+    },
+    "duplicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "workbook": {
+                "type": "string"
+              },
+              "module": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "workbook",
+              "module"
+            ]
+          }
+        }
+      },
+      "required": [
+        "hash",
+        "members"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_included": {
+            "const": false
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "workbooks": {
+            "items": {
+              "properties": {
+                "modules": {
+                  "items": {
+                    "properties": {
+                      "source": false
+                    }
+                  }
+                },
+                "queries": {
+                  "items": {
+                    "properties": {
+                      "source": false
+                    }
+                  }
+                },
+                "forms": {
+                  "items": {
+                    "not": {
+                      "required": [
+                        "layout"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

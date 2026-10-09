@@ -1,0 +1,4210 @@
+{
+  "interfaces": {
+    "Button": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Button.idl",
+      "source_sha256": "fd50d891934a731f449384c3b195e54e80afe81b5ac7e33e7ea933bb50eae608"
+    },
+    "Buttons": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Buttons.idl",
+      "source_sha256": "953665950e6deb8e330c5e1c0c474060e79d648da566d54d58279a8adc9eb010"
+    },
+    "Constants": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Constants.idl",
+      "source_sha256": "1164b940344717d9b8301844a9b14faf655b542c302a653100314a9c37001a43"
+    },
+    "Globals": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Globals.idl",
+      "source_sha256": "b43265c3df7dc025a6785aaff9fda435dc2abb30130eb635c6f652b0c2294873"
+    },
+    "Hyperlink": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Hyperlink.idl",
+      "source_sha256": "09ba4318655627c38e6f7765569b62804d11b106ec92c1f326899275735da72c"
+    },
+    "Range": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Range.idl",
+      "source_sha256": "d6ccdfd913d0b18b6e653ca4a54444a1ffff172fd22d7e9c3dbca69c7b097be5"
+    },
+    "TextFrame": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/TextFrame.idl",
+      "source_sha256": "832249c3fac39fb8c188c65a799faa879894e4d39bc770c0eac5c97a21b5cbe8"
+    },
+    "Window": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Window.idl",
+      "source_sha256": "65ee0800a87d0e0724cf146ac38fd0d929fe2f4b93297d6dee639d8dae9a182e"
+    },
+    "Workbook": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Workbook.idl",
+      "source_sha256": "a6b52e68942734dcd33e50b9f0eb57360e5a4d836ecc6a9fd67c7c732c76cc26"
+    },
+    "Worksheet": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/Worksheet.idl",
+      "source_sha256": "080f8db21b9ad09956018ac35ae93c6e67a92b6aa31e479dd382a233f99d8fea"
+    },
+    "XApplication": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Selection",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveWorkbook",
+          "returns": "XWorkbook"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveCell",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveWindow",
+          "returns": "XWindow"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveSheet",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "property",
+          "member": "Assistant",
+          "returns": "XAssistant"
+        },
+        {
+          "kind": "property",
+          "member": "Calculation",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "ThisWorkbook",
+          "returns": "XWorkbook"
+        },
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayAlerts",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayFormulaBar",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "CutCopyMode",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "StatusBar",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "WindowState",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Cursor",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "EnableEvents",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "EnableCancelKey",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayFullScreen",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayScrollBars",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayExcel4Menus",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayNoteIndicator",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ShowWindowsInTaskbar",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "Iteration",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "LibraryPath",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "TemplatesPath",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "PathSeparator",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "OperatingSystem",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "setDefaultFilePath",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getDefaultFilePath",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "GetOpenFilename",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "International",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Workbooks",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Worksheets",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Windows",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "WorksheetFunction",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Evaluate",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Dialogs",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Range",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Names",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "GoTo",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "FileDialog",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "wait",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Calculate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Intersect",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Union",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "CentimetersToPoints",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "InchesToPoints",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "Volatile",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Caller",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "MenuBars",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Rows",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Undo",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XApplication.idl",
+      "source_sha256": "b816a9e2da0b8e7b8e51d04867edca9965650edb2d364935988c241a2f14f806"
+    },
+    "XApplicationOutgoing": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "NewWorkbook",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "WorkbookOpen",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "WorkbookBeforeClose",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XApplicationOutgoing.idl",
+      "source_sha256": "7fcf8a8bcca67580e0b08345fb409b1d23c0683b58220be3f29b5aa1e0e59d48"
+    },
+    "XAxes": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XAxes.idl",
+      "source_sha256": "a3437bbac58b2a6ff11ecb161463f0e12c1f52d1026f78d5f309f33bec556c79"
+    },
+    "XAxis": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getAxisTitle",
+          "returns": "XAxisTitle"
+        },
+        {
+          "kind": "method",
+          "member": "setDisplayUnit",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getDisplayUnit",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "setCrosses",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getCrosses",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "setCrossesAt",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getCrossesAt",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setType",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getType",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "setHasTitle",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getHasTitle",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setMinorUnit",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMinorUnit",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setMinorUnitIsAuto",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMinorUnitIsAuto",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setReversePlotOrder",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getReversePlotOrder",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setMajorUnit",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMajorUnit",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setMajorUnitIsAuto",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMajorUnitIsAuto",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setMaximumScale",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMaximumScale",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setMaximumScaleIsAuto",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMaximumScaleIsAuto",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setMinimumScale",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMinimumScale",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setMinimumScaleIsAuto",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMinimumScaleIsAuto",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "getAxisGroup",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "setScaleType",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getScaleType",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "getHeight",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setHeight",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getWidth",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setWidth",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getTop",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setTop",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getLeft",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setLeft",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XAxis.idl",
+      "source_sha256": "52d4f25cac3d619431e3e5909d44ee0713337c244ecba3fe7b10e0384538be8f"
+    },
+    "XAxisTitle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XAxisTitle.idl",
+      "source_sha256": "61a13f97f9c9a3abbf1b6d3ca8cc1f09e6def8ca928c7b061963caf5f3cae319"
+    },
+    "XBorder": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Color",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ColorIndex",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "LineStyle",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Weight",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "TintAndShade",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XBorder.idl",
+      "source_sha256": "67f20aa3b81403de32e30c8e18879c27d35ca747fcb7704c86b5cbc8bb110ffa"
+    },
+    "XBorders": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XBorders.idl",
+      "source_sha256": "97c41832ea67313027ca919bf0f224595cbb4e58106821a04b277c70eeda06cf"
+    },
+    "XButton": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Caption",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Font",
+          "returns": "XFont"
+        },
+        {
+          "kind": "property",
+          "member": "HorizontalAlignment",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "VerticalAlignment",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Orientation",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Value",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Text",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Characters",
+          "returns": "XCharacters"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XButton.idl",
+      "source_sha256": "a180f205825046c8a1ecfe4da8084137c6c18977da829faec83b2db91c191633"
+    },
+    "XCharacters": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Caption",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Count",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Text",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Font",
+          "returns": "XFont"
+        },
+        {
+          "kind": "method",
+          "member": "Insert",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XCharacters.idl",
+      "source_sha256": "eef201ef67a77bee6354de0734e4973ce70da8cf848c8add0281cb9391d4368c"
+    },
+    "XChart": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "SeriesCollection",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "getChartType",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "setChartType",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Activate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "setSourceData",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Location",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "getLocation",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "setLocation",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getHasTitle",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setHasTitle",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getHasLegend",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setHasLegend",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getChartTitle",
+          "returns": "XChartTitle"
+        },
+        {
+          "kind": "method",
+          "member": "setPlotBy",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getPlotBy",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "Axes",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XChart.idl",
+      "source_sha256": "392964290d2396f15a7b0e33df1af8c1796f8eea1af2d82d0453b7678a077ee2"
+    },
+    "XChartObject": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Chart",
+          "returns": "XChart"
+        },
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XChartObject.idl",
+      "source_sha256": "42521dc5accd19f401eba3fded779603bbdae05f14288f3a249f092bd358597a"
+    },
+    "XChartObjects": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XChartObjects.idl",
+      "source_sha256": "81c740ad14ddf18b9bcf7c161b37291f45442ea748ef05d69edc332ff63f0c3a"
+    },
+    "XChartTitle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XChartTitle.idl",
+      "source_sha256": "56bb7b05d4d89b88083cb0c91cd67639f534532038ea205544088c3fd1e8e2c9"
+    },
+    "XCharts": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "getActiveChart",
+          "returns": "XChart"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XCharts.idl",
+      "source_sha256": "11a8b8c1431c05567caa9c008ccd3513d3780ef88497f0f422037db5d592ec69"
+    },
+    "XComment": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Author",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Shape",
+          "returns": "XShape"
+        },
+        {
+          "kind": "property",
+          "member": "Visible",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Next",
+          "returns": "XComment"
+        },
+        {
+          "kind": "method",
+          "member": "Previous",
+          "returns": "XComment"
+        },
+        {
+          "kind": "method",
+          "member": "Text",
+          "returns": "string"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XComment.idl",
+      "source_sha256": "b20a753570dd414f750a1dcf8c12ba097da1ee3ff6904fa148eb35f0e982f741"
+    },
+    "XComments": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XComments.idl",
+      "source_sha256": "accef80ddd163c231da4a4e0f5210fa64a7e1df06ca6e1fc732560fed4630055"
+    },
+    "XControlObject": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "AutoSize",
+          "returns": "boolean"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XControlObject.idl",
+      "source_sha256": "eb13e5089b8498b20d33983b18fd648535ff2ba9f777c290d17eb30c6731eb72"
+    },
+    "XDataLabel": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Text",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Name",
+          "returns": "string"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XDataLabel.idl",
+      "source_sha256": "12725d9c8899ed02ba3614db1c9d8f94c29a711b9a3accf55aa6b26d4e91fdfa"
+    },
+    "XDataLabels": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XDataLabels.idl",
+      "source_sha256": "1069c830c54818e6a0fb39416fd04f5fec28ae4581006c6c58c7e49454aae76e"
+    },
+    "XDialog": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XDialog.idl",
+      "source_sha256": "01272a06954dae513b97d4004d65a4bfd6fd56fe1991024a1e9492b995603ba0"
+    },
+    "XDialogs": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Item",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XDialogs.idl",
+      "source_sha256": "933dcd4c3b1525fb9ac7e3cc4b385af5600c5b5eafc1661ef335928949595c7d"
+    },
+    "XDrawings": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XDrawings.idl",
+      "source_sha256": "2d511e942a8b8e9a0167061f685641cdbc6782f3b834c6ae88fe52da8a07811d"
+    },
+    "XFileDialog": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "InitialFileName",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Title",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "AllowMultiSelect",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "SelectedItems",
+          "returns": "XFileDialogSelectedItems"
+        },
+        {
+          "kind": "method",
+          "member": "Show",
+          "returns": "long"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XFileDialog.idl",
+      "source_sha256": "2d8052287c89f218af3ed75ccf90c7af84931d8cd2f24f1178fdb11eba207e39"
+    },
+    "XFileDialogSelectedItems": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XFileDialogSelectedItems.idl",
+      "source_sha256": "b551bcf559ee02254f76cb25a0282b8045f56c92b16305a6f50e5a4b976fc35e"
+    },
+    "XFont": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "StandardFontSize",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "StandardFont",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "FontStyle",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "OutlineFont",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XFont.idl",
+      "source_sha256": "fa92a8c8fce662a3b4445293ae653823358c231a64fcaf40603236133aeedef9"
+    },
+    "XFormat": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Borders",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Font",
+          "returns": "XFont"
+        },
+        {
+          "kind": "method",
+          "member": "Interior",
+          "returns": "XInterior"
+        },
+        {
+          "kind": "method",
+          "member": "setNumberFormat",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getNumberFormat",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setNumberFormatLocal",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getNumberFormatLocal",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setIndentLevel",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getIndentLevel",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setHorizontalAlignment",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getHorizontalAlignment",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setVerticalAlignment",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getVerticalAlignment",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setOrientation",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getOrientation",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setShrinkToFit",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getShrinkToFit",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setWrapText",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getWrapText",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setLocked",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getLocked",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setFormulaHidden",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getFormulaHidden",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setMergeCells",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getMergeCells",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setReadingOrder",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getReadingOrder",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XFormat.idl",
+      "source_sha256": "ba0a1b2cdcec39b069e17851b097358d6474a774eb68f103197444564ca02424"
+    },
+    "XFormatCondition": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Modify",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Type",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "Operator",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "Formula1",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Formula2",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Interior",
+          "returns": "XInterior"
+        },
+        {
+          "kind": "method",
+          "member": "Borders",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Font",
+          "returns": "XFont"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XFormatCondition.idl",
+      "source_sha256": "3bd35bedc9459bb16aee3770d43fd53d31888f62ca8cc004a423451381e843f5"
+    },
+    "XFormatConditions": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "XFormatCondition"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XFormatConditions.idl",
+      "source_sha256": "6b0458c3e7fa119f01d625e9578c961966e5ce962abb6f7df37ce49ee247c98e"
+    },
+    "XGlobals": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "ActiveWorkbook",
+          "returns": "XWorkbook"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveSheet",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveWindow",
+          "returns": "XWindow"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveCell",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "Assistant",
+          "returns": "XAssistant"
+        },
+        {
+          "kind": "property",
+          "member": "Selection",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ThisWorkbook",
+          "returns": "XWorkbook"
+        },
+        {
+          "kind": "property",
+          "member": "Excel",
+          "returns": "XApplication"
+        },
+        {
+          "kind": "property",
+          "member": "Debug",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Calculate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Cells",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Columns",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "CommandBars",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Evaluate",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Intersect",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "WorkSheets",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "WorkBooks",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "WorksheetFunction",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Windows",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Sheets",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Range",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Rows",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Names",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Union",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "MenuBars",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XGlobals.idl",
+      "source_sha256": "44f8cd4371f025cc61e60b10ca82825d9a067d0a0c291d0c1eaf1a17464194c4"
+    },
+    "XGraphicObjects": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XGraphicObjects.idl",
+      "source_sha256": "493395444939507110174c9ed65dfd18e04635e2b8d5ac53785d8cad9264d85d"
+    },
+    "XHPageBreak": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XHPageBreak.idl",
+      "source_sha256": "1dfcff6ca16c55b1e1dfc8190e60fe75bde97998e411b96ec174472444a60c54"
+    },
+    "XHPageBreaks": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XHPageBreaks.idl",
+      "source_sha256": "97a83732c1a9cd1eaba203cce9d689719fcab778a40b25d13d88bf5f2742636c"
+    },
+    "XHyperlink": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Address",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "SubAddress",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "ScreenTip",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "TextToDisplay",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Type",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Range",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "Shape",
+          "returns": "XShape"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XHyperlink.idl",
+      "source_sha256": "8bdef86dbe6db9076e81ef6fedb97a1a36d440fc163e87e57f0abc9497c876aa"
+    },
+    "XHyperlinks": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "XHyperlink"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XHyperlinks.idl",
+      "source_sha256": "95f5da96935645a2c0fc3a75aad8af06ceb311359af5878b4280e9e483f9c674"
+    },
+    "XInterior": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Color",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ColorIndex",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Pattern",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "PatternColor",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "PatternColorIndex",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ThemeColor",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "TintAndShade",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "PatternTintAndShade",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XInterior.idl",
+      "source_sha256": "4539843c75700e5c547fcdb603fae45859dab60b47f064078ed93e60c2e80597"
+    },
+    "XLineObjects": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XLineObjects.idl",
+      "source_sha256": "6c730492ef9b51819b427e2015bf40a8a995760c4fdf0144ccdb27860e9c0ae7"
+    },
+    "XMenu": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Caption",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "MenuItems",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XMenu.idl",
+      "source_sha256": "b889d6a7c067860b5c1f83445b0b84b23ae9a0088b1cfe6694f9ff735a793361"
+    },
+    "XMenuBar": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Menus",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XMenuBar.idl",
+      "source_sha256": "76234e98c9e8977c2fec9efd2d628b5acc8aa83c789792f5cb0ec73605014205"
+    },
+    "XMenuBars": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XMenuBars.idl",
+      "source_sha256": "292c5fd7411f179d1ce29707955443819ae0096323809a6da6694449150c8f6e"
+    },
+    "XMenuItem": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Caption",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "OnAction",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XMenuItem.idl",
+      "source_sha256": "e90e51a29b575f789a8204a8af6c0f6f023fec708175613d735aaa78d60b5ae7"
+    },
+    "XMenuItems": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "XMenuItem"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XMenuItems.idl",
+      "source_sha256": "697a875dbcb3cbf3de676f108430c65f66cec6576cb1dc1777cbe16436804d8e"
+    },
+    "XMenus": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "XMenu"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XMenus.idl",
+      "source_sha256": "f9e3a8c26d0b91b039f0c76ca2a749ea2962e33036a86334dc3e4b39a5494d1f"
+    },
+    "XName": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "NameLocal",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Visible",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "Value",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RefersTo",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RefersToLocal",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RefersToR1C1",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RefersToR1C1Local",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RefersToRange",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XName.idl",
+      "source_sha256": "74b4a352a86d3776c22332d498f2ed7f088a18a24f5d51d19667cd89458883ef"
+    },
+    "XNames": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XNames.idl",
+      "source_sha256": "a0ae926e6d467e6e9c6815f20acff9be4d77f563d703857d88909c138b224b8c"
+    },
+    "XOLEObject": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Object",
+          "returns": "XInterface"
+        },
+        {
+          "kind": "property",
+          "member": "Enabled",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "Visible",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "Left",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Top",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Height",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Width",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "LinkedCell",
+          "returns": "string"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XOLEObject.idl",
+      "source_sha256": "3d41b9f3543497bfd0a739b5c5c8d330be3b686e85a259f7185a8eea03f74be4"
+    },
+    "XOLEObjects": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XOLEObjects.idl",
+      "source_sha256": "5811665ebde7297eab4aee58cea97a206349ccf9836dc317af5c7ee22d8029be"
+    },
+    "XOutline": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "ShowLevels",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XOutline.idl",
+      "source_sha256": "42c67a39c58988d02c9ba5226eb69abe28b25d558bad64e0ada1af9662452439"
+    },
+    "XPageBreak": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Type",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Location",
+          "returns": "XRange"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XPageBreak.idl",
+      "source_sha256": "11d416957250398e0ebc40925096a0f4b43cfbf2ceeea46b43a5bf86e4d1f2d6"
+    },
+    "XPageSetup": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "PrintArea",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "HeaderMargin",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "FooterMargin",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "FitToPagesTall",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "FitToPagesWide",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Zoom",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "LeftHeader",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "CenterHeader",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RightHeader",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "LeftFooter",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "CenterFooter",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "RightFooter",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Order",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "FirstPageNumber",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "CenterVertically",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "CenterHorizontally",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "PrintHeadings",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "PrintGridlines",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "PrintTitleRows",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "PrintTitleColumns",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "PaperSize",
+          "returns": "long"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XPageSetup.idl",
+      "source_sha256": "d5373bee446887034e4460e1b32e498ed0aaa523d8c6e040807e49beb940ad61"
+    },
+    "XPane": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "ScrollColumn",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "ScrollRow",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "VisibleRange",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "SmallScroll",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "LargeScroll",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XPane.idl",
+      "source_sha256": "de2d020909e66de392d230de4b313c618a9350367a563dd2d56d616c7f8cabcb"
+    },
+    "XPivotCache": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Refresh",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XPivotCache.idl",
+      "source_sha256": "e13111fc222a42778851e330f1699cd70f984f332c2e85e0a4af4aca05e5bfd5"
+    },
+    "XPivotTable": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "PivotCache",
+          "returns": "XPivotCache"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XPivotTable.idl",
+      "source_sha256": "b3d6f21225ab95eebf5f47c8e643d2165ef4cc364a213f94138ecfdc2f4728e7"
+    },
+    "XPivotTables": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XPivotTables.idl",
+      "source_sha256": "41dac793a6e1f73467c9f653b0e56df97e08ebb4d149f1032fced34e7aa5abeb"
+    },
+    "XRange": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Value",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Value2",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Formula",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "FormulaArray",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "FormulaR1C1",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "FormulaLocal",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "FormulaR1C1Local",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Count",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Row",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Column",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "Text",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "EntireRow",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "EntireColumn",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "Comment",
+          "returns": "XComment"
+        },
+        {
+          "kind": "property",
+          "member": "Hidden",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ColumnWidth",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Width",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Worksheet",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "XName"
+        },
+        {
+          "kind": "property",
+          "member": "RowHeight",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Height",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Top",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Left",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "PageBreak",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Validation",
+          "returns": "XValidation"
+        },
+        {
+          "kind": "property",
+          "member": "PrefixCharacter",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "raises",
+          "returns": "get"
+        },
+        {
+          "kind": "property",
+          "member": "AddIndent",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ShowDetail",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "AddComment",
+          "returns": "XComment"
+        },
+        {
+          "kind": "method",
+          "member": "Clear",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ClearComments",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ClearContents",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ClearFormats",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "HasFormula",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "FillLeft",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "FillRight",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "FillUp",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "FillDown",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Item",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Offset",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "CurrentRegion",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "CurrentArray",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Characters",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Address",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Cells",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Select",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "AutoOutline",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Activate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Rows",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Calculate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Columns",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Copy",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Cut",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Resize",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Range",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "getCellRange",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "PasteSpecial",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Replace",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "Find",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Sort",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "End",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "characters",
+          "returns": "XCharacters"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Areas",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "BorderAround",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "AutoFilter",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Insert",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Autofit",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "PrintOut",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ExportAsFixedFormat",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "AutoFill",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "GoalSeek",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "ClearOutline",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Ungroup",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Group",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Merge",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "UnMerge",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Next",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Previous",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "SpecialCells",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "RemoveSubtotal",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Subtotal",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "MergeArea",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Hyperlinks",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XRange.idl",
+      "source_sha256": "c1ba3ad5c69cf77d79bbed6eb5afecce5ca8c12a541831ce8161b708007c80f6"
+    },
+    "XSeries": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Series",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Values",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "XValues",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XSeries.idl",
+      "source_sha256": "35886211c208e29f120e26b7a7c9d5dcc34da229607093a50c9396ee0a93d761"
+    },
+    "XSeriesCollection": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "NewSeries",
+          "returns": "XSeries"
+        },
+        {
+          "kind": "method",
+          "member": "XSeries",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XSeriesCollection.idl",
+      "source_sha256": "a353a113bf5fd826683e6f007a4b3ca3835a7f9a4c3e163fa84255e4fcc879f2"
+    },
+    "XSheetObject": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Left",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Top",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Width",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Height",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "Name",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "OnAction",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Placement",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "PrintObject",
+          "returns": "boolean"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XSheetObject.idl",
+      "source_sha256": "e6efcadf03bfb7ac63971b02eaaaedb1044dc7b28bd5966a1059bf672df09a15"
+    },
+    "XStyle": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "BuiltIn",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "setName",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getName",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "setNameLocal",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getNameLocal",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XStyle.idl",
+      "source_sha256": "6989dd2048b6a194fb488ba3dc9acf466e2620d03f31a45b997e88cdd2d5500d"
+    },
+    "XStyles": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "XStyle"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XStyles.idl",
+      "source_sha256": "0a3fe2b569f2d9fb80d2f38e15a91e4fa7308fd29f9ef5b79ee7576f0f8f9b0f"
+    },
+    "XTextFrame": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XTextFrame.idl",
+      "source_sha256": "15c04f0582d6bec23e38ccc83955155625ddaa98440c52a76de6d62e59c02980"
+    },
+    "XTitle": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Interior",
+          "returns": "XInterior"
+        },
+        {
+          "kind": "method",
+          "member": "Font",
+          "returns": "XFont"
+        },
+        {
+          "kind": "method",
+          "member": "setText",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getText",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "setTop",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getTop",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setLeft",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getLeft",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "setOrientation",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getOrientation",
+          "returns": "long"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XTitle.idl",
+      "source_sha256": "d5ad2abf4623a7c0f162a3004ac94c2dbc4e7cbfc8b5189cd9cd065128f705f7"
+    },
+    "XVPageBreak": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XVPageBreak.idl",
+      "source_sha256": "edf0d1940133d5a0c2628b6c6e8253627007622aee63fd01db936f114d55df58"
+    },
+    "XVPageBreaks": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XVPageBreaks.idl",
+      "source_sha256": "07685b773d4d9e17c285c46bf25bea642d2c861ede9baca9d62336089a79a19a"
+    },
+    "XValidation": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "IgnoreBlank",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "InCellDropdown",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ShowInput",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ShowError",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "InputTitle",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "ErrorTitle",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "InputMessage",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "ErrorMessage",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Formula1",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Formula2",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Type",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "CaseSensitive",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XValidation.idl",
+      "source_sha256": "1d5e20f64e26fea61a611a13d051df3cdc404c8f1faa4e9646760b7db09f73c8"
+    },
+    "XWindow": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Caption",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayGridlines",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayHeadings",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayHorizontalScrollBar",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayOutline",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayVerticalScrollBar",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "DisplayWorkbookTabs",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "FreezePanes",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "Split",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "SplitColumn",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "SplitHorizontal",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "SplitRow",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "SplitVertical",
+          "returns": "double"
+        },
+        {
+          "kind": "property",
+          "member": "ScrollColumn",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "ScrollRow",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "View",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "VisibleRange",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "WindowState",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "Zoom",
+          "returns": "any"
+        },
+        {
+          "kind": "property",
+          "member": "TabRatio",
+          "returns": "double"
+        },
+        {
+          "kind": "method",
+          "member": "SelectedSheets",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "SmallScroll",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "LargeScroll",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ScrollWorkbookTabs",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Activate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Close",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ActiveCell",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Selection",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "RangeSelection",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "PointsToScreenPixelsX",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "PointsToScreenPixelsY",
+          "returns": "long"
+        },
+        {
+          "kind": "method",
+          "member": "PrintOut",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "PrintPreview",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ActiveSheet",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "method",
+          "member": "ActivePane",
+          "returns": "XPane"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWindow.idl",
+      "source_sha256": "885bfda430d944a07ed3d6539e24798959446cfe9227a7a0dace8cd2f6d76ec5"
+    },
+    "XWindows": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Arrange",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWindows.idl",
+      "source_sha256": "e40b94e8d39f1eb568e98cff5e7b49bd28a621962044a8007af1f8f0668f2641"
+    },
+    "XWorkbook": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "ProtectStructure",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ActiveSheet",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "property",
+          "member": "CodeName",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "FileFormat",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "PrecisionAsDisplayed",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "Author",
+          "returns": "string"
+        },
+        {
+          "kind": "method",
+          "member": "Worksheets",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Styles",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Sheets",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Windows",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "ResetColors",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Activate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Names",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Colors",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "SaveCopyAs",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Protect",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "SaveAs",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ExportAsFixedFormat",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWorkbook.idl",
+      "source_sha256": "d21a81a6fcc23351989466299ee27e0ada73550157a5555d78d1a727e01b36f4"
+    },
+    "XWorkbooks": {
+      "members": [
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Open",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Close",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWorkbooks.idl",
+      "source_sha256": "20775c06c239b2dfc49d7f2397aca32870432d1cdb3cb841c965322b8228e2b3"
+    },
+    "XWorksheet": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Visible",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "StandardHeight",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "StandardWidth",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "ProtectionMode",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ProtectContents",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ProtectDrawingObjects",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "ProtectScenarios",
+          "returns": "boolean"
+        },
+        {
+          "kind": "property",
+          "member": "UsedRange",
+          "returns": "XRange"
+        },
+        {
+          "kind": "property",
+          "member": "Next",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "property",
+          "member": "Previous",
+          "returns": "XWorksheet"
+        },
+        {
+          "kind": "property",
+          "member": "CodeName",
+          "returns": "string"
+        },
+        {
+          "kind": "property",
+          "member": "Index",
+          "returns": "short"
+        },
+        {
+          "kind": "property",
+          "member": "EnableSelection",
+          "returns": "long"
+        },
+        {
+          "kind": "property",
+          "member": "AutoFilterMode",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "Activate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Calculate",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Select",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Move",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Copy",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Paste",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Protect",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Unprotect",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "CheckSpelling",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ShowDataForm",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Range",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "ChartObjects",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "PivotTables",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Comments",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Outline",
+          "returns": "XOutline"
+        },
+        {
+          "kind": "method",
+          "member": "PageSetup",
+          "returns": "XPageSetup"
+        },
+        {
+          "kind": "method",
+          "member": "HPageBreaks",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "VPageBreaks",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "OLEObjects",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Shapes",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Buttons",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "CheckBoxes",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "DropDowns",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "GroupBoxes",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Labels",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "ListBoxes",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "OptionButtons",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "ScrollBars",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Spinners",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Cells",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Rows",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Columns",
+          "returns": "XRange"
+        },
+        {
+          "kind": "method",
+          "member": "Hyperlinks",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Names",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Evaluate",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "setEnableCalculation",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "getEnableCalculation",
+          "returns": "boolean"
+        },
+        {
+          "kind": "method",
+          "member": "PrintOut",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "ExportAsFixedFormat",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWorksheet.idl",
+      "source_sha256": "311c757aaf59a16827d414e5ae70dc44401905f99ad9652ca214a90dd4d6675f"
+    },
+    "XWorksheetFunction": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWorksheetFunction.idl",
+      "source_sha256": "6029cae6da7851a8c14fa23e14d836f5ac2c69c87a59b9d28a5547d2292f0084"
+    },
+    "XWorksheets": {
+      "members": [
+        {
+          "kind": "property",
+          "member": "Visible",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Add",
+          "returns": "any"
+        },
+        {
+          "kind": "method",
+          "member": "Delete",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "PrintOut",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Select",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "Copy",
+          "returns": "void"
+        },
+        {
+          "kind": "method",
+          "member": "PrintPreview",
+          "returns": "void"
+        }
+      ],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XWorksheets.idl",
+      "source_sha256": "1247f649d25089073f27bb57ce30f987bb6480b6c430b0dad7cdd7ae57919961"
+    },
+    "XlApplicationInternational": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlApplicationInternational.idl",
+      "source_sha256": "34ef84e76d9a853ee32b570a7d4e46148eedb62c2b567e568e9d2dd03ccf1b9f"
+    },
+    "XlApplyNamesOrder": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlApplyNamesOrder.idl",
+      "source_sha256": "e88134a5afc87e3bee99d94bfd3760a6015f0f9e654b5ed9df72454ff0920b95"
+    },
+    "XlArabicModes": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlArabicModes.idl",
+      "source_sha256": "180a60b286aa1820daea136f8cb6b5a22f389aa9c71981a349e61de411c2c93f"
+    },
+    "XlArrangeStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlArrangeStyle.idl",
+      "source_sha256": "0d7abc871a066241885b2c42058c8483a3749e7f4ecdc6452abd6e04b0671577"
+    },
+    "XlArrowHeadLength": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlArrowHeadLength.idl",
+      "source_sha256": "00e80eb429a2f5985e02c73808f293b3bc4eeff29b38fbd73b9df5c9a3eab90c"
+    },
+    "XlArrowHeadStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlArrowHeadStyle.idl",
+      "source_sha256": "25490dc5f06cafdd697ee5bbb8ebb31b62466039d8821d34f1e13f75f290e622"
+    },
+    "XlArrowHeadWidth": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlArrowHeadWidth.idl",
+      "source_sha256": "728f6643bc427fae6dc31ddaff19a89d887c1cc4016b023bc9a2002e3e50bd1e"
+    },
+    "XlAutoFillType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlAutoFillType.idl",
+      "source_sha256": "5f8158512759ded159717dbde4c495022a27390e37344ec588a8ec80b9969f14"
+    },
+    "XlAutoFilterOperator": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlAutoFilterOperator.idl",
+      "source_sha256": "67a57af807e833e2faa3e102accb93dd17ca58cbcf842e85244122eff1f479d3"
+    },
+    "XlAxisCrosses": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlAxisCrosses.idl",
+      "source_sha256": "0c56a9f2d8d111b751f3beb9773fb87e05781dfe92257351087b5bacbc0c334e"
+    },
+    "XlAxisGroup": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlAxisGroup.idl",
+      "source_sha256": "da723aeda380f996b1193126c3913bc4f0fb1bc683759babb751ba99990417c0"
+    },
+    "XlAxisType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlAxisType.idl",
+      "source_sha256": "632d5787bacf2a5cf884a2cd74a7c17e0d242e4c1e7b7e8acffbaf3d9016530d"
+    },
+    "XlBackground": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlBackground.idl",
+      "source_sha256": "cb5f3f220a5e14cac16009f7478bf8191e5650ef3faeb2f5b212b70e7dcfc684"
+    },
+    "XlBarShape": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlBarShape.idl",
+      "source_sha256": "769c419b672314a68b1527ff72ee6dff943c88d8de0b720e73b2957cb0bd0de5"
+    },
+    "XlBorderWeight": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlBorderWeight.idl",
+      "source_sha256": "e6cb4df42852c2e36c003b74c110137b6ff6d539897e0013876a30ef5e2baab2"
+    },
+    "XlBordersIndex": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlBordersIndex.idl",
+      "source_sha256": "29ebce2a0f27c3993097f313c79af3e22a22705227fe65241dd9bd0fe36c957e"
+    },
+    "XlBuildInDialog": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlBuildInDialog.idl",
+      "source_sha256": "51a2d893d6dae2a59eb68e86dccb3159f3b6041780f05090a8e55ea7f69a2a16"
+    },
+    "XlBuiltInDialog": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlBuiltInDialog.idl",
+      "source_sha256": "f7afb5f7067e7f6d811e66b3416907be2b48bd6fe116bbb65da7e21bbdf0d568"
+    },
+    "XlCVError": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCVError.idl",
+      "source_sha256": "4a0f81fc48978a3573b35e3fb2d696348d2130d3f1e2267bf24c21bf36fadb38"
+    },
+    "XlCalculatedMemberType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCalculatedMemberType.idl",
+      "source_sha256": "b7203122c6dbbea3eb185e132a6f677e62ebbc15344600f70aee9bfeb6564882"
+    },
+    "XlCalculation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCalculation.idl",
+      "source_sha256": "9ff6e7a784a1d1ac6f2286f3f13a11752758cecfce58dc99213fd08a429b5e81"
+    },
+    "XlCalculationInterruptKey": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCalculationInterruptKey.idl",
+      "source_sha256": "dc9e330f29f7f7a8ef23bf7c55f3bb9155b818ea7c0d2b0d9bdc59850e5fef8b"
+    },
+    "XlCalculationState": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCalculationState.idl",
+      "source_sha256": "af2ccd699747dbd62aa168f0f23b83c9be1bbecfcf6af554730f1e07bedf1620"
+    },
+    "XlCategoryType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCategoryType.idl",
+      "source_sha256": "2a6ae32c59b0ab909ffe09f88f50b3c4c07eb2f56df846b923977830ea65124b"
+    },
+    "XlCellInsertionMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCellInsertionMode.idl",
+      "source_sha256": "dca713b330d0e51e57848b8eed2d50d44019abcf4e1b4c02dc136091b59e12d0"
+    },
+    "XlCellType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCellType.idl",
+      "source_sha256": "6177a64dd31065b55757dc0d72542f5991b11b3938a6abfe7a6583e4110d3311"
+    },
+    "XlChartGallery": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartGallery.idl",
+      "source_sha256": "fbae408542d0e3170eb51764681ca871b3c7d26370f7f7e84f98306fc13887e1"
+    },
+    "XlChartItem": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartItem.idl",
+      "source_sha256": "f58952cdbb8b0e7393d52a8a1f774d19a7c01980daefb1863b07244bbdb5946a"
+    },
+    "XlChartLocation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartLocation.idl",
+      "source_sha256": "2329cddfaf714c60588e225bda835b482ba8b8d6df82d489045303f82fd4b45d"
+    },
+    "XlChartPicturePlacement": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartPicturePlacement.idl",
+      "source_sha256": "28ba39b4d7e2102762e32ced75d135bd82ed04eed9d3cf757e8b8441bd2544d0"
+    },
+    "XlChartPictureType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartPictureType.idl",
+      "source_sha256": "802d5689f8f8cc15f269ad19a32ebca75ded667e662532e19a86264972c3d1a7"
+    },
+    "XlChartSplitType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartSplitType.idl",
+      "source_sha256": "d81a6f759ee3c71dd7e1baf24c29366356d8cc29596c04e8fb992e414e8b8940"
+    },
+    "XlChartType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlChartType.idl",
+      "source_sha256": "34c21e4863178bf6e601cb2e15e1accc81e82a59d8daadd6016279f5d491d201"
+    },
+    "XlClipboardFormat": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlClipboardFormat.idl",
+      "source_sha256": "ce199e147a300af4c04c83ab655b03fd3afb590a866af0ea154fdf4896b48812"
+    },
+    "XlCmdType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCmdType.idl",
+      "source_sha256": "e881ede1e206104fdd8c74c43a7767c1395d99219a6a7e14943808b4203169b2"
+    },
+    "XlColorIndex": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlColorIndex.idl",
+      "source_sha256": "62f3f12d4791888b8873f641175fbc13485b6c8a3545060f1fd02c0f2153b09f"
+    },
+    "XlColumnDataType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlColumnDataType.idl",
+      "source_sha256": "58d9622f263ae1b688f71140bdbb349a3888c442d37ff7febf2f76ddb002256f"
+    },
+    "XlCommandUnderlines": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCommandUnderlines.idl",
+      "source_sha256": "a8bbc3dae5faa90226a333801564b167fea391e218191ca89b309f049b2afef7"
+    },
+    "XlCommentDisplayMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCommentDisplayMode.idl",
+      "source_sha256": "bb25a183fa51b6e3855f1d9bdfb30bf4c95e67096c2a1ad4fca46cd0de12a998"
+    },
+    "XlConsolidationFunction": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlConsolidationFunction.idl",
+      "source_sha256": "e1b3fac3ebd5eb8c4a88c884ab99a5a55e88667f129c3e7a01fb4d3b3d2bb6fa"
+    },
+    "XlCopyPictureFormat": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCopyPictureFormat.idl",
+      "source_sha256": "84f421579fd64222138d4d4d87a2ce7d89a9d828ebdec22b025172fb125decc9"
+    },
+    "XlCorruptLoad": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCorruptLoad.idl",
+      "source_sha256": "7c9006f91cda05cc20128477b2660b0efa90fe853923bc654ac30c498bb10862"
+    },
+    "XlCreator": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCreator.idl",
+      "source_sha256": "a65c705b418e45556d1d43fa3d34a4921739ccc9253a4114d473a638af616e80"
+    },
+    "XlCubeFieldType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCubeFieldType.idl",
+      "source_sha256": "d379b331f59127300f7d57d5e12eb8395e486f7db5c9328057144b421d065e90"
+    },
+    "XlCutCopyMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlCutCopyMode.idl",
+      "source_sha256": "3f0a7ce75abafc10ff68bdc9ab49d6ed6df1b2ac5581235b7d349a856ed08213"
+    },
+    "XlDVAlertStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDVAlertStyle.idl",
+      "source_sha256": "c3ce1148664aa22424bd4f1a303f29136f56aceaf5e09f89bab057ab7600e3ca"
+    },
+    "XlDVType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDVType.idl",
+      "source_sha256": "1ff5711657b8f07c8c8f929815cd9593111672fbe72bc73760b25949d0b963ec"
+    },
+    "XlDataLabelPosition": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDataLabelPosition.idl",
+      "source_sha256": "d291839107df71bbeabe2ad6e778c0074e76d2ec41768f58fd805a11b1bf035b"
+    },
+    "XlDataLabelSeparator": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDataLabelSeparator.idl",
+      "source_sha256": "fa51ac907ab049b66d9c9e4709e79096f992cfef78c22ea425475d5d1213365e"
+    },
+    "XlDataLabelsType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDataLabelsType.idl",
+      "source_sha256": "ac6d346198cac7e005bff71dd0632bacd6757486c99491932f7853affbcb5a5f"
+    },
+    "XlDataSeriesDate": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDataSeriesDate.idl",
+      "source_sha256": "5b4440ae175b0c9a4ab1f5df6b5e37907b205979a054f8fd8254a47defd7a0bf"
+    },
+    "XlDataSeriesType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDataSeriesType.idl",
+      "source_sha256": "d7a552a5b416342b8b328d715d865efbce94aecdea57b997b5fd8aab91e4d064"
+    },
+    "XlDeleteShiftDirection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDeleteShiftDirection.idl",
+      "source_sha256": "2d0f8e9cfa42cd1311a96133071304d418ecd107de3b128ceee8ea77f269348e"
+    },
+    "XlDirection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDirection.idl",
+      "source_sha256": "4a3a498be33c61d53b52ec09e5a300e9d615c38d2e24a386e5e00616f4c57daa"
+    },
+    "XlDisplayBlanksAs": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDisplayBlanksAs.idl",
+      "source_sha256": "ca7be9a78bd4cda2f5e7ebd7085bad29181699be93a08fda58e4af890fa25e17"
+    },
+    "XlDisplayDrawingObjects": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDisplayDrawingObjects.idl",
+      "source_sha256": "c3fa5929bba840cae9b376c6165c65f105d7a59e3e86ec319615c2debfa72a11"
+    },
+    "XlDisplayUnit": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlDisplayUnit.idl",
+      "source_sha256": "3b022168b06007204fa4012f91487752c8c6ae107c83e748bee5b9caa44da54f"
+    },
+    "XlEditionFormat": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlEditionFormat.idl",
+      "source_sha256": "28fe66e294f157c3d140431cc41eb2d826adb3795af1ca14672626d787427d40"
+    },
+    "XlEditionOptionsOption": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlEditionOptionsOption.idl",
+      "source_sha256": "0c40d6623d1934185d3d7f52725da3331359bed8728c0bba71c15e782080b8d4"
+    },
+    "XlEditionType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlEditionType.idl",
+      "source_sha256": "5ab4099b5f8078127554dab5529099eb32622e6a20948bb83876fc7f7a065d1e"
+    },
+    "XlEnableCancelKey": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlEnableCancelKey.idl",
+      "source_sha256": "c79daab1d8475439a12cceaa3e2ce647bab0adc470297497a66faeedc15ca998"
+    },
+    "XlEnableSelection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlEnableSelection.idl",
+      "source_sha256": "1d8115b3188c68766676a6d1849fda67f403cb184f698c2d618b349ddce34349"
+    },
+    "XlEndStyleCap": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlEndStyleCap.idl",
+      "source_sha256": "cdf42ff32ea72a6608301ea819f577f546aa823b30ac65944ce423ee9328b603"
+    },
+    "XlErrorBarDirection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlErrorBarDirection.idl",
+      "source_sha256": "24d528eb8922aa84ea6ec6d5cd542d59e6d14eb850111919a83970cd9bee3732"
+    },
+    "XlErrorBarInclude": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlErrorBarInclude.idl",
+      "source_sha256": "ceec3431220c285f1f81e4f07f0349309f2f45573af3419921b11e432a48897c"
+    },
+    "XlErrorBarType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlErrorBarType.idl",
+      "source_sha256": "4df9be6df56b7444d1c96f0429efa21dc013b9f3a79b7b9238cfef456c3aa88e"
+    },
+    "XlErrorChecks": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlErrorChecks.idl",
+      "source_sha256": "0b906ab8d5faae2f1af50f8e191b0f55199278a77bc7544d8c90e2ea3bd25ca7"
+    },
+    "XlFileAccess": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFileAccess.idl",
+      "source_sha256": "213b165ccec88da2d6bbb50bb948bcd45668bd712714a609c73838a32c08bfc7"
+    },
+    "XlFileFormat": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFileFormat.idl",
+      "source_sha256": "8e3f49d7c5a82677518696fd9019eedc53dedaa2fb67d38d7d8448904709017a"
+    },
+    "XlFillWith": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFillWith.idl",
+      "source_sha256": "bd3e0d010d576160df837174be89e87f64bdf03cfe59b0ed83520cf59385c51d"
+    },
+    "XlFilterAction": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFilterAction.idl",
+      "source_sha256": "29d7c0b2d8efafa4c2b450164c00aafbe9a7214cf4655bc30cd1a5aaee070cf7"
+    },
+    "XlFindLookIn": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFindLookIn.idl",
+      "source_sha256": "60f4ad38b193518f46dc00c8f36a484335214233459ad12f140358ad36b9e3e0"
+    },
+    "XlFormControl": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFormControl.idl",
+      "source_sha256": "d8a8ed2ac2c20536295fdb960ac8ccc5eb70f46c46a3b287886a4f423b45feb4"
+    },
+    "XlFormatConditionOperator": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFormatConditionOperator.idl",
+      "source_sha256": "671d3a3b8e4c5eef3a98ea16597e0be0cdae6151ce4c73a7442991187abf6321"
+    },
+    "XlFormatConditionType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFormatConditionType.idl",
+      "source_sha256": "aa3b03a33fe395c1f4dc487891683bc2b6935fce831fee4bd88fd8aee2e95e60"
+    },
+    "XlFormulaLabel": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlFormulaLabel.idl",
+      "source_sha256": "b4230e4e2eb82365e2b10ec7f980017a8fb6a5074b77c657ad3e6d553c372917"
+    },
+    "XlHAlign": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlHAlign.idl",
+      "source_sha256": "f7c6fe76851ee38dc4653f10ad4145d0c88fc7ff57f45f69e31d9a0ca13ca188"
+    },
+    "XlHebrewModes": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlHebrewModes.idl",
+      "source_sha256": "52d7e2106912d4aea048d17c7f8d90f782ec6fa646573b3f7142f8bb884f4f53"
+    },
+    "XlHighlightChangesTime": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlHighlightChangesTime.idl",
+      "source_sha256": "d232efaa19fc3200d1aaf447d2c3ea803c4237fdf4e1eae0266801ca50801daa"
+    },
+    "XlHtmlType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlHtmlType.idl",
+      "source_sha256": "f34fca5c8334e41d82ca95c258c3d93dd460285a877b4a048e2655b503ea97c7"
+    },
+    "XlIMEMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlIMEMode.idl",
+      "source_sha256": "c6ae4fde501ee60c4af136405b962635d7d7ddb16757a3ed4905ea3f87f26fc1"
+    },
+    "XlImportDataAs": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlImportDataAs.idl",
+      "source_sha256": "7027f0fb1822ddf05f735c42b1c5c79de1c58a56038d2b78eb06d269dd260735"
+    },
+    "XlInsertFormatOrigin": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlInsertFormatOrigin.idl",
+      "source_sha256": "41f2794540dfdbf6f8cd084382e5bcc8ca28dc2add04f3707c381a027355a001"
+    },
+    "XlInsertShiftDirection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlInsertShiftDirection.idl",
+      "source_sha256": "eed2788215e3bf0bf4cfa452957d94bfa292c04b9d18d58744467d860b9c9580"
+    },
+    "XlLayoutFormType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLayoutFormType.idl",
+      "source_sha256": "664349d514f70aa6a7f963dace741a147af9e151b5d9f84139aa7dba478539ea"
+    },
+    "XlLegendPosition": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLegendPosition.idl",
+      "source_sha256": "e22234a36d77c3d19b4b9e8b34c7623a8764a776b727707b1d7518223cd7706f"
+    },
+    "XlLineStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLineStyle.idl",
+      "source_sha256": "abca92a47a07d7c191417ab0ae359d4c6b58343cc564ce23501cfe8201aaaa5a"
+    },
+    "XlLink": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLink.idl",
+      "source_sha256": "494c50e363bb500e7b9d6488f352ea5b29103438439218a28297b3737506b5e5"
+    },
+    "XlLinkInfo": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLinkInfo.idl",
+      "source_sha256": "c9d80c33c32baa596be117892bfbb5aed937a90a1457d6918bfda131f3a16e04"
+    },
+    "XlLinkInfoType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLinkInfoType.idl",
+      "source_sha256": "61ecdf636b9697c07a0a3f9f62aabf2db9f2daba439bb6b8ba12375c68581c31"
+    },
+    "XlLinkStatus": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLinkStatus.idl",
+      "source_sha256": "5b78e14d8335bac7e2d7ece1aac79eaa0b568f325a659800dff7eb74c504844b"
+    },
+    "XlLinkType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLinkType.idl",
+      "source_sha256": "fffcaaeaa0aff28ead980d2284b359119b6fa31a5a845790c630e0ba1cc44268"
+    },
+    "XlListConflict": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlListConflict.idl",
+      "source_sha256": "fca966e3d00b148f61746ff1037007f23424afab53e58509237921ec6c3038be"
+    },
+    "XlListDataType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlListDataType.idl",
+      "source_sha256": "f73c71bd022d6c470a3dbcaf39fbf42d7e28d1ec4e835328a0eca45fcbd32bb8"
+    },
+    "XlListObjectSourceType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlListObjectSourceType.idl",
+      "source_sha256": "26136aad4b0a319ca680d8818f3657655587df1167c98f846a5a7ed33107a635"
+    },
+    "XlLocationInTable": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLocationInTable.idl",
+      "source_sha256": "9f42b434692e76813e9ff5c4c23508ee4c3744ff12e5034ad7e66fdc6ce5f330"
+    },
+    "XlLookAt": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlLookAt.idl",
+      "source_sha256": "803d049a40bdc21e3d1a5526776bbff6951ad9c05c52361b03019f43d52de9bd"
+    },
+    "XlMSApplication": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlMSApplication.idl",
+      "source_sha256": "4383a8ba20cc27e45f058b2fc0c4812df8846cda97309652d7e7447ee311de9f"
+    },
+    "XlMailSystem": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlMailSystem.idl",
+      "source_sha256": "bda2b5b365a82393d76af2e57de2e91bf3ee4fcc245d77b09083daad64ab309d"
+    },
+    "XlMarkerStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlMarkerStyle.idl",
+      "source_sha256": "181ef335de72f4bfd00dab68cbd4a8688a2ac64b164a5a0b44be2e8cb0c34fcb"
+    },
+    "XlMouseButton": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlMouseButton.idl",
+      "source_sha256": "12990f64bd43d24b29636677911970246d5fe528e9d2b87a434bf82f2fecc98c"
+    },
+    "XlMousePointer": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlMousePointer.idl",
+      "source_sha256": "465bc8249719a126bd878e3b67fe6e64c80c4aa14bff8b539bdd7a8481bc94a8"
+    },
+    "XlOLEType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlOLEType.idl",
+      "source_sha256": "51093a0a16518ebe59f819170a1160a3d971a14b2ab1d56fece0b5b6060557d0"
+    },
+    "XlOLEVerb": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlOLEVerb.idl",
+      "source_sha256": "a70a8c32233e0e7c0eb78368441854e02f6c59c215584c1eb063d40d12e076d7"
+    },
+    "XlObjectSize": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlObjectSize.idl",
+      "source_sha256": "7fcfd474a206b3a23103948fdd1f6debc192b95eea2d6db4aa9650a7f61778f6"
+    },
+    "XlOrder": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlOrder.idl",
+      "source_sha256": "04e0aa45dcde5c7481e4e3a14ce11e8e946eda452a7cbeacd7bb5a88654a71e5"
+    },
+    "XlOrientation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlOrientation.idl",
+      "source_sha256": "a87d6792be2887f71e99fac90c18e99efe4947f88615cb811d3f2c23dd9baf48"
+    },
+    "XlPTSelectionMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPTSelectionMode.idl",
+      "source_sha256": "58ffcdf706707a4cf637edd4d1fa1ed2773952bf4c28b52ef5742c2eea4d0bfe"
+    },
+    "XlPageBreak": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPageBreak.idl",
+      "source_sha256": "ed9fe203e8c2fa850d595790bf06aa79540c6ea38b5106c99c5e393755ea2759"
+    },
+    "XlPageBreakExtent": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPageBreakExtent.idl",
+      "source_sha256": "71672620001eb65b07d0794d22304d50d70b6a655e96fe9140b0107219fc8503"
+    },
+    "XlPageOrientation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPageOrientation.idl",
+      "source_sha256": "8d5b8d836615143421ebb9cc5c2eb99c3db6e49b4429ef1a0f4e2b616ad28809"
+    },
+    "XlPaperSize": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPaperSize.idl",
+      "source_sha256": "6b77dfb5afb1309a747cee72d68ecc8608b4c511b0e25428a3ed4941f6b4b900"
+    },
+    "XlParameterDataType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlParameterDataType.idl",
+      "source_sha256": "c2b3a1e8d8a180b753b3f660ba648f3b33bfcf88782f60501f49f3acbfec5f33"
+    },
+    "XlParameterType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlParameterType.idl",
+      "source_sha256": "3ac076e86eba2d644bd077756fa55c69e11cd427f401b7ada587a711d8f8b832"
+    },
+    "XlPasteSpecialOperation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPasteSpecialOperation.idl",
+      "source_sha256": "1d9538014cb7549636a8d473a6651de11d9256ca4e793369876cbea2f5abea2e"
+    },
+    "XlPasteType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPasteType.idl",
+      "source_sha256": "adc10e0de36997702b73f411c26ca4cc5b772c5555cad7df6da109faf691a9f2"
+    },
+    "XlPattern": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPattern.idl",
+      "source_sha256": "e55c278eb58dafd8ee6abed7f84974afad2492d795278ade10d39de85175571f"
+    },
+    "XlPhoneticAlignment": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPhoneticAlignment.idl",
+      "source_sha256": "1f4a5016447e5662ebebd2432d5222f93f3c7ab5aa14b92622208e8bb6ced35a"
+    },
+    "XlPhoneticCharacterType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPhoneticCharacterType.idl",
+      "source_sha256": "5624a6ba8d7748915065ed5cded078c0f2328e0cbd3f3b0722f34136038bc29a"
+    },
+    "XlPictureAppearance": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPictureAppearance.idl",
+      "source_sha256": "db3f76c17269752b92f349593dd273ce6a785240ab67d3bf419e365877f3ce9a"
+    },
+    "XlPictureConvertorType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPictureConvertorType.idl",
+      "source_sha256": "487590ebeb09d415954c40779fe7f9892e7b1fb258aba4f3182ad90462f63880"
+    },
+    "XlPivotCellType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotCellType.idl",
+      "source_sha256": "66b6282472ade9345843d4cb77972500d0f02374f21f769b898ee1f1d6e4926b"
+    },
+    "XlPivotFieldCalculation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotFieldCalculation.idl",
+      "source_sha256": "949f9ef94708009d6836ad5c122300f47efd9c6a656f00a3642f24db4b01de25"
+    },
+    "XlPivotFieldDataType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotFieldDataType.idl",
+      "source_sha256": "233efed4268c521423beb60a6e4bfbb9fe8eeba2f64e95e8e4524f1fb974055d"
+    },
+    "XlPivotFieldOrientation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotFieldOrientation.idl",
+      "source_sha256": "054d170be33cca057fd334eda55672c1dc5fd30637631daf2b298c3273c49bcc"
+    },
+    "XlPivotFormatType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotFormatType.idl",
+      "source_sha256": "0f4bf6a3f887014a31eb3b039b163e70953c794aa51e7abaaa03a3a1d5d419df"
+    },
+    "XlPivotTableMissingItems": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotTableMissingItems.idl",
+      "source_sha256": "f9701b3b3c21b3192e2ccf9a2a00eee7e064bd9f437a10a29e7cc4cc511c4611"
+    },
+    "XlPivotTableSourceType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotTableSourceType.idl",
+      "source_sha256": "c724f246a26d7a7a938fa6ab7069a1c74b763e0de5438ea147a77fa5835e1cab"
+    },
+    "XlPivotTableVersionList": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPivotTableVersionList.idl",
+      "source_sha256": "35307af3279d3b82ed441aabae3bd0c447fe7a99bdac9ef2dea5841c8e6aed6f"
+    },
+    "XlPlacement": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPlacement.idl",
+      "source_sha256": "cb23a9d027b9df018cf0c0dd69561c4cae79e9caa61db2d26c096a1ed2ae519f"
+    },
+    "XlPlatform": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPlatform.idl",
+      "source_sha256": "1d2f0339bb19f51803abc2e832b9ba94acbf4e1f2893091f8e1e266a7ea767ac"
+    },
+    "XlPrintErrors": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPrintErrors.idl",
+      "source_sha256": "7f653ce9fd5e68cb79298b9c1f2e431228f2c8e79be7caa1e1044d1085e4aac5"
+    },
+    "XlPrintLocation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPrintLocation.idl",
+      "source_sha256": "954ce994661c814a7b11abd4880d0f5a07e7575b49f03aa4a2bbbec698af0bb5"
+    },
+    "XlPriority": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlPriority.idl",
+      "source_sha256": "e6399a5667d6cf0d14b491184e2b93e365ca878d209ded22f5d89a1ee2c42f2e"
+    },
+    "XlQueryType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlQueryType.idl",
+      "source_sha256": "15b33241a3364de133c7fdabe214ff6b1dcabba3d6bc056c775007aaf5a6d48a"
+    },
+    "XlRangeAutoFormat": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRangeAutoFormat.idl",
+      "source_sha256": "f836e2a2e3d2ac102946a884a5f14a4e688547a0aa04b147597d6b46aa077c56"
+    },
+    "XlRangeValueDataType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRangeValueDataType.idl",
+      "source_sha256": "5cfef19e961fcc6a35769207dce1e5e132b8a6cd1f5e991d74c1e885be15199b"
+    },
+    "XlReferenceStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlReferenceStyle.idl",
+      "source_sha256": "712ddfe324e27c834c953534dbc2dcbc3d23d16458c5d513dae09192905311a8"
+    },
+    "XlReferenceType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlReferenceType.idl",
+      "source_sha256": "cb3fa2d6411ef4024502ad39e7cfe86b154b00742ef7fef047a40529dae87072"
+    },
+    "XlRobustConnect": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRobustConnect.idl",
+      "source_sha256": "a8a000fa17df2666a98ec8b23d6daff581226ad21e0d3a62c02b8576cf7bd972"
+    },
+    "XlRoutingSlipDelivery": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRoutingSlipDelivery.idl",
+      "source_sha256": "5867b91b5fffc5f8863e770d6e0954da7c1b279fa1dba5166c753d71d4214e17"
+    },
+    "XlRoutingSlipStatus": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRoutingSlipStatus.idl",
+      "source_sha256": "f676d7c69163c22d4aadac46ad60eac71d0577dd67448dea42b2eb4e21aa6270"
+    },
+    "XlRowCol": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRowCol.idl",
+      "source_sha256": "2c84f5df3811f7f7a634495d985d9e5bdbb823595b6d609a63f807ffe52f17f2"
+    },
+    "XlRunAutoMacro": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlRunAutoMacro.idl",
+      "source_sha256": "13c7d76fd850ada28f8c2b41e4b1380bda570430faa57e5e40d29e2ebc6dc6d3"
+    },
+    "XlSaveAction": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSaveAction.idl",
+      "source_sha256": "30778b752cce2612024a4a3cc2aa3b9766de2a17d6aeb77f0c6bd2d990de9980"
+    },
+    "XlSaveAsAccessMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSaveAsAccessMode.idl",
+      "source_sha256": "95ba6b0484c4ed0bfd3def8b91a3b5a9aa947586eabc361ccad7bd7e55b65bc8"
+    },
+    "XlSaveConflictResolution": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSaveConflictResolution.idl",
+      "source_sha256": "af920a3c0dc0dea549b22a3adb953ee3e7f4f3741316d30f88e826f7407584fb"
+    },
+    "XlScaleType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlScaleType.idl",
+      "source_sha256": "6e923f46f8997c679cf66c93778bf085f0a88f7849d1dbe33848c9bbc6bd83f8"
+    },
+    "XlSearchDirection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSearchDirection.idl",
+      "source_sha256": "8857d34ffe8e7e87612cd41130ac91728b901f586ffa2b8638bb067d560a3188"
+    },
+    "XlSearchOrder": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSearchOrder.idl",
+      "source_sha256": "6fe1b83162f844ea63c1aae37ad91acb50eaf7ceca25734fc1e3b19ca8c40d87"
+    },
+    "XlSearchWithin": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSearchWithin.idl",
+      "source_sha256": "d9b3c9df463b1bbd2d8c2a91fb07295a6644fb9e16a924b2189ddb09345fc79d"
+    },
+    "XlSheetType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSheetType.idl",
+      "source_sha256": "ababe57241132e314a814a93ffaca4ac0fcec9a3210a4f6c033f5fb49df1ff6a"
+    },
+    "XlSheetVisibility": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSheetVisibility.idl",
+      "source_sha256": "553e12b5071461d0f57105b8b3b88d7b8e26c8549f5e207be09d7c9091f42ee8"
+    },
+    "XlSizeRepresents": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSizeRepresents.idl",
+      "source_sha256": "31eef12f75c3bbdea1d7c009a770f38441fc821449c0b2fd2b92332d706488a9"
+    },
+    "XlSmartTagControlType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSmartTagControlType.idl",
+      "source_sha256": "7ce7c2e5697d1451336ebae677d9fcd3c9355b74eee68167784961706fb3aa1e"
+    },
+    "XlSmartTagDisplayMode": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSmartTagDisplayMode.idl",
+      "source_sha256": "23233920394ef5abd462b32c0c50ebdb3e769d50fe6272b7f3d39d9a69c76755"
+    },
+    "XlSortDataOption": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSortDataOption.idl",
+      "source_sha256": "9af92cb9c57edb0e217d0bd06fe66429a16fab2a499638ecba1fc25b41883eca"
+    },
+    "XlSortMethod": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSortMethod.idl",
+      "source_sha256": "e1fb264ce7ce46a22b0144d4045b065d36a674de43eb9f81410418e65ea43575"
+    },
+    "XlSortMethodOld": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSortMethodOld.idl",
+      "source_sha256": "8e4942e16429204027ebf22f819951615729787250c0ab74e603c189e5423b7b"
+    },
+    "XlSortOrder": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSortOrder.idl",
+      "source_sha256": "fbbc8f0819a33885f2956d3df9d1e9c7debae7f763396e41415d717d5cdba10e"
+    },
+    "XlSortOrientation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSortOrientation.idl",
+      "source_sha256": "a227cd05d260c7b6c43d0e7c237686c16c0e8756dd8b7e1b277e55096694bc3b"
+    },
+    "XlSortType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSortType.idl",
+      "source_sha256": "44a8374e4a455ab1f19ee4e7cbc15b5a32b32b5d0cf390019e004062938721b4"
+    },
+    "XlSourceType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSourceType.idl",
+      "source_sha256": "8758ab2c59ca384e7d61d3637ca7a9ef70c39a330a4658bbc2b075cea105f28b"
+    },
+    "XlSpeakDirection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSpeakDirection.idl",
+      "source_sha256": "252bc19e1b269b1932433cb6efd4051010d8f53f37dfbdc3e8241c68763bae75"
+    },
+    "XlSpecialCellsValue": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSpecialCellsValue.idl",
+      "source_sha256": "6279a44beecd9d8c9b76f5278141308b9b587eb05481669a01dad785754bbe4f"
+    },
+    "XlSubscribeToFormat": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSubscribeToFormat.idl",
+      "source_sha256": "289823766228ec712f9f3f8eed201a62e946c98590ef1a8bff050d689ff91f97"
+    },
+    "XlSubtototalLocationType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSubtototalLocationType.idl",
+      "source_sha256": "6bdce0703de540e04e531a131e32bd10482ce1d5d2a10e5536aafd0337dfc4cc"
+    },
+    "XlSummaryColumn": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSummaryColumn.idl",
+      "source_sha256": "5bbb96da470c8cf3a247509b569746ec845c3c67d34be79e79de806afbd4ec93"
+    },
+    "XlSummaryReportType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSummaryReportType.idl",
+      "source_sha256": "1161aa7ef73d331053bd0d2097ad02f6f5279135b9e2f886688b5b2e2aaa236e"
+    },
+    "XlSummaryRow": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlSummaryRow.idl",
+      "source_sha256": "e9fe7cea866d483895534b923ba21b4aeb90ad2d91bec37abe01574050c8a9b0"
+    },
+    "XlTabPosition": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTabPosition.idl",
+      "source_sha256": "16dfcf802fd8574705257d807c2f9fce727a2a07d3af02ec024a4930e42439ff"
+    },
+    "XlTextParsingType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTextParsingType.idl",
+      "source_sha256": "62d0737bb938e90ba595f7e7a316e256c132125d14d5c10e0af842bf045751f5"
+    },
+    "XlTextQualifier": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTextQualifier.idl",
+      "source_sha256": "0d716d0ee40ada1a99f3e8fdb554c971b4e82f6d2bc410bd531f14ec3e51d8f4"
+    },
+    "XlTextVisualLayoutType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTextVisualLayoutType.idl",
+      "source_sha256": "aa0cadd5bba8e5b6c8c27933f12f30c758d1c52bdb4b4d1e1e8f6820a0610b0e"
+    },
+    "XlTickLabelOrientation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTickLabelOrientation.idl",
+      "source_sha256": "0575a480cfc9550a7eaa9dfb78ed573821010225d493de82907a1ae463de670b"
+    },
+    "XlTickLabelPosition": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTickLabelPosition.idl",
+      "source_sha256": "8ab21dc5ca5b8dca690645442319ebef85f6e09b2d50d44185185710b7d25e45"
+    },
+    "XlTickMark": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTickMark.idl",
+      "source_sha256": "f9469d1fff50c4e20d11f8b5973e60db8ce4a0597ad8cc94552680688493d003"
+    },
+    "XlTimeUnit": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTimeUnit.idl",
+      "source_sha256": "1010ff3c22f77e921c060f6a99d7e4a23a23f4a43402296f858e710b36579f4e"
+    },
+    "XlToolbarProtection": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlToolbarProtection.idl",
+      "source_sha256": "d1730abfc081558f294e8ae1386e345e960c7e7999e0e80b851a59834590ec2d"
+    },
+    "XlTotalsCalculation": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTotalsCalculation.idl",
+      "source_sha256": "baab1f8a959e631e1dd2689ebff1538a4716932943f551e6e1e76d429919cd62"
+    },
+    "XlTrendlineType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlTrendlineType.idl",
+      "source_sha256": "1caab01c1c3f3ab107328fe04d14815971c9c059dfff06ca78fb906f33c7f484"
+    },
+    "XlUnderlineStyle": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlUnderlineStyle.idl",
+      "source_sha256": "aa5a2c153ba4f47ec3fa16e5bfcb53213eefc89cad9c1c21fdd762dbc3370d82"
+    },
+    "XlUpdateLinks": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlUpdateLinks.idl",
+      "source_sha256": "cc1ca6a11b1d1ad2d6925d97f4ee82333e3629c45715d8cd3754f78fc6db575e"
+    },
+    "XlVAlign": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlVAlign.idl",
+      "source_sha256": "4edffa9695549d7ca9a615d3b3fb4280d619d734ff07571e4bfff8cd6b038019"
+    },
+    "XlWBATemplate": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlWBATemplate.idl",
+      "source_sha256": "9bec0b0457746050bb676404bcb9a96896d078f8aebe262c0a1e9470cae6f67b"
+    },
+    "XlWebFormatting": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlWebFormatting.idl",
+      "source_sha256": "47dd756e19f8643069c2e99deea3dbaa817315d1bf057dfb162fce022e9327cd"
+    },
+    "XlWebSelectionType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlWebSelectionType.idl",
+      "source_sha256": "7f93ae3c27af3f141d3170b4bccafdaa6020e5901cd163e063d50eb58f65306f"
+    },
+    "XlWindowState": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlWindowState.idl",
+      "source_sha256": "531bf10e038433c5acc21f99664b02a7b9131dbf4247ba180fc7677ee2b7193c"
+    },
+    "XlWindowType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlWindowType.idl",
+      "source_sha256": "8048747c4fe38c92dbe2ac1b387d028b34e0a7acf60144b5974fa0a7fe510235"
+    },
+    "XlWindowView": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlWindowView.idl",
+      "source_sha256": "553ef8c6e6cf9352ad4def7a8db5885e33c6a8c632dfef94eddd51705cb15d51"
+    },
+    "XlXLMMacroType": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlXLMMacroType.idl",
+      "source_sha256": "39f97af65969736bbb4f326c08cbc87c640042a4c14e322320671de97accd69c"
+    },
+    "XlXmlExportResult": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlXmlExportResult.idl",
+      "source_sha256": "5dfe16344bf9abfde0156d2b6bd86ee1a92b558c8591b163dd6f9703ff411da7"
+    },
+    "XlXmlImportResult": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlXmlImportResult.idl",
+      "source_sha256": "8c1ad19aff06d25164c14859d7932f3dc0872a5f7f3e0d995259934d845bf6bc"
+    },
+    "XlXmlLoadOption": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlXmlLoadOption.idl",
+      "source_sha256": "f3ecd96405caf7df6fe5da3645c8e428c4ca78df2049a5c68360ab3e66cec09f"
+    },
+    "XlYesNoGuess": {
+      "members": [],
+      "source": "https://github.com/LibreOffice/core/blob/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel/XlYesNoGuess.idl",
+      "source_sha256": "495ec23cab0b59ba22590a37f49adfbf5e742d21cdc061f487eabd2d9000da65"
+    }
+  },
+  "libreoffice_commit": "1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2",
+  "meaning": "IDL declaration only; execution parity requires a test case",
+  "schema_version": "1",
+  "source": "https://github.com/LibreOffice/core/tree/1fd99223bf371e8d34d4b09b4988bb34ff2ec0d2/oovbaapi/ooo/vba/excel",
+  "tested": []
+}

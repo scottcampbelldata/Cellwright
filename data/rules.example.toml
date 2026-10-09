@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: EUPL-1.2
+# A matching ID replaces the complete built-in rule. A new ID adds a rule.
+[[rules]]
+id = "LOCAL001"
+category = "dependencies"
+kind = "tokens"
+pattern = ["legacyclient", ".", "connect"]
+verdict = "needs_rewrite"
+hours = 4
+messages = ["Replace the internal LegacyClient connection.", "Remplacer la connexion interne LegacyClient.", "Interne LegacyClient-Verbindung ersetzen."]

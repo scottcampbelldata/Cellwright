@@ -1,0 +1,25 @@
+[package]
+name = "macroferry-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+license = "EUPL-1.2"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+macroferry = { path = ".." }
+cfb = "0.15"
+zip = { version = "8.6", default-features = false, features = ["deflate"] }
+
+[[bin]]
+name = "parsers"
+path = "fuzz_targets/parsers.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
+members = ["."]
