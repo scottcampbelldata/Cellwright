@@ -1,10 +1,14 @@
 # Cellwright
 
+[![CI](https://github.com/scottcampbelldata/Cellwright/actions/workflows/ci.yml/badge.svg)](https://github.com/scottcampbelldata/Cellwright/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/scottcampbelldata/Cellwright?include_prereleases)](https://github.com/scottcampbelldata/Cellwright/releases) [![License: EUPL-1.2](https://img.shields.io/badge/license-EUPL--1.2-blue)](LICENSE)
+
 Offline Excel VBA inventory, assisted conversion to LibreOffice Basic/Python, Power Query migration to pandas, and a local migration dashboard. The scanner is one Rust executable and needs neither Office nor Python. The full archive includes optional Python tools; UNO targets also need LibreOffice. Desktop Excel is needed only to capture new Excel goldens.
 
 ## Start
 
 Download the full Windows or Linux archive from [Cellwright releases](https://github.com/scottcampbelldata/Cellwright/releases). Extract it, then double-click **Start Cellwright.cmd** on Windows or run **start-cellwright.sh** on Linux. The launcher opens the existing dashboard with macro execution disabled. Setup checks explain missing software; **Scan demonstration workbook** starts an owned example without running its macros. [Project website](https://cellwright.scottcampbell.io/).
+
+![Cellwright dashboard showing a scanned workbook inventory](site/images/dashboard.jpg)
 
 ```powershell
 cellwright.exe scan C:\Finance --out .\reports\finance --no-source
@@ -52,7 +56,7 @@ A passing comparison proves only named routines, inputs and captured cells. Exec
 
 ## Coverage and development
 
-The functional implementation spans M0–M9; [roadmap status](docs/architecture.md) records remaining release/validation gates. Binary XLS/XLSB features remain partial. Source/cache flags are heuristics, not full stomping detection; signatures are not validated. UserForm control counts have real-corpus checks; form candidates retain imported layouts with explicit control and event limits. Type/member inference cannot resolve every alias, shadowed name or dynamic call.
+The functional implementation spans milestones M0 to M9; [roadmap status](docs/architecture.md) records remaining release/validation gates. Binary XLS/XLSB features remain partial. Source/cache flags are heuristics, not full stomping detection; signatures are not validated. UserForm control counts have real-corpus checks; form candidates retain imported layouts with explicit control and event limits. Type/member inference cannot resolve every alias, shadowed name or dynamic call.
 
 Estimates count each nonempty normalized module once plus per-workbook costs. String case and module type are preserved. The model uses base hours + code lines × line weight + capped finding weights + test hours. Empty modules cost zero; document modules containing only attributes, options or empty procedures omit base/testing overhead while retaining line and finding costs. Forms add two hours each plus 0.1 hour per control site, capped at 50 sites per form by default; MF050 retains its finding without a flat charge. Editable ranges are **uncalibrated planning assumptions** and exclude unknown work. Repeated deployment and integration work need separate estimates.
 

@@ -5,6 +5,11 @@ edition = "2024"
 rust-version = "1.99"
 license = "EUPL-1.2"
 description = "Offline inventory and migration assessment of Excel VBA workbooks"
+repository = "https://github.com/scottcampbelldata/Cellwright"
+homepage = "https://cellwright.scottcampbell.io"
+readme = "README.md"
+keywords = ["excel", "vba", "libreoffice", "migration", "xlsm"]
+categories = ["command-line-utilities", "parser-implementations"]
 
 [dependencies]
 anyhow = "1"

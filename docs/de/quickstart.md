@@ -1,4 +1,4 @@
-# Cellwright — Schnellstart
+# Cellwright: Schnellstart
 
 Der Cellwright-Scanner inventarisiert Arbeitsmappen offline, ohne Makros auszuführen oder Quelldateien zu verändern. Er benötigt weder Office noch Python. Die optionalen Konvertierungswerkzeuge und das Dashboard benötigen Python, UNO-Ziele zusätzlich LibreOffice.
 

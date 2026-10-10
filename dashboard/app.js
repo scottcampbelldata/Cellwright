@@ -58,7 +58,7 @@ function renderScan() {
  const books=scan.workbooks,counts=Object.fromEntries(Object.keys(colors).map(key=>[key,books.filter(book=>book.verdict===key).length]));
  $('metric-workbooks').textContent=books.length.toLocaleString(); $('ring-count').textContent=books.length;
  $('metric-modules').textContent=scan.unique_modules.toLocaleString(); $('metric-rewrite').textContent=counts.needs_rewrite;
- $('metric-effort').textContent=Math.round(scan.estimated_hours_low)+'–'+Math.round(scan.estimated_hours_high)+' h';
+ $('metric-effort').textContent=Math.round(scan.estimated_hours_low)+'-'+Math.round(scan.estimated_hours_high)+' h';
  $('metric-files-note').textContent=books.filter(book=>book.status!=='inspected').length+' workbook(s) could not be fully inspected';
  $('metric-dedupe').textContent=scan.duplicates.length+' duplicate code cluster(s)';
  $('scan-meta').textContent=new Date(scan.generated_unix_seconds*1000).toLocaleDateString();

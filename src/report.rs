@@ -78,7 +78,7 @@ fn finding_html(finding: &Finding, index: usize) -> String {
         .map(|l| format!(" · {} {l}", t(index, ["line", "ligne", "Zeile"])))
         .unwrap_or_default();
     format!(
-        "<li><code>{}</code>{} — {}</li>",
+        "<li><code>{}</code>{}: {}</li>",
         escape(&finding.rule_id),
         line,
         escape(&finding.messages[index])
@@ -115,7 +115,7 @@ pub fn html(scan: &Scan) -> String {
         .count()
         + scan.discovery_errors.len();
     let mut out = format!(
-        r##"<!doctype html><html lang="{}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>Cellwright · {title}</title><style>{}</style></head><body><header><a class="brand" href="#top">Cellwright<span>VBA → LibreOffice / Python</span></a><nav aria-label="{}"><a href="scan.json">JSON</a><a href="workbooks.csv">CSV</a><a href="#method">{}</a></nav></header><main id="top"><p class="eyebrow">{} / v{}</p><h1>{title}</h1><p class="intro">{}</p><dl class="metrics"><div><dt>{workbook_label}</dt><dd>{}</dd></div><div><dt>{module_label}</dt><dd>{}</dd></div><div><dt>{hours_label}</dt><dd>{:.1}–{:.1}</dd></div><div><dt>{}</dt><dd>{incomplete}</dd></div></dl><p class="notice">{}</p><section aria-labelledby="inventory-title"><h2 id="inventory-title">{workbook_label}</h2><div class="filters"><label for="search">{}<input id="search" type="search" placeholder="{}"></label><label for="verdict">{}<select id="verdict"><option value="">{}</option>"##,
+        r##"<!doctype html><html lang="{}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>Cellwright · {title}</title><style>{}</style></head><body><header><a class="brand" href="#top">Cellwright<span>VBA → LibreOffice / Python</span></a><nav aria-label="{}"><a href="scan.json">JSON</a><a href="workbooks.csv">CSV</a><a href="#method">{}</a></nav></header><main id="top"><p class="eyebrow">{} / v{}</p><h1>{title}</h1><p class="intro">{}</p><dl class="metrics"><div><dt>{workbook_label}</dt><dd>{}</dd></div><div><dt>{module_label}</dt><dd>{}</dd></div><div><dt>{hours_label}</dt><dd>{:.1}-{:.1}</dd></div><div><dt>{}</dt><dd>{incomplete}</dd></div></dl><p class="notice">{}</p><section aria-labelledby="inventory-title"><h2 id="inventory-title">{workbook_label}</h2><div class="filters"><label for="search">{}<input id="search" type="search" placeholder="{}"></label><label for="verdict">{}<select id="verdict"><option value="">{}</option>"##,
         escape(&scan.language),
         STYLE,
         t(index, ["Exports", "Exports", "Exporte"]),
@@ -238,7 +238,7 @@ pub fn html(scan: &Scan) -> String {
             workbook
                 .code_page
                 .map(|page| page.to_string())
-                .unwrap_or_else(|| "—".into())
+                .unwrap_or_else(|| "-".into())
         ));
         for form in &workbook.forms {
             out.push_str(&format!(

@@ -112,7 +112,7 @@ class Store:
     def schedule(self, value):
         paths, interval = value.get("paths"), value.get("interval_hours", 24)
         validate_paths(paths)
-        if type(interval) is not int or not 1 <= interval <= 8760: raise ValueError("Interval must be 1–8760 hours")
+        if type(interval) is not int or not 1 <= interval <= 8760: raise ValueError("Interval must be 1 to 8760 hours")
         identifier = value.get("id") or uuid.uuid4().hex
         label, enabled = str(value.get("label", "Scheduled scan"))[:120], bool(value.get("enabled", True))
         with self.connect() as db:
@@ -132,7 +132,7 @@ class Store:
 
 def validate_paths(paths):
     if not isinstance(paths, list) or not 1 <= len(paths) <= 100 or any(not isinstance(path, str) or not path.strip() or len(path) > 32768 or "\0" in path for path in paths):
-        raise ValueError("Provide 1–100 workbook or folder paths")
+        raise ValueError("Provide 1 to 100 workbook or folder paths")
 
 
 class Server(ThreadingHTTPServer):

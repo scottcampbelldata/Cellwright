@@ -1,8 +1,8 @@
 # Estate checks and effort calibration
 
-## Real workbook stress test — 10 October 2026
+## Real workbook stress test (10 October 2026)
 
-The local `calibration-corpus` contains 30 third-party VBA workbooks/add-ins: 17 XLSM, five XLS, four XLSB, three XLAM and one XLA. The manifest and independent oletools extraction agree on nonempty module and nonblank line counts. Attribute-only/empty modules are retained by Cellwright, while its executable code-line count excludes comments; these definitions explain the different totals. The manifest and designer-stream check identify **11 workbooks with 145 UserForms**; four OOXML workbooks contain ActiveX binary parts. These counts differ from the earlier verbal totals of 13 and seven. Legacy/binary worksheet control coverage remains partial.
+The local `calibration-corpus` contains 30 third-party VBA workbooks/add-ins: 17 XLSM, five XLS, four XLSB, three XLAM and one XLA. The manifest and independent oletools extraction agree on nonempty module and nonblank line counts. Attribute-only/empty modules are retained by Cellwright, while its executable code-line count excludes comments; these definitions explain the different totals. The manifest and designer-stream check identify **11 workbooks with 145 UserForms**; four OOXML workbooks contain ActiveX binary parts. Legacy/binary worksheet control coverage remains partial.
 
 The initial scan inspected 26 files. Two valid workbook containers had legacy VML drawings with HTML-style `<br>` tags that failed strict XML parsing. Cellwright now retains their VBA and marks drawing coverage unknown with MF060. Structured worksheet XML remains strict. Buffered JSON output also avoids excessive small writes on Windows-mounted WSL paths.
 
@@ -37,16 +37,16 @@ Empty modules cost zero. Document modules containing only attributes, options or
 
 | Workbook | Executable code lines | Default range, hours |
 | --- | ---: | ---: |
-| Stock daily-return calculation | 12 | 1.37–5.48 |
-| VBmail | 14 | 8.39–33.56 |
-| Invoice Generator, four forms/38 sites | 412 | 33.72–134.88 |
-| SalesInvoice, no forms | 1,049 | 39.49–157.96 |
-| MacroTools add-in | 13,093 | 478.91–1,915.64 |
-| RelaxTools | 42,876 | 1,564.84–6,259.36 |
+| Stock daily-return calculation | 12 | 1.37-5.48 |
+| VBmail | 14 | 8.39-33.56 |
+| Invoice Generator, four forms/38 sites | 412 | 33.72-134.88 |
+| SalesInvoice, no forms | 1,049 | 39.49-157.96 |
+| MacroTools add-in | 13,093 | 478.91-1,915.64 |
+| RelaxTools | 42,876 | 1,564.84-6,259.36 |
 
 Invoice Generator remains below SalesInvoice; no ranking inversion was forced. Its central estimate combines 30.64 hours of unique-module costs, 25 hours of workbook findings and 11.8 hours for forms/sites. SalesInvoice has 61.98 hours of unique-module costs plus 17 hours of workbook findings. Removing three hours of document overhead and replacing the old eight-hour flat form charge yields a net 0.8-hour central increase for Invoice Generator. Its UI burden does not outweigh SalesInvoice's larger code/finding burden under these assumptions.
 
-The current estate range is **4,062.24–16,248.96 hours**, with shared modules deduplicated across all 30 files. It excludes unknown work despite complete VBA-project extraction. MF060 adds zero hours for unknown coverage; control rendering, external services and repeated deployment/integration testing need separate assessment. The cap also means exceptionally dense forms need review beyond the default range. These limitations prevent using the range as a quoted budget. No human effort observations were invented.
+The current estate range is **4,062.24-16,248.96 hours**, with shared modules deduplicated across all 30 files. It excludes unknown work despite complete VBA-project extraction. MF060 adds zero hours for unknown coverage; control rendering, external services and repeated deployment/integration testing need separate assessment. The cap also means exceptionally dense forms need review beyond the default range. These limitations prevent using the range as a quoted budget. No human effort observations were invented.
 
 ## Simulated business scenarios
 
@@ -66,4 +66,4 @@ Use `python3` and forward-slash paths on Linux. The destination must not exist. 
 
 **Hour estimates remain uncalibrated.** Successful simulated cases establish scenario behavior, not human migration time. Dataset row counts do not directly affect a model based on code and findings. Scan/conversion wall-clock times are machine timings, not labour hours, and synthetic labour times must not be fitted as observations.
 
-To calibrate later, retain a source-free inventory of 20–50 representative production workbooks, record actual review, rewrite, integration and regression-test hours, and identify shared modules so work is not counted twice. Fit weights using part of that set, then evaluate prediction errors and interval coverage on held-out workbooks. Include failed/blocked migrations and previously unknown work. Publish the sample scope, observed hours, weight changes and validation errors before treating the range as a budget.
+To calibrate later, retain a source-free inventory of 20 to 50 representative production workbooks, record actual review, rewrite, integration and regression-test hours, and identify shared modules so work is not counted twice. Fit weights using part of that set, then evaluate prediction errors and interval coverage on held-out workbooks. Include failed/blocked migrations and previously unknown work. Publish the sample scope, observed hours, weight changes and validation errors before treating the range as a budget.

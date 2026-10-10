@@ -37,7 +37,7 @@ def excel(case, output, allow_execution=False):
 def validate(case):
     from migration.runtime import coordinates
     ranges=case.get('ranges')
-    if not isinstance(ranges,dict) or not 1<=len(ranges)<=100:raise ValueError('Specify 1–100 sheets and explicit cells to compare')
+    if not isinstance(ranges,dict) or not 1<=len(ranges)<=100:raise ValueError('Specify 1 to 100 sheets and explicit cells to compare')
     total=0
     for sheet,addresses in ranges.items():
         if not isinstance(sheet,str) or not sheet or len(sheet)>31 or '\0' in sheet or not isinstance(addresses,list) or not 1<=len(addresses)<=100:

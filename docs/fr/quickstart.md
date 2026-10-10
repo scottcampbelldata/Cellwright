@@ -1,4 +1,4 @@
-# Cellwright — démarrage rapide
+# Cellwright : démarrage rapide
 
 Le scanner Cellwright réalise un inventaire hors ligne sans exécuter les macros ni modifier les fichiers. Il fonctionne sans Office ni Python. Les outils facultatifs de conversion et le tableau de bord nécessitent Python ; les cibles UNO nécessitent LibreOffice.
 
