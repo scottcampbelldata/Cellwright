@@ -6,9 +6,9 @@ Offline Excel VBA inventory, assisted conversion to LibreOffice Basic/Python, Po
 
 ## Start
 
-Download the full Windows or Linux archive from [Cellwright releases](https://github.com/scottcampbelldata/Cellwright/releases). Extract it, then double-click **Start Cellwright.cmd** on Windows or run **start-cellwright.sh** on Linux. The launcher opens the existing dashboard with macro execution disabled. Setup checks explain missing software; **Scan demonstration workbook** starts an owned example without running its macros. [Project website](https://cellwright.scottcampbell.io/).
+Download the full Windows or Linux archive from [Cellwright releases](https://github.com/scottcampbelldata/Cellwright/releases). Extract it, then double-click **Start Cellwright.cmd** on Windows or run **start-cellwright.sh** on Linux. The launcher opens the existing dashboard with macro execution disabled. Setup checks explain missing software; **Scan demonstration workbook** scans the included sample workbook without running its macros. [Project website](https://cellwright.scottcampbell.io/).
 
-![Cellwright dashboard showing a scanned workbook inventory](site/images/dashboard.jpg)
+![Cellwright dashboard showing a conversion candidate with macro execution disabled](site/images/dashboard.jpg)
 
 ```powershell
 cellwright.exe scan C:\Finance --out .\reports\finance --no-source
