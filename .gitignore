@@ -12,3 +12,8 @@ __pycache__/
 /calibration-corpus/
 
 /.playwright-mcp/
+
+# Local files
+.DS_Store
+*.log
+.env

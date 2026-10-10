@@ -4,6 +4,8 @@
 
 **Cellwright finds every VBA macro in your Excel files and helps you move them to LibreOffice or Python.**
 
+Website: [cellwright.scottcampbell.io](https://cellwright.scottcampbell.io). More of my work is at [scottcampbell.io](https://scottcampbell.io).
+
 Point it at a folder or a network share and it reads every macro-enabled workbook without opening Excel or running any code. You get a report of what's in each file, what will be hard to migrate, and a rough effort estimate. When you're ready, it can turn supported macros into LibreOffice Basic or Python and Power Query into pandas, keeping the original alongside every change.
 
 It's built for IT and finance teams leaving Microsoft Office, and for anyone who inherited a pile of spreadsheets nobody wants to touch.
