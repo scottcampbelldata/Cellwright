@@ -34,7 +34,7 @@ fn main() -> Result<()> {
     record(&mut dir, 2, &0x409u32.to_le_bytes());
     record(&mut dir, 0x14, &0x409u32.to_le_bytes());
     record(&mut dir, 3, &1252u16.to_le_bytes());
-    record(&mut dir, 4, b"MacroFerry");
+    record(&mut dir, 4, b"Cellwright");
     for id in [5, 0x40, 6, 0x3d] {
         record(&mut dir, id, &[]);
     }
@@ -50,7 +50,7 @@ fn main() -> Result<()> {
     let mut template = cfb::CompoundFile::open(Cursor::new(data))?;
     let mut old_dir = Vec::new();
     std::io::Read::read_to_end(&mut template.open_stream("/VBA/dir")?, &mut old_dir)?;
-    let old_dir = macroferry::ovba::decompress(&old_dir, 16 * 1024 * 1024)?;
+    let old_dir = cellwright::ovba::decompress(&old_dir, 16 * 1024 * 1024)?;
     // Reuse only type-library records from the MIT-licensed calamine fixture.
     let reference_start = old_dir
         .windows(2)
@@ -111,7 +111,7 @@ fn main() -> Result<()> {
         .write_all(&compressed(&dir))?;
     cfb.create_stream("/VBA/_VBA_PROJECT")?
         .write_all(&[0xcc, 0x61, 0xff, 0xff, 0, 0, 0])?;
-    let project = "ID=\"{8A7F205E-71BA-4C25-B4AF-5CC6FB297504}\"\r\nDocument=ThisWorkbook/&H00000000\r\nDocument=Sheet1/&H00000000\r\nModule=Arithmetic\r\nName=\"MacroFerry\"\r\nHelpContextID=\"0\"\r\nVersionCompatible32=\"393222000\"\r\n";
+    let project = "ID=\"{8A7F205E-71BA-4C25-B4AF-5CC6FB297504}\"\r\nDocument=ThisWorkbook/&H00000000\r\nDocument=Sheet1/&H00000000\r\nModule=Arithmetic\r\nName=\"Cellwright\"\r\nHelpContextID=\"0\"\r\nVersionCompatible32=\"393222000\"\r\n";
     cfb.create_stream("/PROJECT")?
         .write_all(project.as_bytes())?;
     for (name, source, _) in modules {

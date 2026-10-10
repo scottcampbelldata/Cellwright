@@ -2,6 +2,7 @@
 """Capture a named, explicitly authorised test case on both engines and retain evidence."""
 import hashlib
 import json
+import math
 import os
 import re
 import subprocess
@@ -18,7 +19,7 @@ def excel(case, output, allow_execution=False):
     if case.get('macro') and allow_execution is not True:raise PermissionError('Capture execution requires --allow-execution')
     if Path(output).exists():raise FileExistsError(output)
     case=dict(case,input=str(office.local_path(case['input'])))
-    with tempfile.TemporaryDirectory(prefix='macroferry-excel-') as temporary:
+    with tempfile.TemporaryDirectory(prefix='cellwright-excel-') as temporary:
         case_path=Path(temporary)/'case.json';case_path.write_text(json.dumps(case),encoding='utf-8')
         pid_file=Path(temporary)/'excel.pid'
         command=['powershell.exe','-NoProfile','-NonInteractive','-File',str(ROOT/'harness/excel/capture.ps1'),'-CaseFile',str(case_path),'-Output',str(Path(output).resolve()),'-PidFile',str(pid_file)]
@@ -33,16 +34,30 @@ def excel(case, output, allow_execution=False):
             raise
 
 
+def validate(case):
+    from migration.runtime import coordinates
+    ranges=case.get('ranges')
+    if not isinstance(ranges,dict) or not 1<=len(ranges)<=100:raise ValueError('Specify 1–100 sheets and explicit cells to compare')
+    total=0
+    for sheet,addresses in ranges.items():
+        if not isinstance(sheet,str) or not sheet or len(sheet)>31 or '\0' in sheet or not isinstance(addresses,list) or not 1<=len(addresses)<=100:
+            raise ValueError('Provide sheet names and lists of explicit A1 ranges')
+        for address in addresses:
+            if not isinstance(address,str):raise ValueError('Cell ranges must be A1 addresses')
+            r1,c1,r2,c2=coordinates(address);total+=(r2-r1+1)*(c2-c1+1)
+            if total>100000:raise ValueError('Snapshot exceeds 100,000 cells')
+    for spec in (case['original'],case['converted']):
+        if not isinstance(spec.get('macro'),str) or not re.fullmatch(r'[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*',spec['macro']):raise ValueError('Use a qualified procedure name without workbook or script URLs')
+        if not isinstance(spec.get('inputs',[]),list) or len(spec.get('inputs',[]))>7:raise ValueError('Provide up to seven scalar inputs')
+        if any(not isinstance(value,(str,int,float,bool,type(None))) or isinstance(value,float) and not math.isfinite(value) for value in spec.get('inputs',[])):raise ValueError('Only finite scalar macro inputs are supported')
+
+
 def verify(case,destination,allow_execution=False,libreoffice=None):
     if allow_execution is not True:raise PermissionError('Verification executes macros and requires --allow-execution')
     destination=Path(destination).resolve()
     if destination.exists() and any(destination.iterdir()):raise FileExistsError('Verification destination must be new or empty')
-    if not case.get('ranges'):raise ValueError('Specify the cells to compare')
+    validate(case)
     original=case['original'];converted=case['converted']
-    for spec in (original,converted):
-        if not re.fullmatch(r'[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*',spec['macro']):raise ValueError('Use a qualified procedure name without workbook or script URLs')
-        if not isinstance(spec.get('inputs',[]),list) or len(spec.get('inputs',[]))>7:raise ValueError('Provide up to seven scalar inputs')
-        if any(not isinstance(value,(str,int,float,bool,type(None))) for value in spec.get('inputs',[])):raise ValueError('Only scalar macro inputs are supported')
     destination.mkdir(parents=True,exist_ok=True)
     before=hashlib.sha256(Path(original['input']).read_bytes()).hexdigest()
     golden=destination/'excel.json'

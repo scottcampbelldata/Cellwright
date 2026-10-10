@@ -92,20 +92,20 @@ def basic_helpers():
     for prop, member in PROPERTIES.items():
         checks, expression = [], "value"
         if prop in ("font.bold", "font.italic", "wraptext"):
-            checks = ['If VarType(value) <> 11 And value <> 0 And value <> 1 And value <> -1 Then Err.Raise 5, "MacroFerry", "Boolean formatting requires True/False"']
+            checks = ['If VarType(value) <> 11 And value <> 0 And value <> 1 And value <> -1 Then Err.Raise 5, "Cellwright", "Boolean formatting requires True/False"']
             expression = 'CBool(value)'
             if prop == "font.bold": expression = 'IIf(CBool(value), 150, 100)'
             if prop == "font.italic": expression = 'IIf(CBool(value), com.sun.star.awt.FontSlant.ITALIC, com.sun.star.awt.FontSlant.NONE)'
         elif prop.endswith(".color"):
-            checks = ['If value < 0 Or value > 16777215 Or value <> Fix(value) Then Err.Raise 5, "MacroFerry", "Only explicit RGB colours are supported"']
+            checks = ['If value < 0 Or value > 16777215 Or value <> Fix(value) Then Err.Raise 5, "Cellwright", "Only explicit RGB colours are supported"']
             expression = '((CLng(value) And 255) * 65536) + (CLng(value) And 65280) + (CLng(value) \\ 65536)'
-        elif prop == "font.size": checks = ['If value <= 0 Or value > 409 Then Err.Raise 5, "MacroFerry", "Font size outside supported range"']
-        elif prop == "font.name": checks = ['If VarType(value) <> 8 Or Len(value) = 0 Or Len(value) > 255 Then Err.Raise 5, "MacroFerry", "Invalid font name"']
+        elif prop == "font.size": checks = ['If value <= 0 Or value > 409 Then Err.Raise 5, "Cellwright", "Font size outside supported range"']
+        elif prop == "font.name": checks = ['If VarType(value) <> 8 Or Len(value) = 0 Or Len(value) > 255 Then Err.Raise 5, "Cellwright", "Invalid font name"']
         elif prop in ("horizontalalignment", "verticalalignment"):
             values = HORIZONTAL if prop == "horizontalalignment" else VERTICAL
-            checks = ['Select Case value'] + [f'Case {key}: value = ' + ('com.sun.star.table.CellHoriJustify.' + entry[0] if prop == "horizontalalignment" else str(entry[0])) for key, entry in values.items()] + ['Case Else: Err.Raise 5, "MacroFerry", "Unsupported alignment"', 'End Select']
+            checks = ['Select Case value'] + [f'Case {key}: value = ' + ('com.sun.star.table.CellHoriJustify.' + entry[0] if prop == "horizontalalignment" else str(entry[0])) for key, entry in values.items()] + ['Case Else: Err.Raise 5, "Cellwright", "Unsupported alignment"', 'End Select']
         elif prop == "numberformat":
-            checks = ['Select Case value', 'Case ' + ', '.join('"' + code + '"' for code in NUMBER_FORMATS), 'Case Else: Err.Raise 5, "MacroFerry", "Number format requires manual migration"', 'End Select', 'Dim locale As Object, key As Long', 'locale = CreateUnoStruct("com.sun.star.lang.Locale")', 'locale.Language = "en": locale.Country = "US"', 'key = ThisComponent.NumberFormats.queryKey(value, locale, True)', 'If key < 0 Then key = ThisComponent.NumberFormats.addNew(value, locale)']
+            checks = ['Select Case value', 'Case ' + ', '.join('"' + code + '"' for code in NUMBER_FORMATS), 'Case Else: Err.Raise 5, "Cellwright", "Number format requires manual migration"', 'End Select', 'Dim locale As Object, key As Long', 'locale = CreateUnoStruct("com.sun.star.lang.Locale")', 'locale.Language = "en": locale.Country = "US"', 'key = ThisComponent.NumberFormats.queryKey(value, locale, True)', 'If key < 0 Then key = ThisComponent.NumberFormats.addNew(value, locale)']
             expression = 'key'
         cases.append('Case "' + prop + '"\n' + '\n'.join(checks + ['target.' + member + ' = ' + expression]))
     return '''
@@ -113,18 +113,18 @@ Function MFFormatRange(sheetName As String, address As String) As Object
     MFFormatRange = ThisComponent.Sheets.getByName(sheetName).getCellRangeByName(address)
 End Function
 Function MFVbaRGB(red As Variant, green As Variant, blue As Variant) As Long
-    If Not IsNumeric(red) Or Not IsNumeric(green) Or Not IsNumeric(blue) Then Err.Raise 5, "MacroFerry", "RGB requires numeric components"
-    If red <> Fix(red) Or green <> Fix(green) Or blue <> Fix(blue) Then Err.Raise 5, "MacroFerry", "RGB requires integer components"
-    If red < 0 Or red > 255 Or green < 0 Or green > 255 Or blue < 0 Or blue > 255 Then Err.Raise 5, "MacroFerry", "RGB components outside supported range"
+    If Not IsNumeric(red) Or Not IsNumeric(green) Or Not IsNumeric(blue) Then Err.Raise 5, "Cellwright", "RGB requires numeric components"
+    If red <> Fix(red) Or green <> Fix(green) Or blue <> Fix(blue) Then Err.Raise 5, "Cellwright", "RGB requires integer components"
+    If red < 0 Or red > 255 Or green < 0 Or green > 255 Or blue < 0 Or blue > 255 Then Err.Raise 5, "Cellwright", "RGB components outside supported range"
     MFVbaRGB = red + green * 256 + blue * 65536
 End Function
 Sub MFFormat(target As Object, prop As String, value As Variant)
     Dim bounds
     bounds = target.getRangeAddress()
-    If (CDbl(bounds.EndRow) - bounds.StartRow + 1) * (CDbl(bounds.EndColumn) - bounds.StartColumn + 1) > 100000 Then Err.Raise 5, "MacroFerry", "Formatting exceeds 100,000 cells"
+    If (CDbl(bounds.EndRow) - bounds.StartRow + 1) * (CDbl(bounds.EndColumn) - bounds.StartColumn + 1) > 100000 Then Err.Raise 5, "Cellwright", "Formatting exceeds 100,000 cells"
     Select Case prop
 ''' + '\n'.join(cases) + '''
-    Case Else: Err.Raise 5, "MacroFerry", "Unsupported formatting property"
+    Case Else: Err.Raise 5, "Cellwright", "Unsupported formatting property"
     End Select
 End Sub
 '''

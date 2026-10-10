@@ -9,9 +9,9 @@ $book = $null
 try {
     $excel = New-Object -ComObject Excel.Application
     if ($PidFile) {
-        Add-Type -TypeDefinition 'public static class MacroFerryProcess { [System.Runtime.InteropServices.DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(System.IntPtr window, out uint processId); }'
+        Add-Type -TypeDefinition 'public static class CellwrightProcess { [System.Runtime.InteropServices.DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(System.IntPtr window, out uint processId); }'
         [uint32]$excelProcessId = 0
-        [MacroFerryProcess]::GetWindowThreadProcessId([IntPtr]$excel.Hwnd, [ref]$excelProcessId) | Out-Null
+        [CellwrightProcess]::GetWindowThreadProcessId([IntPtr]$excel.Hwnd, [ref]$excelProcessId) | Out-Null
         $excelProcessId | Set-Content -LiteralPath $PidFile
     }
     $excel.Visible = $false

@@ -8,7 +8,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from migration import controls, formatting, office, vba
+from migration import controls, formatting, office, operations, ui, vba
 
 # Qualified language intrinsics; object model calls are handled separately.
 BASIC_INTRINSICS = ('Abs Asc Chr CInt CLng CDbl CStr Date DateAdd Day Fix Hex IIf InStr Int IsNumeric Join LBound LCase Left Len LTrim Mid Month Now Replace Right Round RTrim Sgn Space Split Sqr Str Trim UBound UCase Val Weekday Year').split()
@@ -36,7 +36,7 @@ Function MFOnlyCell(range As Object) As Object
     Dim bounds
     bounds = range.getRangeAddress()
     If bounds.StartRow <> bounds.EndRow Or bounds.StartColumn <> bounds.EndColumn Then
-        Err.Raise 5, "MacroFerry", "Native UNO multi-cell values require manual migration"
+        Err.Raise 5, "Cellwright", "Native UNO multi-cell values require manual migration"
     End If
     MFOnlyCell = range.getCellByPosition(0, 0)
 End Function
@@ -45,7 +45,7 @@ Function MFCells(sheetName As String, row As Long, column As Long) As Object
 End Function
 Function MFGet(cell As Object) As Variant
     If cell.getError() <> 0 Then
-        Err.Raise 5, "MacroFerry", "Cell errors require manual migration"
+        Err.Raise 5, "Cellwright", "Cell errors require manual migration"
     ElseIf cell.getType() = 0 Then
         MFGet = Empty
     ElseIf cell.getType() = 2 Then
@@ -107,11 +107,15 @@ def basic(source, findings, native=False):
     output = ["Option VBASupport 1"]
     todos, rewrites = [], []
     has_formatting = False
+    has_operations = False
+    created_sheets = set()
     contexts, ranges = [], set()
     nodes, source_tokens = vba.syntax(source), set(vba.tokens(source))
     reserved = set(formatting.CONSTANTS) | {"rgb", "mfformat", "mfformatrange", "mfvbargb", "mfrange", "mfonlycell", "mfget", "mfset", "mfcells"}
     formatting_shadowed = any(set(vba.tokens(node["source"])) & reserved for node in nodes
                               if node["kind"] == "procedure" or re.match(r"(?i)^(dim|static|const)\b", node["source"]))
+    operation_names=set(operations.CONSTANTS)|{'mfclear','mfcopy','mfsort','mffilter','mfaddsheet','mfrenamesheet','mfrangebound'}
+    operation_shadowed=any(set(vba.tokens(node['source'])) & operation_names for node in nodes if node['kind']=='procedure' or re.match(r'(?i)^(dim|static|const|private|public)\b',node['source']))
     uses_formatting = any(formatting.has_property(vba.tokens(node["source"])) for node in nodes)
     by_line = {}
     shadowed=bool(re.search(r'(?im)\b(?:Dim|Static|Sub|Function)\s+VBA\b|^Attribute\s+VB_Name\s*=\s*"VBA"',source))
@@ -123,14 +127,14 @@ def basic(source, findings, native=False):
             continue
         for finding in by_line.get(number, []):
             message = finding["messages"][0]
-            output.append("' MACROFERRY TODO(" + finding["rule_id"] + "): " + message)
+            output.append("' CELLWRIGHT TODO(" + finding["rule_id"] + "): " + message)
             todos.append({"line": number, "rule_id": finding["rule_id"], "reason": message})
         replacement, ids = basic_intrinsics(line)
         if ids and not shadowed and not re.match(r'(?i)^\s*rem\b',line):
             rewrites.extend({"line":number,"rule_id":rule,"before":line,"after":replacement} for rule in ids)
             line=replacement
         elif ids and shadowed:
-            output.append("' MACROFERRY TODO: VBA identifier is shadowed; review qualified intrinsics")
+            output.append("' CELLWRIGHT TODO: VBA identifier is shadowed; review qualified intrinsics")
             todos.append({"line":number,"reason":"VBA identifier is shadowed"})
         parts = list(vba.split_statements(line))
         statement = " : ".join(part for _, part in parts)
@@ -162,7 +166,7 @@ def basic(source, findings, native=False):
             except vba.Unsupported as error:
                 contexts.append(None)
                 if uses_formatting or context:
-                    output.append("' MACROFERRY TODO(UNO-MANUAL): " + str(error))
+                    output.append("' CELLWRIGHT TODO(UNO-MANUAL): " + str(error))
                     todos.append({"line": number, "rule_id": "UNO-MANUAL", "reason": str(error)})
         elif statement.lower() == "end with" and contexts:
             if contexts.pop():
@@ -170,6 +174,35 @@ def basic(source, findings, native=False):
                 rewrites.append({"line": number, "rule_id": "FORMAT-WITH", "before": line, "after": "End If"})
                 continue
         if statement.startswith(".") and context: statement = context + statement
+        if re.search(r'(?i)\.(clearcontents|clear|copy|sort|autofilter)\b', statement) and not statement.startswith("'"):
+            try:
+                if len(parts) != 1: raise vba.Unsupported("Compound range operations need manual migration")
+                if operation_shadowed: raise vba.Unsupported("Operation constants or helpers are shadowed")
+                replacement = operations.basic(statement,ranges)
+                if replacement:
+                    output.append(replacement)
+                    rewrites.append({"line":number,"rule_id":"RANGE-OPERATION","before":line,"after":replacement})
+                    has_operations = True
+                    continue
+            except vba.Unsupported as error:
+                output.append("' CELLWRIGHT TODO(RANGE-MANUAL): "+str(error))
+                todos.append({"line":number,"rule_id":"RANGE-MANUAL","reason":str(error)})
+        if native and "name" in set(vba.tokens(statement)):
+            try:
+                replacement=operations.rename(statement,created_sheets)
+                if replacement:
+                    output.append(replacement)
+                    rewrites.append({"line":number,"rule_id":"SHEET-RENAME","before":line,"after":replacement})
+                    has_operations=True
+                    continue
+            except vba.Unsupported: pass
+        if native and re.fullmatch(r'(?i)\s*(?:Set\s+)?[A-Za-z_]\w*\s*=\s*(?:Worksheets|Sheets)\.Add(?:\(\s*\))?\s*', statement):
+            created_sheets.add(vba.assignment(statement)[0]["name"])
+            replacement=re.sub(r'(?i)(?:Worksheets|Sheets)\.Add(?:\(\s*\))?', 'MFAddSheet()', statement)
+            output.append(replacement)
+            rewrites.append({"line":number,"rule_id":"SHEET-ADD","before":line,"after":replacement})
+            has_operations=True
+            continue
         token_list = vba.tokens(statement)
         words = set(token_list)
         is_formatting = formatting.has_property(token_list)
@@ -207,12 +240,13 @@ def basic(source, findings, native=False):
                 rewrites.append({"line": number, "rule_id": "UNO-RANGE-SET", "before": line, "after": replacement})
                 continue
             except (vba.Unsupported, NotImplementedError) as error:
-                output.append("' MACROFERRY TODO(UNO-MANUAL): " + str(error))
+                output.append("' CELLWRIGHT TODO(UNO-MANUAL): " + str(error))
                 todos.append({"line": number, "rule_id": "UNO-MANUAL", "reason": str(error)})
         output.append(line)
     if contexts:
         todos.append({"reason": "Unclosed With block requires manual migration"})
-    if native or has_formatting:
+    if has_operations: output.append(operations.helpers())
+    if native or has_formatting or has_operations:
         output.append(UNO_HELPERS)
     if has_formatting or 'MFVbaRGB(' in '\n'.join(output): output.append(formatting.basic_helpers())
     return {"source": "\n".join(output) + "\n", "todos": todos, "rewrites": rewrites}
@@ -228,6 +262,7 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
     subprocess.run([str(Path(binary).resolve()), "extract", str(input_path), "--out", str(destination / "inventory")], check=True, capture_output=True, timeout=120)
     inventory = json.loads((destination / "inventory/scan.json").read_text(encoding="utf-8"))
     workbook = inventory["workbooks"][0]
+    ui_specs = ui.inventory(workbook, input_path)
     modules, records = {}, []
     source_dir = destination / "source"
     source_dir.mkdir()
@@ -237,9 +272,12 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
         original = source_dir / f"{index:04d}-{safe}.original.bas"
         original.write_text(module["source"], encoding="utf-8")
         if target in ("basic", "basic-uno"):
-            result = basic(module["source"], module["findings"], target == "basic-uno")
+            lowered = ui.rewrite(module["source"], name, ui_specs) if ui_specs else {"source":module["source"], "todos":[], "rewrites":[]}
+            result = basic(lowered["source"], module["findings"], target == "basic-uno")
+            result["todos"].extend(lowered["todos"])
+            result["rewrites"].extend(lowered["rewrites"])
             candidate = source_dir / f"{index:04d}-{safe}.bas"
-            if module["kind"] != "standard" and module["code_lines"]:
+            if module["kind"] != "standard" and module["code_lines"] and not any(spec["name"] == name for spec in ui_specs):
                 result["todos"].append({"line": 1, "reason": "Document events, classes and form layouts require manual wiring"})
             modules[name] = result["source"]
         else:
@@ -253,14 +291,33 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
         candidate.write_text(result["source"], encoding="utf-8")
         diff = candidate.with_suffix(candidate.suffix + ".diff")
         diff.write_text("".join(difflib.unified_diff(module["source"].splitlines(True), result["source"].splitlines(True), fromfile=name + ".original", tofile=candidate.name)), encoding="utf-8")
-        records.append({"name": name, "kind": module["kind"], "original": original.relative_to(destination).as_posix(), "candidate": candidate.relative_to(destination).as_posix(), "diff": diff.relative_to(destination).as_posix(), "todos": result["todos"], "rewrites": result.get("rewrites", []), "procedures": result.get("procedures", [])})
+        records.append({"name": name, "kind": module["kind"], "original": original.relative_to(destination).as_posix(), "candidate": candidate.relative_to(destination).as_posix(), "diff": diff.relative_to(destination).as_posix(), "todos": result["todos"], "rewrites": result.get("rewrites", []), "procedures": [{"name":node["name"], "parameters":node["parameters"], "kind":node["procedure_kind"]} for node in vba.syntax(module["source"]) if node["kind"]=="procedure"]})
     buttons = {"records": [], "wrapper_source": ""}
     if target in ("basic", "basic-uno"):
         eligible = controls.handlers(workbook["modules"], records)
         features = set(workbook.get("features", []))
-        if features & {"activex", "legacy_features_uninspected", "binary_features_uninspected", "vml_uninspected", "oversized_parts_uninspected"}:
-            for handler in eligible: handler["reason"] = "ActiveX or incomplete control coverage requires manual migration"
-        converted = office.run({"mode": "convert", "input": str(input_path), "output": str(destination / "converted.ods"), "modules": modules, "button_handlers": eligible}, libreoffice)
+        if "activex" in features and not any(spec["scope"]=="sheet" for spec in ui_specs):
+            for handler in eligible:handler["reason"]="ActiveX control inventory is incomplete; wire manually"
+        if features & {"legacy_features_uninspected", "binary_features_uninspected", "vml_uninspected", "oversized_parts_uninspected"}:
+            for handler in eligible: handler["reason"] = "Incomplete control coverage requires manual migration"
+        for spec in ui_specs:
+            module = next((m for m in workbook["modules"] if m["name"]==spec["name"]),None)
+            record = next((r for r in records if r["name"]==spec["name"]),None)
+            spec["callbacks"] = ui.bindings(module, spec) if module else []
+            for index, callback in enumerate(spec["callbacks"]):
+                if callback["status"] != "candidate": continue
+                if not ui.NAME.fullmatch(spec["name"]) or record is None or record["todos"] or spec.get("error"):
+                    callback.update(status="manual", reason="Handler module or control inventory has unresolved work")
+                    continue
+                wrapper = "MFUIEvent"+str(index+1)
+                while wrapper.lower() in set(vba.tokens(module["source"])): wrapper += "X"
+                callback["wrapper"] = wrapper
+                modules[spec["name"]] += "\nPublic Sub "+wrapper+"(event As Object)\n    "+callback["procedure"]+"\nEnd Sub\n"
+        if ui_specs:
+            helper_name="CellwrightUI"
+            while helper_name.lower() in {name.lower() for name in modules}:helper_name += "X"
+            modules[helper_name] = ui.helpers(ui_specs)
+        converted = office.run({"mode": "convert", "input": str(input_path), "output": str(destination / "converted.ods"), "modules": modules, "button_handlers": eligible, "ui":ui_specs}, libreoffice)
         buttons = converted["buttons"]
     else:
         package = destination / "migration"
@@ -286,6 +343,23 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
             buttons["records"].append({"status": "manual", "before": assignment, "reason": "Source assignment has no matching imported button; recreate and wire manually"})
     if "macro_assignment" in workbook.get("features", []) and not buttons["records"]:
         buttons["records"].append({"status": "manual", "before": "Button/shape assignments", "reason": "No readable imported button binding in this target; wire manually"})
+    interfaces = converted.get("user_interfaces",[]) if target in ("basic", "basic-uno") else []
+    if target not in ("basic", "basic-uno"):
+        interfaces = [{"name":spec["name"], "scope":spec["scope"], "status":"manual", "reason":"This target exports routines only; migrate the interface with the Basic target or manual recipes", "records":[]} for spec in ui_specs]
+    for index, interface in enumerate(interfaces):
+        for key, suffix in (("original_xml", ".original.xdl"),("candidate_xml", ".xdl")):
+            if key in interface:
+                path = source_dir / ("dialog-"+str(index)+suffix)
+                path.write_text(interface.pop(key), encoding="utf-8")
+                interface["original" if key=="original_xml" else "candidate"] = path.relative_to(destination).as_posix()
+    for record in records:
+        if record["name"] in modules:
+            candidate=destination/record["candidate"]
+            candidate.write_text(modules[record["name"]],encoding="utf-8")
+            original=(destination/record["original"]).read_text(encoding="utf-8")
+            (destination/record["diff"]).write_text("".join(difflib.unified_diff(original.splitlines(True), modules[record["name"]].splitlines(True), fromfile=record["name"]+".original", tofile=candidate.name)),encoding="utf-8")
+    if ui_specs and target in ("basic", "basic-uno"):
+        (source_dir/"ui-helpers.bas").write_text(modules[helper_name],encoding="utf-8")
     queries=[]
     if workbook['queries']:
         from migration.m_runtime import convert as convert_m
@@ -299,7 +373,9 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
                 item.update(candidate=(directory/'query.py').relative_to(destination).as_posix(),queries=summary['queries'],todos=summary['todos'])
             except ValueError as error:item['todos']=[{'reason':str(error)}]
             queries.append(item)
-    report = {"schema_version": "1", "status": "candidate", "verified": False, "input": str(input_path), "input_sha256": hashlib.sha256(input_path.read_bytes()).hexdigest(), "target": target, "modules": records, "buttons": buttons, "power_queries":queries, "workbook_findings": workbook["findings"], "automatic_execution": False, "limitations": ["Review every TODO and supply a golden case before adopting a candidate", "Only imported push buttons with eligible Basic handlers are rebound; other events, UserForms, ActiveX and missing controls need manual migration", "Power Query scripts require pandas and a separate table comparison; ODS does not refresh M queries"]}
+    report = {"schema_version": "1", "status": "candidate", "verified": False, "input": str(input_path), "input_sha256": hashlib.sha256(input_path.read_bytes()).hexdigest(), "target": target, "modules": records, "buttons": buttons, "user_interfaces":interfaces, "power_queries":queries, "workbook_findings": workbook["findings"], "automatic_execution": False, "limitations": ["Review every TODO and supply a golden case before adopting a candidate", "Common imported dialog and worksheet controls have local candidates; custom controls, lifecycle events and missing layouts need manual migration", "Power Query scripts require pandas and a separate table comparison; ODS does not refresh M queries"]}
+    from migration.checklist import checklist
+    report["checklist"] = checklist(report)
     (destination / "conversion.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return report
 
@@ -307,4 +383,6 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
 def todo_count(report):
     return (sum(len(module["todos"]) for module in report["modules"])
             + sum(len(query["todos"]) for query in report.get("power_queries", []))
-            + sum(record["status"] == "manual" for record in report.get("buttons", {}).get("records", [])))
+            + sum(record["status"] == "manual" for record in report.get("buttons", {}).get("records", []))
+            + sum(item["status"] == "manual" for item in report.get("user_interfaces", []))
+            + sum(record["status"] == "manual" for item in report.get("user_interfaces", []) for record in item.get("records", [])))

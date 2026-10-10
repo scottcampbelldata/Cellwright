@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: EUPL-1.2
 use anyhow::{Context, Result};
+use cellwright::{container, model::Workbook, report, rules, scan};
 use clap::{Args, Parser, Subcommand, ValueEnum};
-use macroferry::{container, model::Workbook, report, rules, scan};
 use std::{
     io::{Read, Write},
     path::PathBuf,
@@ -44,6 +44,9 @@ enum Commands {
         /// Enable trusted macro verification; the dashboard is accessible to local processes
         #[arg(long)]
         allow_execution: bool,
+        /// Open the dashboard in the default browser
+        #[arg(long)]
+        open: bool,
     },
     /// Capture, compare or run converted macros using the Python migration tools
     Migrate {
@@ -238,6 +241,7 @@ fn run() -> Result<bool> {
             port,
             data,
             allow_execution,
+            open,
         } => {
             let mut args = vec![
                 "--port".into(),
@@ -249,6 +253,9 @@ fn run() -> Result<bool> {
             ];
             if allow_execution {
                 args.push("--allow-execution".into());
+            }
+            if open {
+                args.push("--open".into());
             }
             run_python("dashboard.server", &args)
         }
@@ -286,7 +293,7 @@ fn run_python(module: &str, args: &[String]) -> Result<bool> {
         .ancestors()
         .find(|path| path.join("migration/__init__.py").is_file())
         .context("Migration tools are missing; use the full distribution archive")?;
-    let override_python = std::env::var_os("MACROFERRY_PYTHON");
+    let override_python = std::env::var_os("CELLWRIGHT_PYTHON");
     let python = override_python
         .as_deref()
         .unwrap_or_else(|| std::ffi::OsStr::new("python"));
@@ -309,12 +316,12 @@ fn run_python(module: &str, args: &[String]) -> Result<bool> {
         }
         result => result,
     }
-    .context("Starting Python tools; install Python 3.11+ or set MACROFERRY_PYTHON")?;
+    .context("Starting Python tools; install Python 3.11+ or set CELLWRIGHT_PYTHON")?;
     Ok(status.success())
 }
 
 fn main() {
-    match run().context("MacroFerry failed") {
+    match run().context("Cellwright failed") {
         Ok(true) => (),
         Ok(false) => std::process::exit(1),
         Err(e) => {

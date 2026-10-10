@@ -25,7 +25,7 @@ class OfficeTests(unittest.TestCase):
         for selected in [None, override]:
             with self.subTest(selected=selected), patch.dict(os.environ, {}, clear=True), patch.object(office, "program", return_value=directory), patch.object(Path, "exists", return_value=True), patch.object(office.subprocess, "Popen", return_value=Mock(poll=Mock(return_value=0))) as launch, patch.object(office.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, '{"converted": true}', '')) as worker:
                 if selected:
-                    os.environ["MACROFERRY_UNO_PYTHON"] = str(selected)
+                    os.environ["CELLWRIGHT_UNO_PYTHON"] = str(selected)
                 job = {"mode": "convert", "modules": {}}
                 self.assertEqual(office.run(job), {"converted": True})
                 self.assertEqual(worker.call_args.args[0][0], str(selected or default))
@@ -33,7 +33,7 @@ class OfficeTests(unittest.TestCase):
                 launch.assert_called_once()
 
     def test_missing_override_fails_before_office_launch(self):
-        with patch.dict(os.environ, {"MACROFERRY_UNO_PYTHON": str(office.ROOT / "target/missing-uno-python")}), patch.object(office, "program", return_value=office.ROOT), patch.object(Path, "exists", return_value=False), patch.object(office.subprocess, "Popen") as launch:
-            with self.assertRaisesRegex(FileNotFoundError, "MACROFERRY_UNO_PYTHON"):
+        with patch.dict(os.environ, {"CELLWRIGHT_UNO_PYTHON": str(office.ROOT / "target/missing-uno-python")}), patch.object(office, "program", return_value=office.ROOT), patch.object(Path, "exists", return_value=False), patch.object(office.subprocess, "Popen") as launch:
+            with self.assertRaisesRegex(FileNotFoundError, "CELLWRIGHT_UNO_PYTHON"):
                 office.run({"mode": "convert", "modules": {}})
             launch.assert_not_called()

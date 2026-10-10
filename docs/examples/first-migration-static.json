@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-10",
+  "macros_executed": false,
+  "runtime_equivalence_verified": false,
+  "platforms": {
+    "windows": {
+      "libreoffice": "26.8.1.1",
+      "dialog_binding_survives_save": true,
+      "worksheet_control_binding_survives_save": true,
+      "direct_adapter_sort_filter_copy_add_rename": true
+    },
+    "ubuntu": {
+      "libreoffice": "26.2.6.3",
+      "dialog_binding_survives_save": true,
+      "worksheet_control_binding_survives_save": true,
+      "direct_adapter_sort_filter_copy_add_rename": true
+    }
+  },
+  "checks": [
+    "Unknown coverage retained",
+    "Existing callbacks removed",
+    "Only eligible source-matched events rebound",
+    "Typed native sort fields",
+    "No routine invocation during browser checks",
+    "Execution disabled and consent reset by default",
+    "Redacted review preview"
+  ],
+  "limits": [
+    "UserForm display and interaction are unverified",
+    "Basic helpers and event wrappers were not executed",
+    "Custom controls, complex handlers and lifecycle events remain manual",
+    "Effort estimates remain uncalibrated"
+  ]
+}

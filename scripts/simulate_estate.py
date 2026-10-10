@@ -36,7 +36,7 @@ MANUAL = {
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
-    parser.add_argument('--binary', type=Path, default=ROOT / ('target/release/macroferry.exe' if os.name == 'nt' else 'target/release/macroferry'))
+    parser.add_argument('--binary', type=Path, default=ROOT / ('target/release/cellwright.exe' if os.name == 'nt' else 'target/release/cellwright'))
     parser.add_argument('--generator', type=Path, default=ROOT / ('target/debug/examples/generate_vba_fixture.exe' if os.name == 'nt' else 'target/debug/examples/generate_vba_fixture'))
     parser.add_argument('--allow-execution', action='store_true', help='Run only the 15 owned arithmetic candidates through openpyxl')
     args = parser.parse_args()

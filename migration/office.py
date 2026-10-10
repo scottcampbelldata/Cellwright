@@ -20,26 +20,26 @@ def local_path(path):
 
 
 def program(path=None):
-    candidates = [path, os.environ.get("MACROFERRY_LIBREOFFICE"), Path(os.environ.get("ProgramFiles", "/usr/lib")) / "LibreOffice/program", Path("/usr/lib/libreoffice/program")]
+    candidates = [path, os.environ.get("CELLWRIGHT_LIBREOFFICE"), Path(os.environ.get("ProgramFiles", "/usr/lib")) / "LibreOffice/program", Path("/usr/lib/libreoffice/program")]
     for candidate in candidates:
         if candidate:
             candidate = Path(candidate)
             if candidate.is_file(): candidate = candidate.parent
             if (candidate / ("soffice.exe" if os.name == "nt" else "soffice")).exists():
                 return candidate.resolve()
-    raise FileNotFoundError("LibreOffice not found; use --libreoffice <program-directory> or MACROFERRY_LIBREOFFICE")
+    raise FileNotFoundError("LibreOffice not found; use --libreoffice <program-directory> or CELLWRIGHT_LIBREOFFICE")
 
 
 def run(job, location=None, timeout=90):
     directory = program(location)
     executable = directory / ("soffice.com" if os.name == "nt" else "soffice")
     default_interpreter = directory / "python.exe" if os.name == "nt" else Path("/usr/bin/python3")
-    interpreter = Path(os.environ.get("MACROFERRY_UNO_PYTHON") or default_interpreter)
+    interpreter = Path(os.environ.get("CELLWRIGHT_UNO_PYTHON") or default_interpreter)
     if not interpreter.exists():
-        raise FileNotFoundError("LibreOffice UNO Python is unavailable; install python3-uno or set MACROFERRY_UNO_PYTHON")
-    with tempfile.TemporaryDirectory(prefix="macroferry-office-") as temporary:
+        raise FileNotFoundError("LibreOffice UNO Python is unavailable; install python3-uno or set CELLWRIGHT_UNO_PYTHON")
+    with tempfile.TemporaryDirectory(prefix="cellwright-office-") as temporary:
         profile = local_path(Path(temporary) / "profile")
-        pipe = "macroferry_" + uuid.uuid4().hex
+        pipe = "cellwright_" + uuid.uuid4().hex
         flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
         environment = dict(os.environ, SAL_DISABLE_OPENCL="1")
         office = subprocess.Popen([str(executable), "--headless", "--nologo", "--nodefault", "--nofirststartwizard", "--norestore", "-env:UserInstallation=" + profile.as_uri(), "--accept=pipe,name=" + pipe + ";urp;StarOffice.ComponentContext"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=flags, env=environment, start_new_session=os.name != "nt")

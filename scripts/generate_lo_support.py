@@ -12,7 +12,7 @@ API = "https://api.github.com/repos/LibreOffice/core"
 
 
 def read(url):
-    request = urllib.request.Request(url, headers={"User-Agent": "MacroFerry-support-generator"})
+    request = urllib.request.Request(url, headers={"User-Agent": "Cellwright-support-generator"})
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read()
 

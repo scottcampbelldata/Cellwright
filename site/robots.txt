@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
+User-agent: *
+Allow: /
+Sitemap: https://cellwright.scottcampbell.io/sitemap.xml

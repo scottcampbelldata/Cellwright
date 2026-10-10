@@ -9,7 +9,7 @@ function badge(value) { return element('span','badge '+value,labels[value]||valu
 function filename(path) { return path.split(/[\\/]/).pop(); }
 function notify(message,error=false) { $('notice').className=error?'error-notice':'success-notice'; $('notice').textContent=message; }
 async function api(path,value) {
- const response=await fetch(path,{method:value?'POST':'GET',headers:{'X-MacroFerry-Token':token,...(value?{'Content-Type':'application/json'}:{})},body:value?JSON.stringify(value):undefined});
+ const response=await fetch(path,{method:value?'POST':'GET',headers:{'X-Cellwright-Token':token,...(value?{'Content-Type':'application/json'}:{})},body:value?JSON.stringify(value):undefined});
  const data=await response.json(); if(!response.ok)throw new Error(data.error||'Request failed'); return data;
 }
 function download(id,path,label) { const link=element('a',null,label); link.href='/files/'+encodeURIComponent(id)+'/'+path.split('/').map(encodeURIComponent).join('/'); return link; }
@@ -36,7 +36,18 @@ submitForm('scan-form','/api/scans',(values,form)=>({...values,paths:values.path
 submitForm('conversion-form','/api/conversions',values=>values);
 submitForm('schedule-form','/api/schedules',values=>({...values,paths:values.paths.split('\n').map(v=>v.trim()).filter(Boolean),interval_hours:Number(values.interval_hours),enabled:true}));
 submitForm('assignment-form','/api/assignments',values=>({...values,path:selected.path}));
-submitForm('verify-form','/api/verifications',(values,form)=>({...values,golden:values.golden.trim(),inputs:JSON.parse(values.inputs),ranges:JSON.parse(values.ranges),allow_execution:form.elements.allow_execution.checked}));
+submitForm('verify-form','/api/verifications',(values,form)=>{
+ const inputs=[...$('verify-inputs').querySelectorAll('.input-value')].map(input=>{
+  const type=input.dataset.type,value=input.value;
+  if(type==='string')return value;
+  if(type==='boolean'){if(!/^(true|false)$/i.test(value.trim()))throw new Error('Use true or false for '+input.dataset.name);return value.trim().toLowerCase()==='true';}
+  if(type==='null')return null;
+  if(!value.trim()||!Number.isFinite(Number(value)))throw new Error('Provide a number for '+input.dataset.name);
+  return Number(value);
+ });
+ const ranges={};for(const row of $('verify-ranges').children){const sheet=row.querySelector('.range-sheet').value.trim(),range=row.querySelector('.range-address').value.trim();if(!sheet||!range)throw new Error('Provide a sheet name and range for every comparison row.');(ranges[sheet]??=[]).push(range);}
+ return {...values,golden:values.golden.trim(),inputs,ranges,allow_execution:form.elements.allow_execution.checked};
+});
 async function loadScan(id) {
  try { scan=await api('/api/jobs/'+id); scanId=id; renderScan(); renderWorkbooks(); }
  catch(error){notify(error.message,true);}
@@ -72,9 +83,9 @@ function renderWorkbooks() {
  }
 }
 $('search').oninput=renderWorkbooks;$('verdict-filter').onchange=renderWorkbooks;
-function finding(value) { const node=element('div','finding');node.append(element('strong',null,value.rule_id+(value.line?' · line '+value.line:'')),element('span',null,value.messages[0]));return node; }
+function finding(value) { const node=element('div','finding');node.append(element('strong',null,value.rule_id+(value.line?' · line '+value.line:'')),element('span',null,value.messages[0]),element('p','help',value.verdict==='unknown'?'Not inspected: review this part separately; conversion does not clear unknown coverage.':'Next: review this location and use the matching manual migration recipe.'));return node; }
 function details(book) {
- selected=book;const saved=assignment(book.path);$('detail-title').textContent=filename(book.path);$('detail-path').textContent=book.path;
+ $('assignment-form').hidden=false;selected=book;const saved=assignment(book.path);$('detail-title').textContent=filename(book.path);$('detail-path').textContent=book.path;
  const assessment=$('detail-assessment');assessment.replaceChildren(badge(book.verdict));const chips=element('div','chips');for(const feature of book.features)chips.append(element('span',null,feature.replaceAll('_',' ')));assessment.append(chips);
  for(const key of ['owner','state','notes'])$('assignment-form').elements[key].value=saved[key];
  const content=$('detail-findings');content.replaceChildren();if(book.error)content.append(element('p','error-notice',book.error));for(const value of book.findings)content.append(finding(value));
@@ -94,10 +105,11 @@ function renderJobs() {
   const card=element('article','panel job-card'),head=element('div','head');head.append(element('h2',null,job.label),badge(job.state));card.append(head);
   const result=job.result?JSON.parse(job.result):null;
   const failure=job.error?.trim().split('\n').at(-1);
-  card.append(element('p',null,failure||(result?result.target+' · '+result.modules+' modules · '+(result.queries||0)+' M sections · '+(result.buttons||0)+' buttons rebound · '+result.todos+' TODO(s) · Execution comparison required':'Preparing a candidate…')));
+  card.append(element('p',null,failure||(result?result.target+' · '+result.modules+' modules · '+(result.queries||0)+' M sections · '+(result.buttons||0)+' buttons rebound · '+result.todos+' unresolved · Candidate generated · Not tested':'Preparing a candidate…')));
   if(result){const links=element('div','downloads');links.append(download(job.id,'conversion.json','Conversion report'),download(job.id,'inventory/report.html','Assessment'));if(result.queries!==undefined)links.append(download(job.id,'candidate.zip','Complete candidate ZIP'));if(result.target!=='python')links.append(download(job.id,'converted.ods','ODS candidate'));const inspect=element('button','secondary','Review source and diff');inspect.onclick=async()=>{
-   try{const report=await api('/api/jobs/'+job.id);for(const module of report.modules){links.append(download(job.id,module.candidate,module.name+' source'),download(job.id,module.diff,module.name+' diff'));}for(const query of report.power_queries||[]){links.append(download(job.id,query.original,query.name+' original M'));if(query.candidate)links.append(download(job.id,query.candidate,query.name+' pandas script'));}if(report.buttons?.candidate)links.append(download(job.id,report.buttons.candidate,'Button wrappers'));for(const button of report.buttons?.records||[]){const row=element('p',null,(button.sheet?button.sheet+' · ':'')+(button.control||button.before)+' · '+(button.status==='rewritten'?'Rebound to '+button.handler:button.reason));card.append(row);}inspect.remove();}catch(error){notify(error.message,true);}
-  };links.append(inspect);if(result.target!=='python'){const verify=element('button','secondary',state.allow_execution?'Compare execution':'Macro execution disabled');verify.disabled=!state.allow_execution;verify.title=state.allow_execution?'Run a trusted test case':'Restart the dashboard with --allow-execution to enable verification';verify.onclick=()=>{$('verify-form').elements.conversion_id.value=job.id;$('verify-form').elements.golden.required=state.requires_golden;$('verify-dialog').showModal();};links.append(verify);}card.append(links);
+   try{const report=await api('/api/jobs/'+job.id);for(const module of report.modules){links.append(download(job.id,module.candidate,module.name+' source'),download(job.id,module.diff,module.name+' diff'));}for(const query of report.power_queries||[]){links.append(download(job.id,query.original,query.name+' original M'));if(query.candidate)links.append(download(job.id,query.candidate,query.name+' pandas script'));}if(report.buttons?.candidate)links.append(download(job.id,report.buttons.candidate,'Button wrappers'));for(const ui of report.user_interfaces||[]){if(ui.original)links.append(download(job.id,ui.original,ui.name+' original layout'));if(ui.candidate)links.append(download(job.id,ui.candidate,ui.name+' dialog layout'));}for(const button of report.buttons?.records||[]){const row=element('p',null,(button.sheet?button.sheet+' · ':'')+(button.control||button.before)+' · '+(button.status==='rewritten'?'Rebound to '+button.handler:button.reason));card.append(row);}inspect.remove();}catch(error){notify(error.message,true);}
+  };links.append(inspect);if(result.target!=='python'){const verify=element('button','secondary',state.allow_execution?'Compare execution':'Macro execution disabled');verify.disabled=!state.allow_execution;verify.title=state.allow_execution?'Run a trusted test case':'Restart the dashboard with --allow-execution to enable verification';verify.onclick=()=>guidedVerification(job).catch(error=>notify(error.message,true));links.append(verify);}const checklist=element('button','secondary','Migration checklist');checklist.onclick=()=>showChecklist(job).catch(error=>notify(error.message,true));links.append(checklist);
+   const handoff=element('button','secondary','Preview review summary');handoff.onclick=()=>previewHandoff(job).catch(error=>notify(error.message,true));links.append(handoff);card.append(links);
    for(const evidence of state.jobs.filter(value=>value.kind==='verify'&&JSON.parse(value.options).conversion_id===job.id)){const proof=evidence.result?JSON.parse(evidence.result):null;const row=element('div','activity-row');row.append(element('span',null,proof?(proof.passed?'Case passed':'Case differs')+' · '+proof.cells_checked+' cells · '+proof.differences+' differences':evidence.error||'Comparison '+evidence.state),badge(evidence.state));if(proof)row.append(download(evidence.id,'verification.json','Comparison evidence'));card.append(row);}
   }
   conversions.append(card);
@@ -110,10 +122,60 @@ function renderSchedules() {
 async function refresh() {
  if(loading)return;loading=true;
  try{
-  state=await api('/api/state');renderJobs();renderSchedules();
+  state=await api('/api/state');renderJobs();renderSchedules();renderSetup();
   const scans=state.jobs.filter(job=>job.kind==='scan'&&['completed','partial'].includes(job.state));const select=$('scan-select');select.replaceChildren();
   if(!scans.length){select.append(element('option',null,'No scans yet'));}else{for(const job of scans){const option=element('option',null,job.label);option.value=job.id;select.append(option);}if(!scanId){await loadScan(scans[0].id);}select.value=scanId;}
   renderWorkbooks();
  }catch(error){notify(error.message,true);}finally{loading=false;}
 }
+function renderSetup(){
+ const container=$('setup-checks');container.replaceChildren();
+ for(const check of state.setup?.checks||[]){const row=element('details');row.append(element('summary',null,(check.available?'Ready: ':'Setup needed: ')+check.label+' · '+check.needed_for));if(!check.available)row.append(element('p','help',check.action));container.append(row);}
+ $('scan-demo').disabled=!state.setup?.demo||!state.setup?.first_scan_ready;
+}
+$('refresh-setup').onclick=async()=>{try{state.setup=await api('/api/setup');renderSetup();notify('Setup checks refreshed.');}catch(error){notify(error.message,true);}};
+$('scan-demo').onclick=async()=>{try{await api('/api/scans',{label:'Demonstration · formatting and button',paths:[state.setup.demo],source:true});notify('Demonstration scan started. Review its workbook, then create a candidate.');await refresh();}catch(error){notify(error.message,true);}};
+async function showChecklist(job){
+ const report=await api('/api/jobs/'+job.id);
+ $('detail-title').textContent='Migration checklist · '+job.label;$('detail-path').textContent='';$('assignment-form').hidden=true;
+ const assessment=$('detail-assessment');assessment.replaceChildren(element('p',null,'Conversion: '+(report.checklist?.conversion_status||'candidate_generated').replaceAll('_',' ')));
+ const evidence=state.jobs.filter(caseJob=>caseJob.kind==='verify'&&JSON.parse(caseJob.options).conversion_id===job.id&&caseJob.result).map(caseJob=>JSON.parse(caseJob.result));
+ assessment.append(element('p',null,'Tests: '+(evidence.length?(evidence.every(caseJob=>caseJob.passed)?'Selected tests passed':'Selected tests differ'):'Not tested')+' · Passing cases cover only selected routines, inputs and cells.'));
+ if(report.checklist?.coverage_status==='unknown')assessment.append(element('p','error-notice','Unknown coverage: some workbook parts were not inspected.'));
+ const content=$('detail-findings');content.replaceChildren();
+ for(const item of report.checklist?.items||[]){const row=element('div','finding');row.append(element('strong',null,item.status.replaceAll('_',' ')+' · '+item.location+(item.line?' · line '+item.line:'')),element('span',null,item.reason),element('p','help','Next: '+item.next_action));content.append(row);}
+ const link=element('a',null,'Open manual migration recipes ↗');link.href='/recipes';link.target='_blank';link.rel='noreferrer';content.append(link);$('detail-dialog').showModal();
+}
+let routineReport=null;
+function inputRows(){
+ const name=$('verify-routine').value;
+ const module=routineReport.modules.find(module=>name.startsWith(module.name+'.'));
+ const procedure=module?.procedures.find(procedure=>name===module.name+'.'+procedure.name);
+ $('routine-warning').textContent=module?.todos.length?'This module has unresolved work. Review its checklist before opting in.':'This case will compare only the chosen routine and cells.';
+ const container=$('verify-inputs');container.replaceChildren();
+ for(const [index,param]of (procedure?.parameters||'').split(',').filter(param=>param.trim()).entries()){
+  const label=element('label',null,'Input '+(index+1)+' · '+param.trim());const type=element('select');for(const value of ['number','string','boolean','null']){const option=element('option',null,value);option.value=value;type.append(option);}
+  type.value=/as string/i.test(param)?'string':/as boolean/i.test(param)?'boolean':'number';
+  const input=element('input','input-value');input.required=true;input.dataset.name=param;input.dataset.type=type.value;input.value=type.value==='boolean'?'false':type.value==='number'?'0':'';
+  type.onchange=()=>{input.dataset.type=type.value;input.required=type.value!=='null';if(type.value==='boolean')input.value='false';};label.append(type,input);container.append(label);
+ }
+}
+function addRange(sheet='',range=''){
+ const row=element('div','two-fields');const sheetLabel=element('label',null,'Sheet name'),addressLabel=element('label',null,'Cell or range');
+ const sheetInput=element('input','range-sheet'),address=element('input','range-address');sheetInput.required=address.required=true;sheetInput.value=sheet;address.value=range;address.placeholder='A1:D5';sheetLabel.append(sheetInput);addressLabel.append(address);
+ const remove=element('button','secondary','Remove range');remove.type='button';remove.onclick=()=>row.remove();row.append(sheetLabel,addressLabel,remove);$('verify-ranges').append(row);
+}
+$('verify-routine').onchange=inputRows;$('add-range').onclick=()=>addRange();
+async function guidedVerification(job){
+ routineReport=await api('/api/jobs/'+job.id);const select=$('verify-routine');select.replaceChildren();
+ for(const module of routineReport.modules){if(module.kind!=='standard')continue;for(const procedure of module.procedures||[]){if(typeof procedure!=='object'||/^(auto_open|auto_close|workbook_|worksheet_)/i.test(procedure.name))continue;const option=element('option',null,module.name+'.'+procedure.name);option.value=module.name+'.'+procedure.name;select.append(option);}}
+ if(!select.options.length)throw new Error('No ordinary standard-module routines were discovered; use the manual recipes to prepare a testable entry point.');
+ $('verify-form').reset();$('verify-form').elements.conversion_id.value=job.id;$('verify-form').elements.golden.required=state.requires_golden;
+ $('verify-ranges').replaceChildren();addRange('Data','A1');inputRows();$('verify-dialog').showModal();
+}
+let handoffJob=null,handoffValue=null,handoffRevision=0;
+async function updateHandoff(){const revision=++handoffRevision;$('save-handoff').disabled=true;try{const value=await api('/api/handoff',{conversion_id:handoffJob.id,include_identifiers:$('handoff-identifiers').checked});if(revision===handoffRevision){handoffValue=value;$('handoff-preview').textContent=JSON.stringify(value,null,2);$('save-handoff').disabled=false;}}catch(error){if(revision===handoffRevision){handoffValue=null;$('handoff-preview').textContent='Preview unavailable. Please try again.';}throw error;}}
+async function previewHandoff(job){handoffJob=job;$('handoff-identifiers').checked=false;await updateHandoff();const link=$('consulting-link'),url=state.setup?.consulting_url;link.hidden=true;if(url){try{const parsed=new URL(url);if(parsed.protocol==='https:'){link.href=parsed.href;link.hidden=false;}}catch{}}$('handoff-dialog').showModal();}
+$('handoff-identifiers').onchange=()=>updateHandoff().catch(error=>notify(error.message,true));
+$('save-handoff').onclick=()=>{if(!handoffValue)return;const link=element('a');link.href=URL.createObjectURL(new Blob([JSON.stringify(handoffValue,null,2)+'\n'],{type:'application/json'}));link.download='cellwright-review-summary.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);};
 refresh();setInterval(()=>{if(!document.hidden)refresh();},4000);

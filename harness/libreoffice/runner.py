@@ -76,11 +76,13 @@ def main():
             for name in tuple(library.getElementNames()): library.removeByName(name)
             for name, source in job["modules"].items(): library.insertByName(name, source)
             from migration.controls import rebind
-            buttons = rebind(document, job.get("button_handlers", []), job["input"], job["modules"], uno)
+            buttons = rebind(document, job.get("button_handlers", []), job["input"], job["modules"], uno, job.get("ui", []))
+            from migration.ui import migrate_dialogs
+            interfaces = migrate_dialogs(document, job.get("ui", []), uno)
             if buttons["wrapper_source"]:
                 library.insertByName(buttons["wrapper_module"], buttons["wrapper_source"])
             document.storeAsURL(local_path(job["output"]).as_uri(), (property_value("FilterName", "calc8"), property_value("Overwrite", False)))
-            result = {"output": job["output"], "module_names": list(job["modules"]), "status": "candidate", "buttons": buttons}
+            result = {"output": job["output"], "module_names": list(job["modules"]), "status": "candidate", "buttons": buttons, "user_interfaces":interfaces}
         elif job["mode"] == "capture":
             if job.get("macro"):
                 if not job.get("allow_execution"):

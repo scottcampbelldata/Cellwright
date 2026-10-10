@@ -9,7 +9,7 @@ use std::{
 use zip::{ZipWriter, write::SimpleFileOptions};
 
 fn cli(args: &[&str], input: &Path, out: &Path) -> Output {
-    Command::new(env!("CARGO_BIN_EXE_macroferry"))
+    Command::new(env!("CARGO_BIN_EXE_cellwright"))
         .args(args)
         .arg(input)
         .arg("--out")
@@ -28,8 +28,8 @@ fn corpus(name: &str) -> PathBuf {
 fn python3_fallback_and_dashboard_execution_flag() {
     use std::os::unix::fs::PermissionsExt;
     let temp = tempfile::tempdir().unwrap();
-    let binary = temp.path().join("macroferry");
-    fs::copy(env!("CARGO_BIN_EXE_macroferry"), &binary).unwrap();
+    let binary = temp.path().join("cellwright");
+    fs::copy(env!("CARGO_BIN_EXE_cellwright"), &binary).unwrap();
     fs::create_dir(temp.path().join("migration")).unwrap();
     fs::write(temp.path().join("migration/__init__.py"), "").unwrap();
     let python3 = temp.path().join("python3");
@@ -40,9 +40,9 @@ fn python3_fallback_and_dashboard_execution_flag() {
         command
             .args(args)
             .env("PATH", temp.path())
-            .env_remove("MACROFERRY_PYTHON");
+            .env_remove("CELLWRIGHT_PYTHON");
         if let Some(path) = override_python {
-            command.env("MACROFERRY_PYTHON", path);
+            command.env("CELLWRIGHT_PYTHON", path);
         }
         command.output().unwrap()
     };
@@ -58,7 +58,8 @@ fn python3_fallback_and_dashboard_execution_flag() {
     let result = run(&["serve", "--allow-execution"], None);
     assert!(result.status.success());
     assert!(String::from_utf8_lossy(&result.stdout).contains("--allow-execution"));
-    let result = run(&["serve"], None);
+    let result = run(&["serve", "--open"], None);
+    assert!(String::from_utf8_lossy(&result.stdout).contains("--open"));
     assert!(!String::from_utf8_lossy(&result.stdout).contains("--allow-execution"));
     let result = run(
         &["migrate", "compare", "--help"],
@@ -79,9 +80,9 @@ fn python3_fallback_and_dashboard_execution_flag() {
 
 #[test]
 fn controlled_workbooks_inventory_code_page_owner_and_real_query() {
-    let rules = macroferry::rules::load(None).unwrap();
-    let weights = macroferry::rules::Weights::default();
-    let book = macroferry::container::inspect(
+    let rules = cellwright::rules::load(None).unwrap();
+    let weights = cellwright::rules::Weights::default();
+    let book = cellwright::container::inspect(
         &corpus("generated/arithmetic-source-only.xlsm"),
         &rules,
         &weights,
@@ -97,7 +98,7 @@ fn controlled_workbooks_inventory_code_page_owner_and_real_query() {
                 .as_deref()
                 .is_some_and(|source| source.contains("Sub Calculate"))
     }));
-    let book = macroferry::container::inspect(
+    let book = cellwright::container::inspect(
         &corpus("generated/sales-query.xlsx"),
         &rules,
         &weights,
@@ -379,7 +380,7 @@ fn malformed_legacy_vml_retains_vba_with_unknown_drawing_coverage() {
 fn rejects_archive_bombs_and_missing_inputs() {
     let temp = tempfile::tempdir().unwrap();
     let input = temp.path().join("oversized.xlsx");
-    let oversized = vec![b'x'; macroferry::container::MAX_PART as usize + 1];
+    let oversized = vec![b'x'; cellwright::container::MAX_PART as usize + 1];
     let mut zip = ZipWriter::new(fs::File::create(&input).unwrap());
     zip.start_file("xl/workbook.xml", SimpleFileOptions::default())
         .unwrap();
@@ -443,7 +444,7 @@ fn oversized_non_vba_parts_retain_vba_and_flag_unknown_coverage() {
         zip.start_file(name, SimpleFileOptions::default()).unwrap();
         zip.write_all(bytes).unwrap();
     }
-    let oversized = vec![0xff; macroferry::container::MAX_PART as usize + 1];
+    let oversized = vec![0xff; cellwright::container::MAX_PART as usize + 1];
     for name in [
         "xl/worksheets/sheet1.xml",
         "xl/calcChain.xml",
@@ -512,8 +513,8 @@ fn oversized_non_vba_parts_retain_vba_and_flag_unknown_coverage() {
 fn public_sources_match_independent_olevba_hashes() {
     use sha2::{Digest, Sha256};
     let expected: Value = serde_json::from_str(include_str!("../corpus/expected.json")).unwrap();
-    let rules = macroferry::rules::load(None).unwrap();
-    let weights = macroferry::rules::Weights::default();
+    let rules = cellwright::rules::load(None).unwrap();
+    let weights = cellwright::rules::Weights::default();
     for fixture in expected.as_array().unwrap() {
         let file = corpus(fixture["file"].as_str().unwrap());
         let hash: String = Sha256::digest(fs::read(&file).unwrap())
@@ -524,7 +525,7 @@ fn public_sources_match_independent_olevba_hashes() {
         let Some(expected_modules) = fixture.get("modules") else {
             continue;
         };
-        let workbook = macroferry::container::inspect(&file, &rules, &weights, false).unwrap();
+        let workbook = cellwright::container::inspect(&file, &rules, &weights, false).unwrap();
         assert_eq!(
             workbook.modules.len(),
             expected_modules.as_array().unwrap().len()
@@ -616,8 +617,8 @@ fn protected_project_is_omitted_when_requested() {
 fn legacy_and_binary_containers_extract_vba_with_coverage_warning() {
     let temp = tempfile::tempdir().unwrap();
     let bytes = public_vba_bytes();
-    let rules = macroferry::rules::load(None).unwrap();
-    let weights = macroferry::rules::Weights::default();
+    let rules = cellwright::rules::load(None).unwrap();
+    let weights = cellwright::rules::Weights::default();
     let binary = temp.path().join("synthetic.xlsb");
     write_zip(
         &binary,
@@ -626,9 +627,9 @@ fn legacy_and_binary_containers_extract_vba_with_coverage_warning() {
             ("xl/vbaProject.bin", &bytes),
         ],
     );
-    let workbook = macroferry::container::inspect(&binary, &rules, &weights, false).unwrap();
+    let workbook = cellwright::container::inspect(&binary, &rules, &weights, false).unwrap();
     assert_eq!(workbook.modules.len(), 5);
-    assert_eq!(workbook.verdict, macroferry::model::Verdict::Unknown);
+    assert_eq!(workbook.verdict, cellwright::model::Verdict::Unknown);
     let mut source = cfb::CompoundFile::open(Cursor::new(bytes)).unwrap();
     let entries: Vec<_> = source
         .walk()
@@ -668,7 +669,7 @@ fn legacy_and_binary_containers_extract_vba_with_coverage_warning() {
         }
     }
     drop(target);
-    let workbook = macroferry::container::inspect(&legacy, &rules, &weights, false).unwrap();
+    let workbook = cellwright::container::inspect(&legacy, &rules, &weights, false).unwrap();
     assert_eq!(workbook.modules.len(), 5);
-    assert_eq!(workbook.verdict, macroferry::model::Verdict::Unknown);
+    assert_eq!(workbook.verdict, cellwright::model::Verdict::Unknown);
 }

@@ -144,6 +144,8 @@ class Server(ThreadingHTTPServer):
         self.authority = f"127.0.0.1:{self.server_port}"
         self.authorities = {self.authority, f"localhost:{self.server_port}"}
         self.requires_golden = os.name != "nt"
+        from dashboard.setup import check
+        self.setup = check(store.binary)
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -159,7 +161,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def authorize(self, cookie=False):
         self.allowed_host()
-        token = self.headers.get("X-MacroFerry-Token", "")
+        token = self.headers.get("X-Cellwright-Token", "")
         if cookie:
             from http.cookies import SimpleCookie
             cookies = SimpleCookie(self.headers.get("Cookie", ""))
@@ -191,13 +193,30 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply((ROOT / "dashboard" / path[1:]).read_bytes(), content_type="text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8")
             elif path == "/api/state":
                 self.authorize()
-                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.0", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden})
+                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.0", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden, "setup":self.server.setup})
+            elif path == "/api/setup":
+                self.authorize()
+                from dashboard.setup import check
+                self.server.setup=check(self.server.store.binary)
+                self.reply(self.server.setup)
+            elif path == "/recipes":
+                self.authorize(cookie=True)
+                self.reply((ROOT/'docs/recipes.md').read_bytes(),content_type='text/plain; charset=utf-8')
             elif path.startswith("/api/jobs/"):
                 self.authorize()
                 identifier = path.split("/")[-1]
                 job = self.server.store.job(identifier)
                 filename = "scan.json" if job["kind"] == "scan" else "verification.json" if job["kind"]=="verify" else "conversion.json"
-                self.reply(json.loads((self.server.store.directory / identifier / filename).read_text(encoding="utf-8")))
+                report=json.loads((self.server.store.directory / identifier / filename).read_text(encoding="utf-8"))
+                if job['kind']=='convert':
+                    from migration.checklist import checklist
+                    from migration import vba
+                    if 'checklist' not in report:report['checklist']=checklist(report)
+                    for module in report['modules']:
+                        if not module.get('procedures') or isinstance(module['procedures'][0],str):
+                            source=(self.server.store.directory/identifier/module['original']).read_text(encoding='utf-8')
+                            module['procedures']=[{'name':node['name'],'parameters':node['parameters'],'kind':node['procedure_kind']} for node in vba.syntax(source) if node['kind']=='procedure']
+                self.reply(report)
             elif path.startswith("/files/"):
                 self.authorize(cookie=True)
                 parts = path.split("/")
@@ -230,6 +249,18 @@ class Handler(BaseHTTPRequestHandler):
                 if value.get("target") not in ("basic", "basic-uno", "python-uno", "python"): raise ValueError("Invalid target")
                 validate_paths([value.get("path")])
                 result = {"id": self.server.store.submit("convert", Path(value["path"]).name, value["path"], {"target": value["target"]})}
+            elif self.path == "/api/handoff":
+                from migration.checklist import handoff
+                job=self.server.store.job(value.get('conversion_id'))
+                if job['kind']!='convert' or job['state']!='completed':raise ValueError('Select a completed conversion')
+                report=json.loads((self.server.store.directory/job['id']/'conversion.json').read_text(encoding='utf-8'))
+                if 'checklist' not in report:
+                    from migration.checklist import checklist
+                    report['checklist']=checklist(report)
+                evidence=[]
+                for case in self.server.store.list('jobs'):
+                    if case['kind']=='verify' and case['result'] and json.loads(case['options']).get('conversion_id')==job['id']:evidence.append(json.loads(case['result']))
+                result=handoff(report,evidence,value.get('include_identifiers') is True)
             elif self.path == "/api/assignments":
                 self.server.store.assignment(value)
                 result = {"saved": True}
@@ -255,6 +286,8 @@ class Handler(BaseHTTPRequestHandler):
                     if not module:raise ValueError("Python module not found")
                     converted['python_module']=str(candidate/module['candidate']);converted['macro']=value["macro"].split('.')[-1]
                 case={"original":original,"converted":converted,"ranges":value["ranges"]}
+                from migration.verify import validate
+                validate(case)
                 if golden:case["golden"]=str(Path(golden).resolve())
                 result={"id":self.server.store.submit('verify','Verify '+job['label'],case,{"conversion_id":job['id']})}
             elif self.path == "/api/schedules":
@@ -272,10 +305,11 @@ class Handler(BaseHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--open",action="store_true",help="Open the existing dashboard in your browser")
     parser.add_argument("--port", type=int, default=8768)
     parser.add_argument("--allow-execution", action="store_true", help="Enable trusted macro verification; any local process can access this dashboard")
     parser.add_argument("--data", type=Path, default=ROOT / "reports/dashboard")
-    parser.add_argument("--binary", type=Path, default=ROOT / ("target/release/macroferry.exe" if os.name=='nt' else "target/release/macroferry"))
+    parser.add_argument("--binary", type=Path, default=ROOT / ("target/release/cellwright.exe" if os.name=='nt' else "target/release/cellwright"))
     args = parser.parse_args()
     if not 0 <= args.port <= 65535: parser.error("Invalid port")
     store = Store(args.data, args.binary, args.allow_execution)
@@ -287,7 +321,10 @@ def main():
             except Exception as error: print("Schedule error:", error, flush=True)
     thread = threading.Thread(target=scheduler, daemon=True)
     thread.start()
-    print("MacroFerry dashboard: http://" + server.authority, flush=True)
+    print("Cellwright dashboard: http://" + server.authority, flush=True)
+    if args.open:
+        import webbrowser
+        webbrowser.open("http://"+server.authority)
     try: server.serve_forever()
     except KeyboardInterrupt: pass
     finally:

@@ -28,7 +28,7 @@ def main():
             }
         finally:
             reference.close()
-        with tempfile.TemporaryDirectory(prefix="macroferry-crosscheck-") as directory:
+        with tempfile.TemporaryDirectory(prefix="cellwright-crosscheck-") as directory:
             destination = Path(directory) / "reports"
             subprocess.run(
                 [str(args.binary.resolve()), "extract", str(workbook.resolve()), "--out", str(destination)],

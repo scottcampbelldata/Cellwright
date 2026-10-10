@@ -7,15 +7,18 @@ The current static checks run on Windows x64 and Ubuntu in WSL with Rust/Cargo 1
 | `cargo fmt --all -- --check` | Pass | Pass |
 | `cargo clippy --locked --all-targets -- -D warnings` | Pass | Pass |
 | `cargo test --locked` | 27 passed: 17 unit, 10 integration | 28 passed: 17 unit, 11 integration |
-| Python unittest discovery | 24 passed | 23 passed, one Windows-path test skipped |
+| Python unittest discovery | 34 passed | 33 passed, one Windows-path test skipped |
 
 The extra Ubuntu integration test covers launcher fallback to `python3`. Regression coverage includes skipped oversized non-VBA parts with retained VBA/unknown coverage, preserved aggregate and nested ZIP limits, accumulated VML warnings, form/control estimate caps, boilerplate document overhead, weight validation and UNO interpreter selection. UNO-launch unit tests mock every subprocess.
 
 The latest conversion checks add formatting rules, nested range/Font `With` blocks, colour byte-order conversion, style/value preservation, unsupported values/getters, cell budgets and button eligibility/rebinding. Tests compile new Python candidates without invoking them. An owned source-only XLSM with a VML push button converted to Basic/UNO on Windows and Ubuntu with zero TODOs. Reopening the ODS on both platforms confirmed the document-local wrapper binding, one retained button shape, removal of the imported Basic library and unchanged original cell colour. Direct property calls on separate empty UNO workbooks verified font, colour, fill, wrap, alignment and number-format adapters. No macro or button handler was executed. Runtime behavior of the new Basic helpers remains unverified under that restriction. [Static conversion evidence](examples/formatting-button-static.json) records the scope.
 
+
+The first-migration checks cover bounded control metadata, form/control rewrites and unresolved source retention, imported dialog sanitization and geometry, source-matched private event wrappers, operation argument ordering, typed native sort descriptors, guided-case validation and redacted review exports. Windows and Ubuntu static checks on owned dialogs/worksheet controls confirm their local event bindings survive saving and reopening. Direct adapter calls on blank owned workbooks check sorting, filtering, copying and sheet creation/renaming. Macros, dialog display and callbacks were not invoked. The real InvoiceGenerator pilot retains four dialog layouts with complex handlers and its multipage form explicitly unresolved. [Form/control evidence](examples/first-migration-static.json) records the scope.
+
 Release scans inspect all 30 local corpus files on both platforms, including Automated Invigilation and CosMoS. Full-source and source-free JSON pass the schema; inventories match after removing host metadata. Independent olevba checks confirm all 1,261 extracted modules, with the two previously documented undefined-code-page bytes verified against raw source. All original SHA-256 values match. The inventory contains 145 forms and 1,166 control sites. [Current corpus evidence](examples/real-corpus-round2-summary.json) and [per-file before/after estimates](examples/real-corpus-estimate-comparison.json) record the results. The skipped parts remain unknown, and the hour ranges remain uncalibrated.
 
-The [latest implementation CI run](https://github.com/scottcampbelldata/MacroFerry/actions/runs/38034727945) passed for `5ea18ed`, including Windows/Ubuntu checks, packaging and parser fuzzing. GitHub source is public and private vulnerability reporting is enabled; the [security policy](../SECURITY.md) links the private reporting form.
+The [latest implementation CI run](https://github.com/scottcampbelldata/Cellwright/actions/runs/38034727945) passed for `5ea18ed`, including Windows/Ubuntu checks, packaging and parser fuzzing. GitHub source is public and private vulnerability reporting is enabled; the [security policy](../SECURITY.md) links the private reporting form.
 
 ## Earlier controlled validation — 9 October 2026
 
@@ -37,7 +40,7 @@ Not checked: representative private/government estates, real UNC shares, UserFor
 
 ## Dashboard follow-up — 9 October 2026
 
-Regression checks cover option-like scan paths, localhost with matching Origin, hostile/cross-origin hosts, default execution rejection, explicit startup/case consent, and saved Excel captures for Linux. The Linux CLI test exercises python3 fallback, explicit interpreter errors and absence of retry after a Python failure. In this earlier round, stock Ubuntu conversion to native UNO Basic succeeded without setting MACROFERRY_PYTHON, and a Linux dashboard comparison passed using a saved Excel capture: 20 cells, zero differences. The default dashboard refused execution requests even with a valid session token and case consent.
+Regression checks cover option-like scan paths, localhost with matching Origin, hostile/cross-origin hosts, default execution rejection, explicit startup/case consent, and saved Excel captures for Linux. The Linux CLI test exercises python3 fallback, explicit interpreter errors and absence of retry after a Python failure. In this earlier round, stock Ubuntu conversion to native UNO Basic succeeded without setting CELLWRIGHT_PYTHON, and a Linux dashboard comparison passed using a saved Excel capture: 20 cells, zero differences. The default dashboard refused execution requests even with a valid session token and case consent.
 
 The [30-workbook simulation](calibration.md) passed discovery, source extraction, blocker rules, document-open entry points, Power Query extraction, shared-template deduplication and standalone conversion. Fifteen safe candidates passed value/formula-text checks; COM/API/event candidates were not executed. Human migration hours and formula recalculation were not measured. [Portable scenario evidence](examples/simulated-summary.json) records this scope.
 

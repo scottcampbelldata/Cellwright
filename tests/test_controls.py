@@ -12,7 +12,7 @@ from migration.convert import convert, todo_count
 from test_formatting import SOURCE
 
 
-def event(code="vnd.sun.star.script:MacroFerry.Formatting.FormatSheet?language=Basic&location=document", method="actionPerformed"):
+def event(code="vnd.sun.star.script:Cellwright.Formatting.FormatSheet?language=Basic&location=document", method="actionPerformed"):
     return SimpleNamespace(ScriptCode=code, ScriptType="Script", ListenerType="XActionListener", EventMethod=method, AddListenerParam="")
 
 
@@ -58,13 +58,13 @@ class ControlsTests(unittest.TestCase):
         sheet = SimpleNamespace(Name="Data", DrawPage=SimpleNamespace(Forms=root))
         document = SimpleNamespace(Sheets=SimpleNamespace(Count=1, getByIndex=lambda index: sheet), getScriptProvider=Mock(side_effect=AssertionError("Must never execute")))
         uno = SimpleNamespace(createUnoStruct=lambda name: SimpleNamespace())
-        result = controls.rebind(document, self.known, "Book.xlsm", ["MacroFerryButtons"], uno)
-        self.assertEqual(result["wrapper_module"], "MacroFerryButtonsX")
+        result = controls.rebind(document, self.known, "Book.xlsm", ["CellwrightButtons"], uno)
+        self.assertEqual(result["wrapper_module"], "CellwrightButtonsX")
         self.assertIn("Formatting.formatsheet", result["wrapper_source"])
         self.assertEqual(sum(item["status"] == "rewritten" for item in result["records"]), 1)
         self.assertEqual(sum(item["status"] == "manual" for item in result["records"]), 4)
         self.assertFalse(root.events[0])
-        self.assertEqual(nested.events[0][0].ScriptCode, "vnd.sun.star.script:Standard.MacroFerryButtonsX.Button1?language=Basic&location=document")
+        self.assertEqual(nested.events[0][0].ScriptCode, "vnd.sun.star.script:Standard.CellwrightButtonsX.Button1?language=Basic&location=document")
         self.assertFalse(nested.events[1] or nested.events[2] or nested.events[3])
         document.getScriptProvider.assert_not_called()
 
@@ -80,7 +80,7 @@ class ControlsTests(unittest.TestCase):
                 directory.mkdir()
                 (directory / "scan.json").write_text(json.dumps({"workbooks": [workbook]}), encoding="utf-8")
             buttons = {"records": [{"status": "rewritten", "before": "[0]!Formatting.FormatSheet", "handler": "Formatting.formatsheet", "after": "wrapper"}],
-                       "wrapper_module": "MacroFerryButtons", "wrapper_source": "Sub Button1(event As Object)\nFormatting.formatsheet\nEnd Sub\n"}
+                       "wrapper_module": "CellwrightButtons", "wrapper_source": "Sub Button1(event As Object)\nFormatting.formatsheet\nEnd Sub\n"}
             with patch("migration.convert.subprocess.run", side_effect=extract), patch("migration.convert.office.run", return_value={"buttons": buttons}) as worker:
                 report = convert(original, root / "basic", root / "scanner", "basic-uno")
                 self.assertEqual(todo_count(report), 0)

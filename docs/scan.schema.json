@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MacroFerry scan schema 0.1",
+  "title": "Cellwright scan schema 0.1",
   "type": "object",
   "additionalProperties": false,
   "properties": {

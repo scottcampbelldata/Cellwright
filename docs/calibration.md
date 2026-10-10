@@ -2,13 +2,13 @@
 
 ## Real workbook stress test — 10 October 2026
 
-The local `calibration-corpus` contains 30 third-party VBA workbooks/add-ins: 17 XLSM, five XLS, four XLSB, three XLAM and one XLA. The manifest and independent oletools extraction agree on nonempty module and nonblank line counts. Attribute-only/empty modules are retained by MacroFerry, while its executable code-line count excludes comments; these definitions explain the different totals. The manifest and designer-stream check identify **11 workbooks with 145 UserForms**; four OOXML workbooks contain ActiveX binary parts. These counts differ from the earlier verbal totals of 13 and seven. Legacy/binary worksheet control coverage remains partial.
+The local `calibration-corpus` contains 30 third-party VBA workbooks/add-ins: 17 XLSM, five XLS, four XLSB, three XLAM and one XLA. The manifest and independent oletools extraction agree on nonempty module and nonblank line counts. Attribute-only/empty modules are retained by Cellwright, while its executable code-line count excludes comments; these definitions explain the different totals. The manifest and designer-stream check identify **11 workbooks with 145 UserForms**; four OOXML workbooks contain ActiveX binary parts. These counts differ from the earlier verbal totals of 13 and seven. Legacy/binary worksheet control coverage remains partial.
 
-The initial scan inspected 26 files. Two valid workbook containers had legacy VML drawings with HTML-style `<br>` tags that failed strict XML parsing. MacroFerry now retains their VBA and marks drawing coverage unknown with MF060. Structured worksheet XML remains strict. Buffered JSON output also avoids excessive small writes on Windows-mounted WSL paths.
+The initial scan inspected 26 files. Two valid workbook containers had legacy VML drawings with HTML-style `<br>` tags that failed strict XML parsing. Cellwright now retains their VBA and marks drawing coverage unknown with MF060. Structured worksheet XML remains strict. Buffered JSON output also avoids excessive small writes on Windows-mounted WSL paths.
 
 The current release scans inspect **all 30 files** on Windows and Ubuntu with no discovery errors. The inventory contains 1,261 extracted modules including empty/document modules, 992 unique normalized nonempty modules, 145 UserForms and 1,166 form-control sites. Ten sites have unknown/custom control types; counting designer sites does not prove layout or runtime compatibility. RelaxTools contributes **369 modules, 80 forms and 666 control sites**, with no form-stream parsing errors. The [previous baseline](examples/real-corpus-summary.json) inspected 28 files; its counts and hours are historical measurements.
 
-All 30 extracted VBA projects were cross-checked independently. Twenty-eight match olevba text after line-ending and VBA module-name case normalization. The crypto example and mx contain one undefined Windows-code-page byte each (1252/1257); oletools replaces these with U+FFFD, while MacroFerry preserves their C1 values. Independent decompression of the original bytes confirms those two sources as well. All 30 original SHA-256 values still match the supplied checksum file. No third-party macro was executed. Source-bearing reports stay local; [current portable evidence](examples/real-corpus-round2-summary.json) contains counts, hashes, findings and uncalibrated ranges only.
+All 30 extracted VBA projects were cross-checked independently. Twenty-eight match olevba text after line-ending and VBA module-name case normalization. The crypto example and mx contain one undefined Windows-code-page byte each (1252/1257); oletools replaces these with U+FFFD, while Cellwright preserves their C1 values. Independent decompression of the original bytes confirms those two sources as well. All 30 original SHA-256 values still match the supplied checksum file. No third-party macro was executed. Source-bearing reports stay local; [current portable evidence](examples/real-corpus-round2-summary.json) contains counts, hashes, findings and uncalibrated ranges only.
 
 The two previously blocked files now retain their VBA inventories with unknown skipped-part coverage:
 
@@ -22,10 +22,10 @@ The archive limits remain intact: skipped non-VBA parts are never decompressed, 
 Limits measure expanded ZIP parts, not just file size: CosMoS is 2,890,788 bytes on disk but has a roughly 57 MiB worksheet; the scheduler is 44,518,656 bytes on disk. Warnings name every skipped part, its declared expanded bytes and the active limit. Other VML warnings are retained alongside them. The scanner does not assess content inside skipped parts, and the estimate excludes that unknown work.
 
 ```powershell
-macroferry.exe scan .\calibration-corpus --out .\reports\real-corpus --no-source
+cellwright.exe scan .\calibration-corpus --out .\reports\real-corpus --no-source
 ```
 
-Use a fresh output directory. On Linux use `macroferry` and forward-slash paths. The corpus is ignored by Git and excluded by the release packager's explicit directory allowlist. Finance Tracker and CosMoS are GPL files and must not be bundled in a release. The Macquarie course workbook remains local testing only; no corpus workbook or extracted VBA is included in MacroFerry archives.
+Use a fresh output directory. On Linux use `cellwright` and forward-slash paths. The corpus is ignored by Git and excluded by the release packager's explicit directory allowlist. Finance Tracker and CosMoS are GPL files and must not be bundled in a release. The Macquarie course workbook remains local testing only; no corpus workbook or extracted VBA is included in Cellwright archives.
 
 ### What the estimates show
 

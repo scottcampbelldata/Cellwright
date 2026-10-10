@@ -21,12 +21,12 @@ def write_json(path, value):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="MacroFerry assisted conversion and execution comparison")
+    parser = argparse.ArgumentParser(description="Cellwright assisted conversion and execution comparison")
     commands = parser.add_subparsers(dest="command", required=True)
     conversion = commands.add_parser("convert")
     conversion.add_argument("input", type=Path)
     conversion.add_argument("--out", required=True, type=Path)
-    conversion.add_argument("--binary", default=ROOT / ("target/release/macroferry.exe" if os.name == "nt" else "target/release/macroferry"), type=Path)
+    conversion.add_argument("--binary", default=ROOT / ("target/release/cellwright.exe" if os.name == "nt" else "target/release/cellwright"), type=Path)
     conversion.add_argument("--target", choices=["basic", "basic-uno", "python-uno", "python"], default="basic")
     conversion.add_argument("--libreoffice", type=Path)
     capture = commands.add_parser("capture")
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     try:
         sys.exit(main())
     except Exception as error:
-        print(f"MacroFerry: {error}", file=sys.stderr)
+        print(f"Cellwright: {error}", file=sys.stderr)
         if isinstance(error,subprocess.CalledProcessError) and error.stderr:
             print(error.stderr.decode() if isinstance(error.stderr,bytes) else error.stderr,file=sys.stderr)
         sys.exit(2)

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: EUPL-1.2
-"""Execute only MacroFerry's controlled arithmetic fixture and retain case evidence."""
+"""Execute only Cellwright's controlled arithmetic fixture and retain case evidence."""
 import argparse
 import json
 import os
@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out',required=True,type=Path)
-    parser.add_argument('--binary',default=ROOT/('target/release/macroferry.exe' if os.name=='nt' else 'target/release/macroferry'),type=Path)
+    parser.add_argument('--binary',default=ROOT/('target/release/cellwright.exe' if os.name=='nt' else 'target/release/cellwright'),type=Path)
     parser.add_argument('--golden-suite',type=Path,help='Previously captured suite for Linux verification')
     parser.add_argument('--allow-execution',action='store_true')
     args=parser.parse_args()

@@ -16,4 +16,4 @@ The dashboard binds to loopback, validates exact `127.0.0.1`/`localhost` hosts a
 
 Local binaries are unsigned; SBOM/hash manifests are not attestations. No independent security audit or production signing/release has occurred.
 
-Report suspected vulnerabilities through [GitHub private vulnerability reporting for scottcampbelldata/MacroFerry](https://github.com/scottcampbelldata/MacroFerry/security/advisories/new). Include the affected version, reproduction steps and a minimal sanitized example. Reports are private to the repository's security maintainers until coordinated disclosure. Do not post confidential workbooks or source in public issues.
+Report suspected vulnerabilities through [GitHub private vulnerability reporting for scottcampbelldata/Cellwright](https://github.com/scottcampbelldata/Cellwright/security/advisories/new). Include the affected version, reproduction steps and a minimal sanitized example. Reports are private to the repository's security maintainers until coordinated disclosure. Do not post confidential workbooks or source in public issues.

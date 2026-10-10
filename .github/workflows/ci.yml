@@ -19,12 +19,12 @@ jobs:
       - run: python -m unittest discover -s tests -p "test_*.py"
       - run: cargo build --locked --release
       - if: runner.os == 'Windows'
-        run: python scripts/package.py --binary target/release/macroferry.exe --platform windows-x86_64 --out dist
+        run: python scripts/package.py --binary target/release/cellwright.exe --platform windows-x86_64 --out dist
       - if: runner.os == 'Linux'
-        run: python scripts/package.py --binary target/release/macroferry --platform linux-x86_64 --out dist
+        run: python scripts/package.py --binary target/release/cellwright --platform linux-x86_64 --out dist
       - uses: actions/upload-artifact@v7.0.2
         with:
-          name: macroferry-${{ matrix.os }}
+          name: cellwright-${{ matrix.os }}
           path: dist/*
   fuzz:
     runs-on: ubuntu-latest

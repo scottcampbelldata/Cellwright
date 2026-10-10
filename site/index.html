@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: EUPL-1.2 -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Migrate Excel VBA to LibreOffice Basic or Python locally. Inspect workbooks, review deterministic rewrites, UserForm and ActiveX candidates, and migration checklists.">
+  <meta name="theme-color" content="#173e32">
+  <title>Cellwright — Excel VBA to LibreOffice migration</title>
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cellwright">
+  <meta property="og:title" content="Cellwright — Excel VBA to LibreOffice migration">
+  <meta property="og:description" content="Local workbook inventory, deterministic Basic/Python conversion, form candidates and a migration checklist you can inspect.">
+  <meta property="og:url" content="https://cellwright.scottcampbell.io/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cellwright — Excel VBA to LibreOffice migration">
+  <meta name="twitter:description" content="Inspect, convert and review Excel workbook migrations locally.">
+  <link rel="canonical" href="https://cellwright.scottcampbell.io/">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Cellwright","url":"https://cellwright.scottcampbell.io/","description":"Local Excel VBA inventory and deterministic migration candidates for LibreOffice Basic and Python, with bounded UserForm and ActiveX support.","applicationCategory":"DeveloperApplication","operatingSystem":"Windows, Linux","softwareVersion":"0.1.0","license":"https://spdx.org/licenses/EUPL-1.2.html","codeRepository":"https://github.com/scottcampbelldata/Cellwright","author":{"@type":"Person","name":"Scott Campbell","url":"https://scottcampbell.io/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="wrap"><a class="brand" href="/" aria-label="Cellwright home"><img src="/icon.svg" width="34" height="34" alt="">Cellwright</a><nav aria-label="Main navigation"><a href="#start">Get started</a><a href="https://github.com/scottcampbelldata/Cellwright/blob/main/docs/migration.md">Migration guide</a><a href="https://github.com/scottcampbelldata/Cellwright">GitHub ↗</a></nav></header>
+<main id="main">
+<section class="hero wrap">
+  <div><p class="eyebrow">Excel → LibreOffice · Windows &amp; Linux</p><h1>Move Excel macros to <em>LibreOffice.</em></h1><p class="lead">Keep the work behind your workbook. See what depends on Excel, create a migration candidate, and understand exactly what still needs your attention.</p><div class="actions"><a class="button" href="#start">Start your first migration <span aria-hidden="true">↗</span></a><a href="https://github.com/scottcampbelldata/Cellwright/blob/main/docs/migration.md">Explore the guide →</a></div><p class="small">Local processing. Deterministic rules. Your source workbook stays intact.</p></div>
+  <div class="preview" aria-label="Illustrative migration checklist">
+    <div class="preview-top"><span class="dot"></span> A workbook, a clear next step <span class="sample">Example</span></div>
+    <div class="sheet" aria-hidden="true"><div></div><div>A</div><div>B</div><div>C</div><div>1</div><div class="selected">Invoice</div><div>Amount</div><div>Status</div><div>2</div><div>1001</div><div>125.00</div><div>Open</div><div>3</div><div>1002</div><div>240.00</div><div>Paid</div></div>
+    <div class="result"><span class="check" aria-hidden="true">✓</span><div><strong>Formatting &amp; range operations</strong><small>Candidate generated · inspect the diff</small></div><span class="pill">Candidate</span></div>
+    <div class="result"><span class="check" aria-hidden="true">✓</span><div><strong>Form layout &amp; button event</strong><small>Editable layout · review each control</small></div><span class="pill">Candidate</span></div>
+    <div class="result"><span class="manual" aria-hidden="true">!</span><div><strong>Custom control</strong><small>Location, reason and recipe included</small></div><span class="pill amber">Manual work</span></div>
+    <div class="preview-bottom">Test status <strong>Not tested</strong><span>Generated ≠ verified</span></div>
+  </div>
+</section>
+<section class="features wrap" aria-label="Migration workflow">
+  <article><span class="number">01 / Understand</span><h2>Know what you have.</h2><p>Inventory VBA, forms, controls and Power Query. Find duplicates, blockers and unknown coverage before you begin.</p></article>
+  <article><span class="number">02 / Rebuild</span><h2>A candidate you can inspect.</h2><p>Generate Basic or Python code, retain the original and review the diff. Supported forms and controls get editable layouts and source-matched event candidates.</p></article>
+  <article><span class="number">03 / Check</span><h2>Make the result understandable.</h2><p>Follow a checklist with locations, reasons and next actions. Choose routines, inputs and cells for an explicitly enabled comparison when you are ready.</p></article>
+</section>
+<section class="start wrap" id="start"><div><p class="eyebrow">Your first workbook</p><h2>Start small. See every step.</h2><p>The full archive includes the local dashboard and an owned demonstration workbook. Try that example before scanning your own files.</p><div class="downloads"><a class="button" href="https://github.com/scottcampbelldata/Cellwright/releases/download/v0.1.0/cellwright-0.1.0-windows-x86_64.zip">Windows x64 <span aria-hidden="true">↓</span></a><a class="button secondary" href="https://github.com/scottcampbelldata/Cellwright/releases/download/v0.1.0/cellwright-0.1.0-linux-x86_64.zip">Linux x64 <span aria-hidden="true">↓</span></a></div><p class="small">v0.1.0 preview · unsigned archives · <a href="https://github.com/scottcampbelldata/Cellwright/releases/tag/v0.1.0">Checksums &amp; release notes</a></p></div><ol><li><strong>Extract the full archive.</strong><span>Python 3.11+ runs the dashboard; LibreOffice is needed for Basic/UNO conversion. Setup checks explain missing dependencies.</span></li><li><strong>Open the launcher.</strong><span>Use “Start Cellwright.cmd” on Windows or “start-cellwright.sh” on Linux to open the local dashboard.</span></li><li><strong>Scan demonstration workbook.</strong><span>Scan, create a candidate and inspect its checklist and source diff. Scanning and conversion never run macros.</span></li><li><strong>Review, then verify deliberately.</strong><span>Candidate generation and test results are separate. Routine execution requires a startup flag and consent for each comparison.</span></li></ol></section>
+<section class="limits wrap"><h2>Clear about what still needs work.</h2><p>Custom ActiveX controls, complex or dynamic forms, lifecycle events and unsupported code stay on the manual checklist. Skipped workbook parts stay marked as unknown. Form display and new Basic helper behavior are not runtime-verified, and effort ranges remain uncalibrated planning estimates.</p><div class="actions"><a href="https://github.com/scottcampbelldata/Cellwright/blob/main/docs/recipes.md">Manual migration recipes →</a><a href="https://github.com/scottcampbelldata/Cellwright/blob/main/docs/validation.md">Validation &amp; limits →</a></div></section>
+</main>
+<footer class="wrap"><div><a class="brand" href="/">Cellwright</a><p>Built by <a href="https://scottcampbell.io/">Scott Campbell</a> · EUPL-1.2</p></div><div><a href="https://github.com/scottcampbelldata/Cellwright/security/advisories/new">Report a vulnerability</a><a href="https://scottcampbellconsulting.com/">Optional migration consulting ↗</a></div></footer>
+</body>
+</html>

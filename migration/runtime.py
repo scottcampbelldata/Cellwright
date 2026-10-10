@@ -218,7 +218,80 @@ class Range:
     value2 = property(_get, _set)
     formula = property(lambda self: self._get(True), lambda self, value: self._set(value, True))
 
-    def clearcontents(self): self._set(None)
+    def _bounded(self):
+        if self.count > 100000: raise ValueError("Range exceeds 100,000 cells")
+        r1,c1,r2,c2=self.bounds
+        if min(r1,c1)<1 or r2>1048576 or c2>16384:raise ValueError("Range exceeds sheet bounds")
+        return self.sheet.native.getCellRangeByName(self.address) if self.sheet.book.uno else None
+
+    def clearcontents(self):
+        native=self._bounded()
+        if native is not None:native.clearContents(23)
+        else:self._set(None)
+
+    def clear(self):
+        native=self._bounded()
+        if native is not None:native.clearContents(887)
+        else:
+            for cell in self:
+                r,c,_,_=cell.bounds
+                target=self.sheet.native.cell(r,c)
+                target.value=None;target._style=None;target.comment=None;target.hyperlink=None
+
+    def sort(self, key1, order1, header):
+        native=self._bounded()
+        if not isinstance(key1,Range) or key1.sheet.name!=self.sheet.name or key1.sheet.book is not self.sheet.book:raise ValueError("Sort key must be in this worksheet")
+        r1,c1,r2,c2=self.bounds
+        _,key,_,end=key1.bounds
+        if key!=end or not c1<=key<=c2 or type(order1) is not builtins.int or type(header) is not builtins.int or order1 not in (1,2) or header not in (1,2):raise ValueError("Explicit one-column key, order and header required")
+        start=r1+(header==1)
+        keys=[self.sheet.read(r,key) for r in builtins.range(start,r2+1)]
+        if any(type(value) not in (builtins.int,float) or not math.isfinite(value) or isinstance(self.sheet.read(r,key,True),str) and self.sheet.read(r,key,True).startswith('=') for r,value in zip(builtins.range(start,r2+1),keys)):
+            raise NotImplementedError("Only numeric constant sort keys supported")
+        if native is not None:
+            import uno
+            field=uno.createUnoStruct('com.sun.star.table.TableSortField')
+            field.Field=key-c1;field.IsAscending=order1==1
+            field.FieldType=uno.Enum('com.sun.star.table.TableSortFieldType','NUMERIC')
+            from harness.libreoffice.runner import property_value
+            native.sort(tuple(property_value(name,value) for name,value in [('SortFields',uno.Any('[]com.sun.star.table.TableSortField',(field,))),('ContainsHeader',header==1),('IsSortColumns',False)]))
+        else:
+            from copy import copy
+            rows=[]
+            for row in builtins.range(start,r2+1):
+                cells=[self.sheet.native.cell(row,col) for col in builtins.range(c1,c2+1)]
+                if any(cell.data_type=='f' for cell in cells):raise NotImplementedError("Formula sorting requires an engine-native migration")
+                rows.append((keys[row-start],[(cell.value,copy(cell._style),copy(cell.comment),copy(cell.hyperlink)) for cell in cells]))
+            for row,(_,cells) in zip(builtins.range(start,r2+1),sorted(rows,key=lambda value:value[0],reverse=order1==2)):
+                for col,(value,style,comment,link) in zip(builtins.range(c1,c2+1),cells):
+                    cell=self.sheet.native.cell(row,col);cell.value=value;cell._style=style;cell.comment=comment;cell.hyperlink=link
+
+    def autofilter(self, field, criteria1):
+        native=self._bounded()
+        r1,c1,r2,c2=self.bounds
+        if type(field) is not builtins.int or not 1<=field<=c2-c1+1:raise ValueError("Invalid filter field")
+        if type(criteria1) not in (str,builtins.int,float) or isinstance(criteria1,str) and (any(ch in criteria1 for ch in '*?~') or criteria1.startswith(('<','>','='))):
+            raise NotImplementedError("Only literal equality filters supported")
+        if native is not None:
+            import uno
+            condition=uno.createUnoStruct('com.sun.star.sheet.TableFilterField')
+            condition.Field=field-1;condition.Operator=uno.Enum('com.sun.star.sheet.FilterOperator','EQUAL')
+            condition.IsNumeric=type(criteria1) is not str
+            if condition.IsNumeric:condition.NumericValue=criteria1
+            else:condition.StringValue=criteria1
+            descriptor=native.createFilterDescriptor(True)
+            descriptor.ContainsHeader=True;descriptor.IsCaseSensitive=False;descriptor.UseRegularExpressions=False
+            descriptor.setFilterFields((condition,));native.filter(descriptor)
+        else:
+            for row in builtins.range(r1+1,r2+1):
+                value=self.sheet.read(row,c1+field-1)
+                formula=self.sheet.read(row,c1+field-1,True)
+                if isinstance(formula,str) and formula.startswith('='):raise NotImplementedError("Filtering formula results requires a calculating engine")
+            self.sheet.native.auto_filter.ref=self.address
+            for row in builtins.range(r1+1,r2+1):
+                value=self.sheet.read(row,c1+field-1)
+                equal=value.casefold()==criteria1.casefold() if isinstance(value,str) and isinstance(criteria1,str) else value==criteria1
+                self.sheet.native.row_dimensions[row].hidden=not equal
 
     def offset(self, rows=0, columns=0):
         r1, c1, r2, c2 = self.bounds
@@ -234,7 +307,14 @@ class Range:
         return Range(self.sheet, (r, c, r + rows - 1, c + columns - 1))
 
     def copy(self, destination):
+        native=self._bounded()
+        if not isinstance(destination,Range) or destination.sheet.book is not self.sheet.book:raise ValueError("Copy destination must be in this workbook")
         r1, c1, r2, c2 = self.bounds
+        destination.resize(r2-r1+1,c2-c1+1)._bounded()
+        if native is not None:
+            dest=destination.sheet.native.getCellRangeByName(destination.address).getCellByPosition(0,0).getCellAddress()
+            destination.sheet.native.copyRange(dest,native.getRangeAddress())
+            return
         values=self._get(True)
         cells=[values] if self.count==1 else [cell for row in values for cell in row]
         if any(isinstance(cell,str) and cell.startswith("=") for cell in cells):
@@ -255,6 +335,15 @@ class Sheet:
 
     @property
     def name(self): return self.native.Name if self.book.uno else self.native.title
+
+    @name.setter
+    def name(self, value):
+        if not isinstance(value,str) or not value or len(value)>31 or any(ch in value for ch in "[]:*?/\\") or value.startswith("'") or value.endswith("'"):
+            raise ValueError("Invalid worksheet name")
+        names=self.book.native.Sheets.getElementNames() if self.book.uno else self.book.native.sheetnames
+        if any(name.casefold()==value.casefold() and name!=self.name for name in names):raise ValueError("Worksheet name already exists")
+        if self.book.uno:self.native.Name=value
+        else:self.native.title=value
 
     def range(self, address): return Range(self, coordinates(address))
 
@@ -359,13 +448,32 @@ class WorksheetFunction:
     def count(self, *values): return len(list(self._values(values)))
 
 
+class Sheets:
+    def __init__(self,book):self.book=book
+    def __call__(self,key):return self.book._worksheet(key)
+    def add(self):
+        native=self.book.native
+        names=native.Sheets.getElementNames() if self.book.uno else native.sheetnames
+        index=1
+        while 'Sheet'+str(index) in names:index+=1
+        name='Sheet'+str(index)
+        if self.book.uno:
+            native.Sheets.insertNewByName(name,native.Sheets.Count)
+            sheet=self(name)
+            native.CurrentController.setActiveSheet(sheet.native)
+        else:sheet=Sheet(self.book,native.create_sheet(name))
+        self.book.active=sheet
+        return sheet
+
+
 class Workbook:
     def __init__(self, native, uno=False):
         self.native, self.uno = native, uno
+        self.worksheets=Sheets(self)
         self.active = self.worksheets(1)
         self.worksheetfunction = WorksheetFunction()
 
-    def worksheets(self, key):
+    def _worksheet(self, key):
         if self.uno:
             sheets = self.native.Sheets
             native = sheets.getByIndex(key - 1) if isinstance(key, builtins.int) else sheets.getByName(key)

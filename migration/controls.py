@@ -52,13 +52,13 @@ def resolve(code, script_type, known, workbook):
     return matches[0]
 
 
-def rebind(document, known, workbook, module_names, uno):
+def rebind(document, known, workbook, module_names, uno, ui_specs=()):
     records, wrappers = [], []
-    wrapper_module = "MacroFerryButtons"
+    wrapper_module = "CellwrightButtons"
     while wrapper_module.lower() in {name.lower() for name in module_names}: wrapper_module += "X"
     count = 0
 
-    def visit(container, sheet, path, depth=0):
+    def visit(container, sheet, path, spec=None, depth=0):
         nonlocal count
         if depth > 32: raise ValueError("Form hierarchy exceeds 32 levels")
         for index in range(container.getCount()):
@@ -68,6 +68,35 @@ def rebind(document, known, workbook, module_names, uno):
             events = tuple(container.getScriptEvents(index))
             container.revokeScriptEvents(index)
             name = path + "/" + model.Name
+            ui_control = next((c for c in spec['controls'] if c['name'].lower()==model.Name.lower()), None) if spec else None
+            callbacks = [c for c in spec.get('callbacks',[]) if c.get('control','').lower()==model.Name.lower()] if spec else []
+            if ui_control:
+                for old in events:
+                    if not any(c.get('method')==old.EventMethod and c.get('status')=='candidate' for c in callbacks):
+                        records.append({"sheet":sheet,"control":name,"event":old.EventMethod,"before":old.ScriptCode,"status":"manual","reason":"Imported event has no supported source-matched replacement; it was detached"})
+                typ=ui_control['control_type']
+                service={'TextBox':'TextField','Label':'FixedText','OptionButton':'RadioButton'}.get(typ,typ)
+                good=model.supportsService('com.sun.star.form.component.'+service)
+                if typ=='CommandButton':
+                    good=good and getattr(getattr(model,'ButtonType',None),'value','')=='PUSH' and not getattr(model,'Toggle',False) and not getattr(model,'TargetURL','')
+                if typ in ('CheckBox','OptionButton'):good=good and not getattr(model,'TriState',False)
+                bound=bool(getattr(model,'DataField','') or getattr(model,'ControlSource',''))
+                for method in ('getValueBinding','getListEntrySource'):
+                    if hasattr(model,method):bound=bound or getattr(model,method)() is not None
+                for callback in callbacks:
+                    item={"sheet":sheet,"control":name,"before":"","status":"manual","reason":callback.get('reason','Imported control type or handler needs manual review')}
+                    records.append(item)
+                    if callback['status']=='candidate' and good and not bound:
+                        replacement=uno.createUnoStruct('com.sun.star.script.ScriptEventDescriptor')
+                        replacement.ListenerType='com.sun.star.awt.'+callback['listener']
+                        replacement.EventMethod=callback['method']
+                        replacement.AddListenerParam,replacement.ScriptType='', 'Script'
+                        replacement.ScriptCode='vnd.sun.star.script:Standard.'+spec['name']+'.'+callback['wrapper']+'?language=Basic&location=document'
+                        container.registerScriptEvent(index,replacement)
+                        item.update(status='rewritten',rule_id='UI-EVENT',after=replacement.ScriptCode,handler=spec['name']+'.'+callback['procedure'])
+                        item.pop('reason',None)
+                if not good:records.append({"sheet":sheet,"control":name,"status":"manual","before":"","reason":"ActiveX class does not match an imported native control"})
+                continue
             button = model.supportsService("com.sun.star.form.component.CommandButton")
             if button and not events:
                 records.append({"sheet": sheet, "control": name, "status": "manual", "reason": "Imported button has no readable callback", "before": ""})
@@ -90,9 +119,16 @@ def rebind(document, known, workbook, module_names, uno):
                     record.update(status="rewritten", rule_id="BUTTON-ACTION", after=replacement.ScriptCode, handler=handler["module"] + "." + handler["procedure"])
                 except ValueError as error: record["reason"] = str(error)
             if model.supportsService("com.sun.star.form.component.Form"):
-                visit(model, sheet, name, depth + 1)
+                visit(model, sheet, name, spec, depth + 1)
 
     for index in range(document.Sheets.Count):
         sheet = document.Sheets.getByIndex(index)
-        visit(sheet.DrawPage.Forms, sheet.Name, "")
+        spec=next((s for s in ui_specs if s['scope']=='sheet' and s['name'].lower()==getattr(sheet,'CodeName','').lower()),None)
+        start=len(records)
+        visit(sheet.DrawPage.Forms, sheet.Name, "", spec)
+        if spec:
+            seen={r['control'].split('/')[-1].lower() for r in records[start:]}
+            for control in spec['controls']:
+                if control['name'].lower() not in seen:
+                    records.append({"sheet":sheet.Name,"control":control['name'],"status":"manual","before":"","reason":"Source ActiveX control has no imported event candidate; check its layout and wire manually"})
     return {"records": records, "wrapper_module": wrapper_module, "wrapper_source": "\n".join(wrappers)}

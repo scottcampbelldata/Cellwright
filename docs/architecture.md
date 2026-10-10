@@ -9,13 +9,13 @@ Python sidecars reuse scanner JSON. A tolerant handwritten VBA statement/express
 | M0 | Project, pinned toolchain/dependencies, CI, license/REUSE, public GitHub source and private vulnerability reporting | publiccode/mirror metadata and governance |
 | M1 | Own decompressor/dir/code pages/types/protection, CFB v3/v4, VBA from ZIP/legacy, encryption, forms inventory/designer evidence, queries/connections, fuzz target/corpus | Broader real forms/legacy corpus, full binary feature/p-code analysis, extra ovba reference tool |
 | M2 | Discovery/shares, isolated workers, 60 translated rules, verdicts/dedup/CSV/JSON | Estate pilots and performance/security validation |
-| M3 | Offline reports/estimates/privacy, Windows/Linux full archives, SBOM/hashes, three-language guides, reproducibility procedure | Signing, publication/mirror, language review and calibration |
+| M3 | Offline reports/estimates/privacy, Windows/Linux full archives, SBOM/hashes, three-language guides, reproducibility procedure | Signing, mirror, language review and calibration |
 | M4 | Pinned IDL snapshot, partial member/type checks, integrated tolerant tree/parser | Full name/type resolution; declared is not tested |
 | M5 | Excel COM capture, private UNO worker, formula/numeric comparison, controlled suites | Workload-specific cases, dates/locales/errors/formats/side effects |
-| M6 | Basic compatibility/native cell candidates, TODOs/diffs, 40 named qualified-intrinsic rules, cell/formatting rewrites and eligible worksheet-button rebinding | General object model/UserForms/events/APIs; namespace rules are not 40 object-model ports |
-| M7 | Python UNO and standalone openpyxl generators/helper, bounded range formatting | Advanced VBA semantics/classes/coercions, button installation and engine-native formula copies |
+| M6 | Basic compatibility/native cell candidates, TODOs/diffs, 40 named qualified-intrinsic rules, cell/formatting/range rewrites, editable form layouts and eligible worksheet/ActiveX event binding | Custom/dynamic forms, complex handlers, lifecycle events and APIs; namespace rules are not 40 object-model ports |
+| M7 | Python UNO and standalone openpyxl generators/helper, bounded formatting and range operations | Advanced VBA semantics/classes/coercions, interface installation and standalone formula calculation/copies |
 | M8 | M parser/metadata, common pandas table operations, extracted-query comparison | General M/comparers/null coercion/network/SQL providers |
-| M9 | Dashboard scans/history, assignment/status/notes, schedules, candidates/downloads and opt-in comparisons | Multi-user/remote deployment; schedules need a running server |
+| M9 | Dashboard scans/history, assignment/status/notes, schedules, candidates/downloads, setup/demo launcher, actionable checklist, guided opt-in comparisons and redacted review summaries | Multi-user/remote deployment; schedules need a running server |
 
 This is a bounded first release across the roadmap, not a universal VBA/M transpiler. Release gates needing credentials, real users or confidential estates cannot be replaced with fixtures.
 

@@ -1,0 +1,13 @@
+# Cellwright
+
+> Local Excel VBA inventory and deterministic migration candidates for LibreOffice Basic and Python. Windows and Linux. No external model or API key required.
+
+## Documentation
+- [Overview and downloads](https://cellwright.scottcampbell.io/): capabilities, setup and limits.
+- [Migration guide](https://github.com/scottcampbelldata/Cellwright/blob/main/docs/migration.md): supported targets, form/control limits and explicit verification.
+- [Manual recipes](https://github.com/scottcampbelldata/Cellwright/blob/main/docs/recipes.md): range operations, UserForms and ActiveX migration examples.
+- [Validation](https://github.com/scottcampbelldata/Cellwright/blob/main/docs/validation.md): actual checks and unverified behavior.
+- [Source](https://github.com/scottcampbelldata/Cellwright): public repository, EUPL-1.2.
+
+## Limits
+Conversion produces candidates, not proven equivalents. Scanning and conversion never run macros. Verification requires explicit startup and per-case execution consent. Complex/custom controls, dynamic forms and lifecycle events require manual work. Unknown coverage remains unknown. Effort estimates are uncalibrated. The website does not accept workbook uploads.

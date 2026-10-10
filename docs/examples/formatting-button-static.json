@@ -2,7 +2,7 @@
   "date": "2026-10-10",
   "scope": "Static conversion, saved button bindings and direct formatting properties; no macro or button handler execution",
   "fixture": "corpus/generated/formatting-button.xlsm",
-  "fixture_sha256": "4b4b108df8e867b7b2e62847bcdfce14dea1692532cffb094ecdacff117fe16c",
+  "fixture_sha256": "4947e56e53e0a687f748715b7712d0e0ef03e74f24efd21e717441e46c8333de",
   "source_only_vba": true,
   "independent_olevba_source_match_modules": 3,
   "macros_executed": false,
@@ -16,7 +16,7 @@
       "todos": 0,
       "saved_button_rebindings": 1,
       "button_name": "Button 1",
-      "saved_binding": "vnd.sun.star.script:Standard.MacroFerryButtons.Button1?language=Basic&location=document",
+      "saved_binding": "vnd.sun.star.script:Standard.CellwrightButtons.Button1?language=Basic&location=document",
       "retained_shapes": 1,
       "imported_library_removed": true,
       "original_cell_colour_unchanged": true,
@@ -30,7 +30,7 @@
       "todos": 0,
       "saved_button_rebindings": 1,
       "button_name": "Button 1",
-      "saved_binding": "vnd.sun.star.script:Standard.MacroFerryButtons.Button1?language=Basic&location=document",
+      "saved_binding": "vnd.sun.star.script:Standard.CellwrightButtons.Button1?language=Basic&location=document",
       "retained_shapes": 1,
       "imported_library_removed": true,
       "original_cell_colour_unchanged": true,
@@ -46,6 +46,6 @@
   "limitations": [
     "Basic helpers and rebound handlers were not executed",
     "No claim of Excel/Calc rendering or runtime equivalence",
-    "UserForms, ActiveX, complex events and unsupported formatting remain manual"
+    "Complex UserForms, custom ActiveX controls, lifecycle events and unsupported formatting require manual work"
   ]
 }
