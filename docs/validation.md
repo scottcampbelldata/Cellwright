@@ -13,7 +13,7 @@ The extra Ubuntu integration test covers launcher fallback to `python3`. New reg
 
 Release scans inspect all 30 local corpus files on both platforms, including Automated Invigilation and CosMoS. Full-source and source-free JSON pass the schema; inventories match after removing host metadata. Independent olevba checks confirm all 1,261 extracted modules, with the two previously documented undefined-code-page bytes verified against raw source. All original SHA-256 values match. The inventory contains 145 forms and 1,166 control sites. [Current corpus evidence](examples/real-corpus-round2-summary.json) and [per-file before/after estimates](examples/real-corpus-estimate-comparison.json) record the results. The skipped parts remain unknown, and the hour ranges remain uncalibrated.
 
-The [latest completed CI run](https://github.com/scottcampbelldata/MacroFerry/actions/runs/38010349727) passed for `e164bf7`. GitHub source is public and private vulnerability reporting is enabled; the [security policy](../SECURITY.md) links the private reporting form.
+The [latest implementation CI run](https://github.com/scottcampbelldata/MacroFerry/actions/runs/38032453984) passed for `24dac22`, including Windows/Ubuntu checks, packaging and parser fuzzing. GitHub source is public and private vulnerability reporting is enabled; the [security policy](../SECURITY.md) links the private reporting form.
 
 ## Earlier controlled validation — 9 October 2026
 
