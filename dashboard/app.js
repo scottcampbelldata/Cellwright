@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: EUPL-1.2
 const token = document.querySelector('meta[name="mf-session"]').content;
 const labels = {no_known_blockers:'No known blockers',needs_edits:'Needs edits',needs_rewrite:'Needs rewrite',unknown:'Unknown',pending:'Pending',in_review:'In review',converted:'Converted',verified:'Verified by cases',blocked:'Blocked',completed:'Completed',partial:'Partial',failed:'Failed',queued:'Queued',running:'Running'};
-const colors = {no_known_blockers:'#7286bb',needs_edits:'#dab16a',needs_rewrite:'#c77b70',unknown:'#a4b5bd'};
+const colors = {no_known_blockers:'#7286bb',needs_edits:'#dab16a',needs_rewrite:'#c77b70',unknown:'#b4b4b4'};
 let state = {jobs:[],assignments:[],schedules:[]}, scan = null, scanId = null, selected = null, loading = false;
 const $ = id => document.getElementById(id);
 function element(tag, className, text) { const node=document.createElement(tag); if(className)node.className=className; if(text!==undefined)node.textContent=text; return node; }

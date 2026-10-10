@@ -3,6 +3,20 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {test} from 'node:test';
 import vm from 'node:vm';
+test('site, dashboard and report palettes exclude green and teal hues',()=>{
+  for(const path of ['site/style.css','site/icon.svg','dashboard/style.css','dashboard/app.js','src/report.rs']) {
+    const text=readFileSync(new URL('../'+path,import.meta.url),'utf8');
+    assert.doesNotMatch(text,/\b(?:darkgreen|lightgreen|limegreen|seagreen|springgreen|forestgreen|olive|olivedrab|chartreuse|aquamarine|yellowgreen|teal)\b/i);
+    for(const [color] of text.matchAll(/#(?:[\da-f]{8}|[\da-f]{6}|[\da-f]{4}|[\da-f]{3})\b/gi)) {
+      const hex=color.length<=5?'#'+[...color.slice(1,4)].map(x=>x+x).join(''):color;
+      const [r,g,b]=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255);
+      const max=Math.max(r,g,b),min=Math.min(r,g,b),delta=max-min;
+      if(!delta||delta/max<=.01)continue;
+      const hue=((max===r?(g-b)/delta:max===g?2+(b-r)/delta:4+(r-g)/delta)*60+360)%360;
+      assert.ok(hue<65||hue>200,`${path} contains green/teal ${color}`);
+    }
+  }
+});
 const source=readFileSync(new URL('../functions/api/engagement.js',import.meta.url),'utf8');
 const {onRequestPost}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 const payload={path:'/',views:1,seconds:15,downloads:0,scrolled:0};

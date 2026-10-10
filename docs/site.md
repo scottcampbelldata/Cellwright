@@ -29,4 +29,4 @@ Pages production binds the dedicated D1 database `cellwright-traffic` as `TRAFFI
 
 Web Analytics is enabled in Pages Metrics and is injected on deployment. `site/_headers` allows the Cloudflare beacon and the local engagement script. The database and Functions use the existing free plan; daily quotas can stop collection. The website continues serving static pages independently.
 
-Validation: `node --test tests/test_site.mjs` covers counter bounds, private-field rejection, cross-origin rejection, foreground time and opt-outs. CI runs it on Windows and Ubuntu alongside the existing application tests.
+Validation: `node --test tests/test_site.mjs` runs three checks covering the site/dashboard/report palette restriction, counter bounds, private-field rejection, cross-origin rejection, foreground time and opt-outs. CI runs them on Windows and Ubuntu alongside the existing application tests.
