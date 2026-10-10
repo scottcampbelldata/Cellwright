@@ -2,9 +2,27 @@
 
 [![CI](https://github.com/scottcampbelldata/Cellwright/actions/workflows/ci.yml/badge.svg)](https://github.com/scottcampbelldata/Cellwright/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/scottcampbelldata/Cellwright?include_prereleases)](https://github.com/scottcampbelldata/Cellwright/releases) [![License: EUPL-1.2](https://img.shields.io/badge/license-EUPL--1.2-blue)](LICENSE)
 
-Offline Excel VBA inventory, assisted conversion to LibreOffice Basic/Python, Power Query migration to pandas, and a local migration dashboard. The scanner is one Rust executable and needs neither Office nor Python. The full archive includes optional Python tools; UNO targets also need LibreOffice. Desktop Excel is needed only to capture new Excel goldens.
+**Cellwright finds every VBA macro in your Excel files and helps you move them to LibreOffice or Python.**
 
-## Start
+Point it at a folder or a network share and it reads every macro-enabled workbook without opening Excel or running any code. You get a report of what's in each file, what will be hard to migrate, and a rough effort estimate. When you're ready, it can turn supported macros into LibreOffice Basic or Python and Power Query into pandas, keeping the original alongside every change.
+
+It's built for IT and finance teams leaving Microsoft Office, and for anyone who inherited a pile of spreadsheets nobody wants to touch.
+
+## Quick start
+
+1. Download the Windows or Linux zip from [Releases](https://github.com/scottcampbelldata/Cellwright/releases) and extract it.
+2. Run **Start Cellwright.cmd** (Windows) or **start-cellwright.sh** (Linux). The dashboard opens in your browser.
+3. Click **Scan demonstration workbook** to see a sample report, or scan your own folder:
+
+```
+cellwright.exe scan C:\Finance --out .\reports\finance --no-source
+```
+
+Everything runs on your machine. Nothing is uploaded, and macros never run unless you turn that on for files you trust.
+
+## Details
+
+Offline Excel VBA inventory, assisted conversion to LibreOffice Basic/Python, Power Query migration to pandas, and a local migration dashboard. The scanner is one Rust executable and needs neither Office nor Python. The full archive includes optional Python tools; UNO targets also need LibreOffice. Desktop Excel is needed only to capture new Excel goldens.
 
 Download the full Windows or Linux archive from [Cellwright releases](https://github.com/scottcampbelldata/Cellwright/releases). Extract it, then double-click **Start Cellwright.cmd** on Windows or run **start-cellwright.sh** on Linux. The launcher opens the existing dashboard with macro execution disabled. Setup checks explain missing software; **Scan demonstration workbook** scans the included sample workbook without running its macros. [Project website](https://cellwright.scottcampbell.io/).
 
