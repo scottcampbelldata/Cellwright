@@ -16,7 +16,7 @@ function download(id,path,label) { const link=element('a',null,label); link.href
 function view(name) {
  for(const section of document.querySelectorAll('.view'))section.hidden=section.id!==name;
  for(const button of document.querySelectorAll('.nav'))button.classList.toggle('active',button.dataset.view===name);
- const headings={overview:['Overview','Make your next move clear.','Understand the estate. Prioritise the work. Prove the migration.'],workbooks:['Workbook inventory','Know what needs to move.','Assign owners, inspect dependencies and track each workbook.'],conversions:['Conversions','Carry the code forward.','Review a candidate. Resolve the TODOs. Compare the outcomes.'],schedules:['Scheduled scans','Keep the estate in view.','Repeat your assessments as workbooks and dependencies change.']};
+ const headings={overview:['Overview','Make your next move clear.','Understand the estate. Prioritize the work. Prove the migration.'],workbooks:['Workbook inventory','Know what needs to move.','Assign owners, inspect dependencies and track each workbook.'],conversions:['Conversions','Carry the code forward.','Review a candidate. Resolve the TODOs. Compare the outcomes.'],schedules:['Scheduled scans','Keep the estate in view.','Repeat your assessments as workbooks and dependencies change.']};
  const values=headings[name]; $('breadcrumb').textContent=values[0]; $('page-title').textContent=values[1]; $('page-description').textContent=values[2];
 }
 for(const button of document.querySelectorAll('.nav'))button.addEventListener('click',()=>view(button.dataset.view));
@@ -56,12 +56,12 @@ $('scan-select').onchange=event=>loadScan(event.target.value);
 function renderScan() {
  if(!scan)return;
  const books=scan.workbooks,counts=Object.fromEntries(Object.keys(colors).map(key=>[key,books.filter(book=>book.verdict===key).length]));
- $('metric-workbooks').textContent=books.length.toLocaleString(); $('ring-count').textContent=books.length;
- $('metric-modules').textContent=scan.unique_modules.toLocaleString(); $('metric-rewrite').textContent=counts.needs_rewrite;
+ $('metric-workbooks').textContent=books.length.toLocaleString('en-US'); $('ring-count').textContent=books.length;
+ $('metric-modules').textContent=scan.unique_modules.toLocaleString('en-US'); $('metric-rewrite').textContent=counts.needs_rewrite;
  $('metric-effort').textContent=Math.round(scan.estimated_hours_low)+'-'+Math.round(scan.estimated_hours_high)+' h';
  $('metric-files-note').textContent=books.filter(book=>book.status!=='inspected').length+' workbook(s) could not be fully inspected';
  $('metric-dedupe').textContent=scan.duplicates.length+' duplicate code cluster(s)';
- $('scan-meta').textContent=new Date(scan.generated_unix_seconds*1000).toLocaleDateString();
+ $('scan-meta').textContent=new Date(scan.generated_unix_seconds*1000).toLocaleDateString('en-US');
  const link=$('report-download');link.hidden=false;link.href='/files/'+scanId+'/report.html';link.textContent='Download offline report ↗';
  const legend=$('verdict-legend');legend.replaceChildren();let angle=0;const slices=[];
  for(const [key,count]of Object.entries(counts)){
@@ -98,7 +98,7 @@ function details(book) {
 function renderJobs() {
  const activity=$('recent-jobs');activity.replaceChildren();
  if(!state.jobs.length)activity.append(element('p','empty','Your first scan starts the migration story.'));
- for(const job of state.jobs.slice(0,6)){const row=element('div','activity-row'),text=element('div');text.append(element('strong',null,job.label),element('p',null,(job.kind==='scan'?'Assessment':job.kind==='verify'?'Execution comparison':'Conversion')+' · '+new Date(job.created*1000).toLocaleString()));row.append(text,badge(job.state));activity.append(row);}
+ for(const job of state.jobs.slice(0,6)){const row=element('div','activity-row'),text=element('div');text.append(element('strong',null,job.label),element('p',null,(job.kind==='scan'?'Assessment':job.kind==='verify'?'Execution comparison':'Conversion')+' · '+new Date(job.created*1000).toLocaleString('en-US')));row.append(text,badge(job.state));activity.append(row);}
  const conversions=$('conversion-jobs');conversions.replaceChildren();const jobs=state.jobs.filter(job=>job.kind==='convert');
  if(!jobs.length)conversions.append(element('p','empty','Create a candidate from a workbook in your inventory.'));
  for(const job of jobs){
@@ -117,7 +117,7 @@ function renderJobs() {
 }
 function renderSchedules() {
  const list=$('schedule-list');list.replaceChildren();if(!state.schedules.length)list.append(element('p','empty','No schedules yet. Add one for your recurring inventory.'));
- for(const schedule of state.schedules){const card=element('article','panel schedule-card'),text=element('div');text.append(element('h2',null,schedule.label),element('p',null,'Every '+schedule.interval_hours+' hours · '+(schedule.enabled?'Next scan '+new Date(schedule.next_run*1000).toLocaleString():'Paused')),element('p',null,JSON.parse(schedule.paths).join(' · ')));const actions=element('div','downloads');const toggle=element('button','secondary',schedule.enabled?'Pause':'Resume');toggle.onclick=async()=>{try{await api('/api/schedules',{...schedule,paths:JSON.parse(schedule.paths),enabled:!schedule.enabled});await refresh();}catch(error){notify(error.message,true);}};const remove=element('button','secondary','Remove');remove.onclick=async()=>{try{await api('/api/schedules/delete',{id:schedule.id});await refresh();}catch(error){notify(error.message,true);}};actions.append(toggle,remove);card.append(text,actions);list.append(card);}
+ for(const schedule of state.schedules){const card=element('article','panel schedule-card'),text=element('div');text.append(element('h2',null,schedule.label),element('p',null,'Every '+schedule.interval_hours+' hours · '+(schedule.enabled?'Next scan '+new Date(schedule.next_run*1000).toLocaleString('en-US'):'Paused')),element('p',null,JSON.parse(schedule.paths).join(' · ')));const actions=element('div','downloads');const toggle=element('button','secondary',schedule.enabled?'Pause':'Resume');toggle.onclick=async()=>{try{await api('/api/schedules',{...schedule,paths:JSON.parse(schedule.paths),enabled:!schedule.enabled});await refresh();}catch(error){notify(error.message,true);}};const remove=element('button','secondary','Remove');remove.onclick=async()=>{try{await api('/api/schedules/delete',{id:schedule.id});await refresh();}catch(error){notify(error.message,true);}};actions.append(toggle,remove);card.append(text,actions);list.append(card);}
 }
 async function refresh() {
  if(loading)return;loading=true;

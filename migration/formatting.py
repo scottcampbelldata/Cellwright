@@ -53,7 +53,7 @@ def validate(prop, value):
         return bool(value)
     if prop.endswith(".color"):
         if type(value) is not int or not 0 <= value <= 0xFFFFFF:
-            raise NotImplementedError("Only explicit RGB colours are supported; theme/system colours require review")
+            raise NotImplementedError("Only explicit RGB colors are supported; theme/system colors require review")
         # Excel stores 0xBBGGRR; UNO and openpyxl use 0xRRGGBB.
         return ((value & 255) << 16) | (value & 65280) | (value >> 16)
     if prop == "font.name":
@@ -97,7 +97,7 @@ def basic_helpers():
             if prop == "font.bold": expression = 'IIf(CBool(value), 150, 100)'
             if prop == "font.italic": expression = 'IIf(CBool(value), com.sun.star.awt.FontSlant.ITALIC, com.sun.star.awt.FontSlant.NONE)'
         elif prop.endswith(".color"):
-            checks = ['If value < 0 Or value > 16777215 Or value <> Fix(value) Then Err.Raise 5, "Cellwright", "Only explicit RGB colours are supported"']
+            checks = ['If value < 0 Or value > 16777215 Or value <> Fix(value) Then Err.Raise 5, "Cellwright", "Only explicit RGB colors are supported"']
             expression = '((CLng(value) And 255) * 65536) + (CLng(value) And 65280) + (CLng(value) \\ 65536)'
         elif prop == "font.size": checks = ['If value <= 0 Or value > 409 Then Err.Raise 5, "Cellwright", "Font size outside supported range"']
         elif prop == "font.name": checks = ['If VarType(value) <> 8 Or Len(value) = 0 Or Len(value) > 255 Then Err.Raise 5, "Cellwright", "Invalid font name"']

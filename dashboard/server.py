@@ -193,7 +193,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply((ROOT / "dashboard" / path[1:]).read_bytes(), content_type="text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8")
             elif path == "/api/state":
                 self.authorize()
-                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.0", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden, "setup":self.server.setup})
+                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.1", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden, "setup":self.server.setup})
             elif path == "/api/setup":
                 self.authorize()
                 from dashboard.setup import check
