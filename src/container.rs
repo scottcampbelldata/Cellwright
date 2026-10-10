@@ -561,7 +561,13 @@ pub fn inspect(
                 }
             } else if lower.ends_with(".vml") && lower.starts_with("xl/drawings/") {
                 let part = xml_text(&bounded_read(zip.by_name(&name)?, MAX_PART)?)?;
-                inspect_xml(part.as_bytes(), &mut workbook)?;
+                if let Err(error) = inspect_xml(part.as_bytes(), &mut workbook) {
+                    // Legacy VML can contain HTML text; retain VBA and flag incomplete drawing coverage.
+                    add_feature(&mut workbook, "vml_uninspected");
+                    workbook.error = Some(format!(
+                        "VML drawing {name} could not be fully inspected: {error}"
+                    ));
+                }
                 if part.contains("FmlaMacro") {
                     add_feature(&mut workbook, "macro_assignment");
                 }

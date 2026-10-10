@@ -6,7 +6,7 @@ use crate::{
 use anyhow::{Context, Result};
 use std::{
     fs::{File, OpenOptions},
-    io::Write,
+    io::{BufWriter, Write},
     path::Path,
 };
 
@@ -422,7 +422,9 @@ fn csv_writer(path: &Path) -> Result<csv::Writer<File>> {
 }
 
 pub fn write(scan: &Scan, out: &Path) -> Result<()> {
-    serde_json::to_writer_pretty(new_file(&out.join("scan.json"))?, scan)?;
+    let mut json = BufWriter::new(new_file(&out.join("scan.json"))?);
+    serde_json::to_writer_pretty(&mut json, scan)?;
+    json.flush()?;
     new_file(&out.join("report.html"))?.write_all(html(scan).as_bytes())?;
     let index = language_index(&scan.language);
     let mut workbooks = csv_writer(&out.join("workbooks.csv"))?;

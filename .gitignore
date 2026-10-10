@@ -8,3 +8,5 @@ __pycache__/
 /fuzz/target/
 /fuzz/artifacts/
 /fuzz/corpus/
+
+/calibration-corpus/

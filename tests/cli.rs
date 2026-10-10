@@ -315,6 +315,67 @@ fn feature_inventory_and_query_privacy() {
 }
 
 #[test]
+fn malformed_legacy_vml_retains_vba_with_unknown_drawing_coverage() {
+    let temp = tempfile::tempdir().unwrap();
+    let input = temp.path().join("legacy-drawing.xlsm");
+    let vba = public_vba_bytes();
+    write_zip(
+        &input,
+        &[
+            ("xl/workbook.xml", b"<workbook/>"),
+            ("xl/vbaProject.bin", &vba),
+            (
+                "xl/drawings/vmlDrawing1.vml",
+                b"<xml><font><br></font><FmlaMacro>Run</FmlaMacro></xml>",
+            ),
+        ],
+    );
+    let output = temp.path().join("report");
+    assert!(
+        cli(&["scan", "--no-source"], &input, &output)
+            .status
+            .success()
+    );
+    let scan = json(&output);
+    let book = &scan["workbooks"][0];
+    assert_eq!(book["status"], "inspected");
+    assert_eq!(book["modules"].as_array().unwrap().len(), 5);
+    assert_eq!(book["verdict"], "unknown");
+    assert!(book["error"].as_str().unwrap().contains("vmlDrawing1.vml"));
+    assert!(
+        book["features"]
+            .as_array()
+            .unwrap()
+            .contains(&Value::String("vml_uninspected".into()))
+    );
+    assert!(
+        book["features"]
+            .as_array()
+            .unwrap()
+            .contains(&Value::String("macro_assignment".into()))
+    );
+    assert!(
+        book["findings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|finding| finding["rule_id"] == "MF060")
+    );
+    let strict = temp.path().join("bad-worksheet.xlsm");
+    write_zip(
+        &strict,
+        &[
+            ("xl/workbook.xml", b"<workbook/>"),
+            ("xl/vbaProject.bin", &vba),
+            ("xl/worksheets/sheet1.xml", b"<worksheet><row></worksheet>"),
+        ],
+    );
+    let output = temp.path().join("strict-report");
+    assert_eq!(cli(&["scan"], &strict, &output).status.code(), Some(1));
+    assert_eq!(json(&output)["workbooks"][0]["status"], "error");
+}
+
+#[test]
 fn rejects_archive_bombs_and_missing_inputs() {
     let temp = tempfile::tempdir().unwrap();
     let input = temp.path().join("oversized.xlsx");

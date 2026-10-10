@@ -48,9 +48,9 @@ A passing comparison proves only named routines, inputs and captured cells. Exec
 
 ## Coverage and development
 
-The functional implementation spans M0–M9; [roadmap status](docs/architecture.md) records remaining release/validation gates. Binary XLS/XLSB features remain partial. Source/cache flags are heuristics, not full stomping detection; signatures are not validated. UserForm decoding needs a broader real corpus. Type/member inference cannot resolve every alias, shadowed name or dynamic call.
+The functional implementation spans M0–M9; [roadmap status](docs/architecture.md) records remaining release/validation gates. Binary XLS/XLSB features remain partial. Source/cache flags are heuristics, not full stomping detection; signatures are not validated. UserForm control counts have real-corpus checks; designer migration still needs manual assessment. Type/member inference cannot resolve every alias, shadowed name or dynamic call.
 
-Estimates count each nonempty normalized module once plus per-workbook costs. String case and module type are preserved. The model uses base hours + code lines × line weight + capped finding weights + test hours. Editable ranges are **uncalibrated planning assumptions** and exclude unknown work. Deduplication never removes integration testing.
+Estimates count each nonempty normalized module once plus per-workbook costs. String case and module type are preserved. The model uses base hours + code lines × line weight + capped finding weights + test hours. Editable ranges are **uncalibrated planning assumptions** and exclude unknown work. The default test overhead is per unique module; repeated deployment and integration work need separate estimates.
 
 ```powershell
 cargo fmt --all -- --check
@@ -63,6 +63,8 @@ python -m unittest discover -s tests -p "test_*.py"
 [Validation](docs/validation.md) records Windows/Linux checks, controlled engine comparisons and fuzzing. [Corpus origins](corpus/README.md) distinguish public extraction data from owned executable fixtures. `scripts/crosscheck.py` compares extraction with olevba. `scripts/verify_corpus.py` and `scripts/verify_query.py` retain controlled-case evidence.
 
 [Simulated estate validation](docs/calibration.md) generates 30 business workbooks and checks inventory, conversion and safe arithmetic candidates. These checks do not measure human migration effort or calibrate the hour estimates.
+
+The [30-file real workbook stress test](docs/calibration.md) inspected 28 files, including RelaxTools' 369 modules and 80 forms, with independent VBA extraction checks. Two files exceed archive limits. Corpus files stay local and are excluded from releases; the hour estimates remain uncalibrated.
 
 `scripts/package.py` creates full archives, CycloneDX SBOMs and hashes; see [release preparation](docs/releases.md). Source is hosted in a private repository; local binaries are unsigned and have no public release. Signing, public repository/mirror publication, representative pilots, language review and estimate calibration remain release gates.
 
