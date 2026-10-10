@@ -2,6 +2,10 @@
 
 > Local Excel VBA inventory and deterministic migration candidates for LibreOffice Basic and Python. Windows and Linux. No external model or API key required.
 
+## Public guides
+- [Excel VBA to LibreOffice](https://cellwright.scottcampbell.io/guides/excel-vba-to-libreoffice/): first migration, checklist and scoped verification.
+- [UserForms and ActiveX](https://cellwright.scottcampbell.io/guides/userforms-and-activex/): supported controls and manual work.
+
 ## Documentation
 - [Overview and downloads](https://cellwright.scottcampbell.io/): capabilities, setup and limits.
 - [Migration guide](https://github.com/scottcampbelldata/Cellwright/blob/main/docs/migration.md): supported targets, form/control limits and explicit verification.

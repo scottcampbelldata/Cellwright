@@ -13,7 +13,7 @@ SPDX-FileCopyrightText = "2026 Scott Campbell"
 SPDX-License-Identifier = "EUPL-1.2"
 
 [[annotations]]
-path = ["Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".gitignore", "README.md", "SECURITY.md", "docs/**", "corpus/README.md", "corpus/expected.json", "corpus/*.bas", "corpus/*.m", "corpus/generated/sales-query.xlsx", "REUSE.toml", "THIRD_PARTY_NOTICES.md", "requirements.txt", "Start Cellwright.cmd", "start-cellwright.sh", "src/**", "tests/**", "scripts/**", "data/*.toml", ".github/**", "migration/**", "harness/**", "dashboard/**", "site/**", "examples/**", "fuzz/Cargo.toml", "fuzz/Cargo.lock", "fuzz/fuzz_targets/**"]
+path = ["Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".gitignore", "README.md", "SECURITY.md", "docs/**", "corpus/README.md", "corpus/expected.json", "corpus/*.bas", "corpus/*.m", "corpus/generated/sales-query.xlsx", "REUSE.toml", "THIRD_PARTY_NOTICES.md", "requirements.txt", "Start Cellwright.cmd", "start-cellwright.sh", "src/**", "tests/**", "scripts/**", "data/*.toml", ".github/**", "migration/**", "harness/**", "dashboard/**", "site/**", "functions/**", "examples/**", "fuzz/Cargo.toml", "fuzz/Cargo.lock", "fuzz/fuzz_targets/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Scott Campbell"
 SPDX-License-Identifier = "EUPL-1.2"
@@ -677,3 +677,10 @@ path = ["third-party-licenses/zopfli-0.8.3/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Original authors of zopfli; copyright notices retained in license files"
 SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["site/fonts/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2018 The Manrope Project Authors"
+SPDX-License-Identifier = "OFL-1.1"
+

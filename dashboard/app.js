@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: EUPL-1.2
 const token = document.querySelector('meta[name="mf-session"]').content;
 const labels = {no_known_blockers:'No known blockers',needs_edits:'Needs edits',needs_rewrite:'Needs rewrite',unknown:'Unknown',pending:'Pending',in_review:'In review',converted:'Converted',verified:'Verified by cases',blocked:'Blocked',completed:'Completed',partial:'Partial',failed:'Failed',queued:'Queued',running:'Running'};
-const colors = {no_known_blockers:'#459077',needs_edits:'#dab16a',needs_rewrite:'#c77b70',unknown:'#a4b5bd'};
+const colors = {no_known_blockers:'#7286bb',needs_edits:'#dab16a',needs_rewrite:'#c77b70',unknown:'#a4b5bd'};
 let state = {jobs:[],assignments:[],schedules:[]}, scan = null, scanId = null, selected = null, loading = false;
 const $ = id => document.getElementById(id);
 function element(tag, className, text) { const node=document.createElement(tag); if(className)node.className=className; if(text!==undefined)node.textContent=text; return node; }
@@ -68,7 +68,7 @@ function renderScan() {
   const row=element('div','legend-row');const dot=element('i');dot.style.background=colors[key];row.append(dot,element('span',null,labels[key]),element('strong',null,count));legend.append(row);
   const next=angle+(books.length?count/books.length*100:0);slices.push(colors[key]+' '+angle+'% '+next+'%');angle=next;
  }
- $('verdict-ring').style.background=books.length?'conic-gradient('+slices.join(',')+')':'#dfe7e4';
+ $('verdict-ring').style.background=books.length?'conic-gradient('+slices.join(',')+')':'#e4e7ef';
 }
 function assignment(path) { return state.assignments.find(value=>value.path===path)||{owner:'',state:'pending',notes:''}; }
 function renderWorkbooks() {
