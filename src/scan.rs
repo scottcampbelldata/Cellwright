@@ -181,7 +181,8 @@ pub fn run(
     let mut unique_hours = BTreeMap::<String, f64>::new();
     let mut feature_hours = 0.0;
     for workbook in &workbooks {
-        feature_hours += weights.finding_hours(&workbook.findings);
+        feature_hours +=
+            weights.finding_hours(&workbook.findings) + weights.userform_hours(&workbook.forms);
         for module in &workbook.modules {
             if module.code_lines == 0 {
                 continue;

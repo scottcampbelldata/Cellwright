@@ -212,6 +212,18 @@
         "high_multiplier": {
           "type": "number",
           "minimum": 0
+        },
+        "hours_per_userform": {
+          "type": "number",
+          "minimum": 0
+        },
+        "hours_per_control_site": {
+          "type": "number",
+          "minimum": 0
+        },
+        "control_site_cap": {
+          "type": "integer",
+          "minimum": 1
         }
       },
       "required": [

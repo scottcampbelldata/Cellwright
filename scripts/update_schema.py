@@ -5,6 +5,7 @@ from pathlib import Path
 path=Path(__file__).resolve().parents[1]/'docs/scan.schema.json'
 schema=json.loads(path.read_text(encoding='utf-8'))
 strings={'type':'array','items':{'type':'string'}}
+schema['$defs']['weights']['properties'].update(hours_per_userform={'type':'number','minimum':0},hours_per_control_site={'type':'number','minimum':0},control_site_cap={'type':'integer','minimum':1})
 schema['$defs']['module']['properties']['api_usage']={'type':'array','items':{'type':'object','additionalProperties':False,'properties':{'object_type':{'type':'string'},'member':{'type':'string'},'line':{'type':'integer','minimum':1},'declared':{'type':'boolean'}},'required':['object_type','member','line','declared']}}
 workbook=schema['$defs']['workbook']['properties']
 workbook.update(owner={'type':['string','null']},code_page={'type':['integer','null'],'minimum':0,'maximum':65535},entry_points=strings,macro_assignments=strings,connections=strings)

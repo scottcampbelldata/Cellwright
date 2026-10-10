@@ -35,7 +35,7 @@ Custom TOML rules replace/add IDs, with kinds `tokens`, `com`, `path`, `referenc
 
 Scan exits: `0` all discovered workbooks inspected, even with blockers; `1` discovery/encryption/skip/timeout/parse failure with reports retained; `2` CLI/configuration/output error. An inspected workbook can still have an unknown verdict.
 
-Archive limits apply to expanded data: 16 MiB per ZIP part and 256 MiB across parts, with a 128 MiB on-disk workbook limit. Oversized archives stay uninspected with an unknown verdict; the error names the offending part and its declared expanded size. This round retains those limits for local scans too; no trusted-scan size override is provided. Failed files contribute no effort estimate.
+Archive limits apply to expanded data: 16 MiB per ZIP part and 256 MiB across retained parts, with a 128 MiB on-disk workbook limit. Oversized non-VBA parts are skipped without decompression; their names and declared sizes are reported with MF060 and unknown coverage, while bounded VBA is still inspected. Oversized VBA and retained aggregate-size violations reject the workbook. Failed files contribute no effort estimate; skipped/unknown work is outside the estimated range.
 
 ## Conversion and evidence
 
@@ -52,7 +52,7 @@ A passing comparison proves only named routines, inputs and captured cells. Exec
 
 The functional implementation spans M0–M9; [roadmap status](docs/architecture.md) records remaining release/validation gates. Binary XLS/XLSB features remain partial. Source/cache flags are heuristics, not full stomping detection; signatures are not validated. UserForm control counts have real-corpus checks; designer migration still needs manual assessment. Type/member inference cannot resolve every alias, shadowed name or dynamic call.
 
-Estimates count each nonempty normalized module once plus per-workbook costs. String case and module type are preserved. The model uses base hours + code lines × line weight + capped finding weights + test hours. Editable ranges are **uncalibrated planning assumptions** and exclude unknown work. The default test overhead is per unique module; repeated deployment and integration work need separate estimates.
+Estimates count each nonempty normalized module once plus per-workbook costs. String case and module type are preserved. The model uses base hours + code lines × line weight + capped finding weights + test hours. Empty modules cost zero; document modules containing only attributes, options or empty procedures omit base/testing overhead while retaining line and finding costs. Forms add two hours each plus 0.1 hour per control site, capped at 50 sites per form by default; MF050 retains its finding without a flat charge. Editable ranges are **uncalibrated planning assumptions** and exclude unknown work. Repeated deployment and integration work need separate estimates.
 
 ```powershell
 cargo fmt --all -- --check
@@ -66,9 +66,9 @@ python -m unittest discover -s tests -p "test_*.py"
 
 [Simulated estate validation](docs/calibration.md) generates 30 business workbooks and checks inventory, conversion and safe arithmetic candidates. These checks do not measure human migration effort or calibrate the hour estimates.
 
-The [30-file real workbook stress test](docs/calibration.md) inspected 28 files, including RelaxTools' 369 modules and 80 forms, with independent VBA extraction checks. Two files exceed archive limits. Corpus files stay local and are excluded from releases; the hour estimates remain uncalibrated.
+The [30-file real workbook stress test](docs/calibration.md) inspects all 30 files, including RelaxTools' 369 modules and 80 forms, with independent VBA extraction checks. CosMoS and Automated Invigilation retain their VBA inventories while oversized non-VBA parts are skipped with unknown coverage. [Per-file estimate comparisons](docs/examples/real-corpus-estimate-comparison.json) record the changes. Corpus files stay local and are excluded from releases; the hour estimates remain uncalibrated.
 
-`scripts/package.py` creates full archives, CycloneDX SBOMs and hashes; see [release preparation](docs/releases.md). Source is hosted in a private repository; local binaries are unsigned and have no public release. Signing, public repository/mirror publication, representative pilots, language review and estimate calibration remain release gates.
+`scripts/package.py` creates full archives, CycloneDX SBOMs and hashes; see [release preparation](docs/releases.md). [Source is public on GitHub](https://github.com/scottcampbelldata/MacroFerry), with [private vulnerability reporting](SECURITY.md). Local binaries are unsigned and have no public release. Signing, mirror/release publication, representative pilots, language review and estimate calibration remain release gates.
 
 [Français](docs/fr/quickstart.md) · [Deutsch](docs/de/quickstart.md) · [Security](SECURITY.md) · [JSON schema](docs/scan.schema.json)
 

@@ -20,7 +20,7 @@ def local_path(path):
 
 
 def program(path=None):
-    candidates = [path, os.environ.get("MACROFERRY_LIBREOFFICE"), ROOT / "target/tools/libreoffice/program", Path(os.environ.get("ProgramFiles", "/usr/lib")) / "LibreOffice/program", Path("/usr/lib/libreoffice/program")]
+    candidates = [path, os.environ.get("MACROFERRY_LIBREOFFICE"), Path(os.environ.get("ProgramFiles", "/usr/lib")) / "LibreOffice/program", Path("/usr/lib/libreoffice/program")]
     for candidate in candidates:
         if candidate:
             candidate = Path(candidate)
@@ -33,9 +33,10 @@ def program(path=None):
 def run(job, location=None, timeout=90):
     directory = program(location)
     executable = directory / ("soffice.com" if os.name == "nt" else "soffice")
-    interpreter = directory / "python.exe" if os.name == "nt" else Path("/usr/bin/python3")
+    default_interpreter = directory / "python.exe" if os.name == "nt" else Path("/usr/bin/python3")
+    interpreter = Path(os.environ.get("MACROFERRY_UNO_PYTHON") or default_interpreter)
     if not interpreter.exists():
-        raise FileNotFoundError("LibreOffice UNO Python is unavailable; install python3-uno")
+        raise FileNotFoundError("LibreOffice UNO Python is unavailable; install python3-uno or set MACROFERRY_UNO_PYTHON")
     with tempfile.TemporaryDirectory(prefix="macroferry-office-") as temporary:
         profile = local_path(Path(temporary) / "profile")
         pipe = "macroferry_" + uuid.uuid4().hex

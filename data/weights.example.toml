@@ -3,6 +3,10 @@
 base_hours = 0.5
 hours_per_code_line = 0.02
 test_hours = 1.0
+hours_per_userform = 2.0
+hours_per_control_site = 0.1
+# Control sites charged per form; additional sites still appear in inventory.
+control_site_cap = 50
 occurrence_cap = 3
 low_multiplier = 0.5
 high_multiplier = 2.0

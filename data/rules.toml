@@ -448,7 +448,7 @@ category = "ui"
 kind = "feature"
 pattern = ["userforms"]
 verdict = "needs_rewrite"
-hours = 8
+hours = 0
 messages = ["Workbook contains a UserForm designer.","Le classeur contient un concepteur UserForm.","Arbeitsmappe enthält einen UserForm-Designer."]
 
 [[rules]]
@@ -536,7 +536,7 @@ messages = ["VBA signature is present; conversion requires re-signing.","Signatu
 id = "MF060"
 category = "coverage"
 kind = "feature"
-pattern = ["legacy_features_uninspected","binary_features_uninspected","forms_layout_uninspected","source_cache_discrepancy","vml_uninspected"]
+pattern = ["legacy_features_uninspected","binary_features_uninspected","forms_layout_uninspected","source_cache_discrepancy","vml_uninspected","oversized_parts_uninspected"]
 verdict = "unknown"
 hours = 0
-messages = ["Binary features, form layouts, unreadable legacy drawings or source/cache discrepancies require manual assessment; a discrepancy is not proof of VBA stomping.","Fonctionnalités binaires, formulaires, dessins hérités illisibles ou écarts source/cache à vérifier ; un écart ne prouve pas un VBA stomping.","Binärfunktionen, Formulare, unlesbare alte Zeichnungen oder Quelltext/Cache-Abweichungen manuell prüfen; eine Abweichung beweist kein VBA-Stomping."]
+messages = ["Binary features, form layouts, unreadable legacy drawings, skipped oversized parts or source/cache discrepancies require manual assessment; a discrepancy is not proof of VBA stomping.","Fonctionnalités binaires, formulaires, dessins hérités illisibles, parties trop volumineuses ignorées ou écarts source/cache à vérifier ; un écart ne prouve pas un VBA stomping.","Binärfunktionen, Formulare, unlesbare alte Zeichnungen, übersprungene übergroße Teile oder Quelltext/Cache-Abweichungen manuell prüfen; eine Abweichung beweist kein VBA-Stomping."]

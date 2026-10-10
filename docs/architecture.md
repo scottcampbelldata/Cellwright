@@ -6,7 +6,7 @@ Python sidecars reuse scanner JSON. A tolerant handwritten VBA statement/express
 
 | Milestone | Implemented | Outstanding gate or limit |
 |---|---|---|
-| M0 | Project, pinned toolchain/dependencies, CI, license/REUSE | Public hosting, truthful publiccode URLs, governance/disclosure destination |
+| M0 | Project, pinned toolchain/dependencies, CI, license/REUSE, public GitHub source and private vulnerability reporting | publiccode/mirror metadata and governance |
 | M1 | Own decompressor/dir/code pages/types/protection, CFB v3/v4, VBA from ZIP/legacy, encryption, forms inventory/designer evidence, queries/connections, fuzz target/corpus | Broader real forms/legacy corpus, full binary feature/p-code analysis, extra ovba reference tool |
 | M2 | Discovery/shares, isolated workers, 60 translated rules, verdicts/dedup/CSV/JSON | Estate pilots and performance/security validation |
 | M3 | Offline reports/estimates/privacy, Windows/Linux full archives, SBOM/hashes, three-language guides, reproducibility procedure | Signing, publication/mirror, language review and calibration |

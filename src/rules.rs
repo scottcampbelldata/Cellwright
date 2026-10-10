@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: EUPL-1.2
 use crate::{
     lexer::{self, Kind, Token},
-    model::{Finding, Module, Verdict},
+    model::{Finding, Module, UserForm, Verdict},
 };
 use anyhow::{Context, Result, ensure};
 use serde::{Deserialize, Serialize};
@@ -34,6 +34,9 @@ pub struct Weights {
     pub base_hours: f64,
     pub hours_per_code_line: f64,
     pub test_hours: f64,
+    pub hours_per_userform: f64,
+    pub hours_per_control_site: f64,
+    pub control_site_cap: usize,
     pub occurrence_cap: usize,
     pub low_multiplier: f64,
     pub high_multiplier: f64,
@@ -45,6 +48,9 @@ impl Default for Weights {
             base_hours: 0.5,
             hours_per_code_line: 0.02,
             test_hours: 1.0,
+            hours_per_userform: 2.0,
+            hours_per_control_site: 0.1,
+            control_site_cap: 50,
             occurrence_cap: 3,
             low_multiplier: 0.5,
             high_multiplier: 2.0,
@@ -66,6 +72,8 @@ impl Weights {
                 weights.base_hours,
                 weights.hours_per_code_line,
                 weights.test_hours,
+                weights.hours_per_userform,
+                weights.hours_per_control_site,
                 weights.low_multiplier,
                 weights.high_multiplier
             ]
@@ -74,7 +82,9 @@ impl Weights {
             "Estimate weights must be finite and nonnegative"
         );
         ensure!(
-            weights.occurrence_cap > 0 && weights.high_multiplier >= weights.low_multiplier,
+            weights.occurrence_cap > 0
+                && weights.control_site_cap > 0
+                && weights.high_multiplier >= weights.low_multiplier,
             "Invalid estimate cap or range"
         );
         Ok(weights)
@@ -92,6 +102,17 @@ impl Weights {
                 } else {
                     0.0
                 }
+            })
+            .sum()
+    }
+
+    pub fn userform_hours(&self, forms: &[UserForm]) -> f64 {
+        forms
+            .iter()
+            .map(|form| {
+                self.hours_per_userform
+                    + form.controls.len().min(self.control_site_cap) as f64
+                        * self.hours_per_control_site
             })
             .sum()
     }
@@ -237,13 +258,34 @@ pub fn analyze(
             .max()
             .unwrap_or(Verdict::NoKnownBlockers)
     };
+    let trivial_document = kind == "document"
+        && tokens
+            .split(|token| token.kind == Kind::End)
+            .all(|statement| {
+                let mut words = statement
+                    .iter()
+                    .filter(|token| !attributes.contains(&token.line))
+                    .map(|token| token.text.as_str());
+                let mut first = words.next().unwrap_or("");
+                while ["private", "public", "friend", "static"].contains(&first) {
+                    first = words.next().unwrap_or("");
+                }
+                match first {
+                    "" | "option" | "sub" | "function" | "property" => true,
+                    "end" => matches!(words.next(), Some("sub" | "function" | "property")),
+                    _ => false,
+                }
+            });
     let estimated_hours = if code_lines == 0 {
         0.0
     } else {
-        weights.base_hours
-            + code_lines as f64 * weights.hours_per_code_line
+        code_lines as f64 * weights.hours_per_code_line
             + weights.finding_hours(&findings)
-            + weights.test_hours
+            + if trivial_document {
+                0.0
+            } else {
+                weights.base_hours + weights.test_hours
+            }
     };
     Module {
         name: name.into(),
@@ -295,6 +337,90 @@ mod tests {
     }
 
     #[test]
+    fn document_boilerplate_has_no_base_or_testing_overhead() {
+        let rules = load(None).unwrap();
+        let weights = Weights::default();
+        for source in [
+            "Attribute VB_Name = \"ThisWorkbook\"\n' Comment",
+            "Option Explicit",
+            "Option Explicit\nPrivate Sub Workbook_Open()\nEnd Sub",
+            "Public Function Empty() As Long: End Function",
+        ] {
+            let module = analyze("ThisWorkbook", "document", source.into(), &rules, &weights);
+            assert_eq!(
+                module.estimated_hours,
+                module.code_lines as f64 * weights.hours_per_code_line
+                    + weights.finding_hours(&module.findings)
+            );
+        }
+        for kind in ["document", "standard"] {
+            let module = analyze(
+                "Sheet1",
+                kind,
+                "Option Explicit\nPrivate Sub Worksheet_Activate()\nMsgBox 1\nEnd Sub".into(),
+                &rules,
+                &weights,
+            );
+            assert_eq!(
+                module.estimated_hours,
+                module.code_lines as f64 * weights.hours_per_code_line
+                    + weights.finding_hours(&module.findings)
+                    + weights.base_hours
+                    + weights.test_hours
+            );
+        }
+        let module = analyze(
+            "Sheet1",
+            "standard",
+            "Option Explicit".into(),
+            &rules,
+            &weights,
+        );
+        assert!(module.estimated_hours >= weights.base_hours + weights.test_hours);
+        let module = analyze(
+            "Sheet1",
+            "document",
+            "Private Sub Test()\nShell \"cmd.exe\"\nEnd Sub".into(),
+            &rules,
+            &weights,
+        );
+        assert!(!module.findings.is_empty());
+        assert!(module.estimated_hours > weights.base_hours + weights.test_hours);
+    }
+
+    #[test]
+    fn userform_cost_scales_and_caps_sites_per_form() {
+        use crate::model::FormControl;
+        let weights = Weights::default();
+        let control = FormControl {
+            name: "Custom".into(),
+            control_type: "CustomOrUnknown".into(),
+            cached_index: 0,
+        };
+        let forms: Vec<_> = [0, 10, 80]
+            .into_iter()
+            .map(|count| UserForm {
+                name: format!("Form{count}"),
+                controls: vec![control.clone(); count],
+                error: None,
+                layout: None,
+            })
+            .collect();
+        assert_eq!(weights.userform_hours(&[]), 0.0);
+        assert_eq!(weights.userform_hours(&forms), 12.0);
+        assert_eq!(forms[2].controls.len(), 80);
+        assert_eq!(
+            load(None)
+                .unwrap()
+                .iter()
+                .find(|rule| rule.id == "MF050")
+                .unwrap()
+                .hours,
+            0.0
+        );
+    }
+
+    #[test]
     fn validates_custom_rules_and_weights() {
         let dir = tempfile::tempdir().unwrap();
         let rules_path = dir.path().join("rules.toml");
@@ -316,12 +442,23 @@ mod tests {
         let weights_path = dir.path().join("weights.toml");
         std::fs::write(&weights_path, "base_hours = -1").unwrap();
         assert!(Weights::load(Some(&weights_path)).is_err());
+        for invalid in [
+            "hours_per_userform = -1",
+            "hours_per_control_site = nan",
+            "control_site_cap = 0",
+        ] {
+            std::fs::write(&weights_path, invalid).unwrap();
+            assert!(Weights::load(Some(&weights_path)).is_err());
+        }
         std::fs::write(
             &weights_path,
             "base_hours = 5\nhours_per_code_line = 0\ntest_hours = 0",
         )
         .unwrap();
         let weights = Weights::load(Some(&weights_path)).unwrap();
+        assert_eq!(weights.hours_per_userform, 2.0);
+        assert_eq!(weights.hours_per_control_site, 0.1);
+        assert_eq!(weights.control_site_cap, 50);
         assert_eq!(
             analyze(
                 "Test",

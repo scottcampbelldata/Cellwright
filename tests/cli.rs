@@ -381,8 +381,11 @@ fn rejects_archive_bombs_and_missing_inputs() {
     let input = temp.path().join("oversized.xlsx");
     let oversized = vec![b'x'; macroferry::container::MAX_PART as usize + 1];
     let mut zip = ZipWriter::new(fs::File::create(&input).unwrap());
+    zip.start_file("xl/workbook.xml", SimpleFileOptions::default())
+        .unwrap();
+    zip.write_all(b"<workbook/>").unwrap();
     zip.start_file(
-        "xl/workbook.xml",
+        "xl/vbaProject.bin",
         SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated),
     )
     .unwrap();
@@ -396,7 +399,7 @@ fn rejects_archive_bombs_and_missing_inputs() {
     assert_eq!(book["verdict"], "unknown");
     assert!(book["modules"].as_array().unwrap().is_empty());
     let error = book["error"].as_str().unwrap();
-    assert!(error.contains("xl/workbook.xml"));
+    assert!(error.contains("xl/vbaProject.bin"));
     assert!(error.contains(&oversized.len().to_string()));
     assert!(error.contains("16 MiB per-part scan limit"));
     assert!(error.contains("archive too large to inspect"));
@@ -425,6 +428,84 @@ fn rejects_archive_bombs_and_missing_inputs() {
         .code(),
         Some(2)
     );
+}
+
+#[test]
+fn oversized_non_vba_parts_retain_vba_and_flag_unknown_coverage() {
+    let temp = tempfile::tempdir().unwrap();
+    let input = temp.path().join("large-worksheet.xlsm");
+    let vba = public_vba_bytes();
+    let mut zip = ZipWriter::new(fs::File::create(&input).unwrap());
+    for (name, bytes) in [
+        ("xl/workbook.xml", b"<workbook/>".as_slice()),
+        ("xl/vbaProject.bin", &vba),
+    ] {
+        zip.start_file(name, SimpleFileOptions::default()).unwrap();
+        zip.write_all(bytes).unwrap();
+    }
+    let oversized = vec![0xff; macroferry::container::MAX_PART as usize + 1];
+    for name in [
+        "xl/worksheets/sheet1.xml",
+        "xl/calcChain.xml",
+        "xl/activeX/activeX1.bin",
+    ] {
+        zip.start_file(
+            name,
+            SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated),
+        )
+        .unwrap();
+        zip.write_all(&oversized).unwrap();
+    }
+    zip.start_file("xl/drawings/vmlDrawing1.vml", SimpleFileOptions::default())
+        .unwrap();
+    zip.write_all(b"<xml><br></xml>").unwrap();
+    zip.finish().unwrap();
+    let output = temp.path().join("report");
+    let result = cli(&["scan", "--no-source"], &input, &output);
+    assert!(
+        result.status.success(),
+        "{}",
+        String::from_utf8_lossy(&result.stderr)
+    );
+    let scan = json(&output);
+    let book = &scan["workbooks"][0];
+    assert_eq!(book["status"], "inspected");
+    assert_eq!(book["verdict"], "unknown");
+    assert_eq!(book["modules"].as_array().unwrap().len(), 5);
+    assert!(
+        book["modules"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|module| module.get("source").is_none())
+    );
+    let warning = book["error"].as_str().unwrap();
+    for part in [
+        "sheet1.xml",
+        "calcChain.xml",
+        "activeX1.bin",
+        "vmlDrawing1.vml",
+        "16 MiB",
+        "16777217",
+    ] {
+        assert!(warning.contains(part), "{warning}");
+    }
+    for feature in ["oversized_parts_uninspected", "activex", "vml_uninspected"] {
+        assert!(
+            book["features"]
+                .as_array()
+                .unwrap()
+                .contains(&Value::String(feature.into()))
+        );
+    }
+    assert!(
+        book["findings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|finding| finding["rule_id"] == "MF060")
+    );
+    assert!(scan["estimated_hours_low"].as_f64().unwrap() > 0.0);
 }
 
 #[test]

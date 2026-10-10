@@ -33,10 +33,11 @@ fn bounded_read(reader: impl Read, limit: u64) -> Result<Vec<u8>> {
     Ok(bytes)
 }
 
-fn check_zip<R: Read + Seek>(zip: &mut ZipArchive<R>) -> Result<()> {
+fn check_zip<R: Read + Seek>(zip: &mut ZipArchive<R>, skip_non_vba: bool) -> Result<Vec<String>> {
     ensure!(zip.len() <= MAX_ENTRIES, "ZIP has too many entries");
     let mut total = 0_u64;
     let mut names = BTreeSet::new();
+    let mut skipped = Vec::new();
     for i in 0..zip.len() {
         let entry = zip.by_index_raw(i)?;
         ensure!(names.insert(entry.name().to_owned()), "Duplicate ZIP entry");
@@ -44,6 +45,21 @@ fn check_zip<R: Read + Seek>(zip: &mut ZipArchive<R>) -> Result<()> {
             !entry.encrypted(),
             "Encrypted ZIP entry cannot be inspected"
         );
+        if skip_non_vba
+            && entry.size() > MAX_PART
+            && !entry
+                .name()
+                .to_ascii_lowercase()
+                .ends_with("vbaproject.bin")
+        {
+            skipped.push(format!(
+                "Skipped ZIP part {}: {} expanded bytes exceed the {} MiB per-part limit",
+                entry.name(),
+                entry.size(),
+                MAX_PART / 1024 / 1024
+            ));
+            continue;
+        }
         ensure!(
             entry.size() <= MAX_PART,
             "ZIP part {} expands to {} bytes, exceeding the {} MiB per-part scan limit; archive too large to inspect",
@@ -61,7 +77,7 @@ fn check_zip<R: Read + Seek>(zip: &mut ZipArchive<R>) -> Result<()> {
             MAX_TOTAL / 1024 / 1024
         );
     }
-    Ok(())
+    Ok(skipped)
 }
 
 fn xml_text(bytes: &[u8]) -> Result<String> {
@@ -204,7 +220,7 @@ pub fn extract_mashup(encoded: &str) -> Result<Vec<Query>> {
         )
         .context("Truncated DataMashup package")?;
     let mut zip = ZipArchive::new(Cursor::new(package))?;
-    check_zip(&mut zip)?;
+    check_zip(&mut zip, false)?;
     let mut queries = Vec::new();
     for i in 0..zip.len() {
         let entry = zip.by_index(i)?;
@@ -509,7 +525,11 @@ pub fn inspect(
         read_vba(&bytes, &mut workbook, rules, weights, skip_protected)?;
     } else if bytes.starts_with(b"PK") {
         let mut zip = ZipArchive::new(Cursor::new(&bytes))?;
-        check_zip(&mut zip)?;
+        let skipped = check_zip(&mut zip, true)?;
+        if !skipped.is_empty() {
+            add_feature(&mut workbook, "oversized_parts_uninspected");
+            workbook.error = Some(skipped.join("; "));
+        }
         let names: Vec<String> = zip.file_names().map(str::to_owned).collect();
         ensure!(
             names
@@ -543,6 +563,11 @@ pub fn inspect(
             if lower == "xl/connections.bin" {
                 add_feature(&mut workbook, "external_connections");
             }
+            // Oversized non-VBA parts are never decompressed or charged to the readable ZIP budget.
+            let index = zip.index_for_name(&name).context("Missing ZIP entry")?;
+            if zip.by_index_raw(index)?.size() > MAX_PART && !lower.ends_with("vbaproject.bin") {
+                continue;
+            }
             if lower.ends_with("vbaproject.bin") {
                 read_vba(
                     &bounded_read(zip.by_name(&name)?, MAX_PART)?,
@@ -572,7 +597,11 @@ pub fn inspect(
                 if let Err(error) = inspect_xml(part.as_bytes(), &mut workbook) {
                     // Legacy VML can contain HTML text; retain VBA and flag incomplete drawing coverage.
                     add_feature(&mut workbook, "vml_uninspected");
-                    workbook.error = Some(format!(
+                    let warning = workbook.error.get_or_insert_with(String::new);
+                    if !warning.is_empty() {
+                        warning.push_str("; ");
+                    }
+                    warning.push_str(&format!(
                         "VML drawing {name} could not be fully inspected: {error}"
                     ));
                 }
@@ -605,6 +634,47 @@ pub fn inspect(
 mod tests {
     use super::*;
     use std::io::Write;
+    #[test]
+    fn zip_budget_retains_aggregate_and_nested_part_limits() {
+        let mut writer = zip::ZipWriter::new(Cursor::new(Vec::new()));
+        for i in 0..17 {
+            writer
+                .start_file(
+                    format!("part{i}.xml"),
+                    zip::write::SimpleFileOptions::default(),
+                )
+                .unwrap();
+        }
+        let mut bytes = writer.finish().unwrap().into_inner();
+        // Forge declared sizes to exercise metadata checks without expanding 272 MiB.
+        let headers: Vec<_> = bytes
+            .windows(4)
+            .enumerate()
+            .filter_map(|(i, signature)| (signature == b"PK\x01\x02").then_some(i))
+            .collect();
+        assert_eq!(headers.len(), 17);
+        for header in &headers {
+            bytes[header + 24..header + 28].copy_from_slice(&(MAX_PART as u32).to_le_bytes());
+        }
+        let mut zip = ZipArchive::new(Cursor::new(&bytes)).unwrap();
+        assert!(
+            check_zip(&mut zip, true)
+                .unwrap_err()
+                .to_string()
+                .contains("aggregate scan limit")
+        );
+        for header in &headers {
+            bytes[header + 24..header + 28].copy_from_slice(&((MAX_PART + 1) as u32).to_le_bytes());
+        }
+        let mut zip = ZipArchive::new(Cursor::new(&bytes)).unwrap();
+        assert_eq!(check_zip(&mut zip, true).unwrap().len(), 17);
+        assert!(
+            check_zip(&mut zip, false)
+                .unwrap_err()
+                .to_string()
+                .contains("per-part scan limit")
+        );
+    }
     #[test]
     fn reads_real_cmg_protection_record() {
         assert!(!project_protection("C4C6C19047EF4BEF4BEF4BEF4B").unwrap());
