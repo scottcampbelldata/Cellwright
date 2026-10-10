@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Migrate Excel VBA to LibreOffice Basic or Python locally. Inspect workbooks, review deterministic rewrites, UserForm and ActiveX candidates, and migration checklists.">
+  <meta name="description" content="Free, open source tool that migrates Excel VBA macros to LibreOffice Basic or Python on your machine. Inspect workbooks, review rewrites and follow a migration checklist.">
   <meta name="theme-color" content="#17191f">
   <title>Cellwright | Excel VBA to LibreOffice migration</title>
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -13,13 +13,18 @@
   <meta property="og:title" content="Cellwright | Excel VBA to LibreOffice migration">
   <meta property="og:description" content="Local workbook inventory, deterministic Basic/Python conversion, form candidates and a migration checklist you can inspect.">
   <meta property="og:url" content="https://cellwright.scottcampbell.io/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://cellwright.scottcampbell.io/images/og-cellwright.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cellwright: migrate Excel VBA macros to LibreOffice and Python">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cellwright.scottcampbell.io/images/og-cellwright.png">
   <meta name="twitter:title" content="Cellwright | Excel VBA to LibreOffice migration">
   <meta name="twitter:description" content="Inspect, convert and review Excel workbook migrations locally.">
   <link rel="canonical" href="https://cellwright.scottcampbell.io/">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css?v=20261010-popout-1">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Cellwright","url":"https://cellwright.scottcampbell.io/","description":"Local Excel VBA inventory and deterministic migration candidates for LibreOffice Basic and Python, with bounded UserForm and ActiveX support.","applicationCategory":"DeveloperApplication","operatingSystem":"Windows, Linux","softwareVersion":"0.1.1","license":"https://spdx.org/licenses/EUPL-1.2.html","sameAs":"https://github.com/scottcampbelldata/Cellwright","author":{"@type":"Person","name":"Scott Campbell","url":"https://scottcampbell.io/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Cellwright","alternateName":"Cellwright Excel VBA migration tool","url":"https://cellwright.scottcampbell.io/","description":"Free, open source tool that inventories Excel VBA macros offline and creates LibreOffice Basic and Python conversion candidates, including Power Query to pandas.","applicationCategory":"DeveloperApplication","applicationSubCategory":"Spreadsheet migration","operatingSystem":"Windows, Linux","softwareVersion":"0.1.1","datePublished":"2026-10-10","isAccessibleForFree":true,"license":"https://spdx.org/licenses/EUPL-1.2.html","downloadUrl":["https://github.com/scottcampbelldata/Cellwright/releases/download/v0.1.1/cellwright-0.1.1-windows-x86_64.zip","https://github.com/scottcampbelldata/Cellwright/releases/download/v0.1.1/cellwright-0.1.1-linux-x86_64.zip"],"softwareRequirements":"Python 3.11+ for the dashboard; LibreOffice for Basic/UNO targets","screenshot":"https://cellwright.scottcampbell.io/images/dashboard.jpg","image":"https://cellwright.scottcampbell.io/images/og-cellwright.png","sameAs":["https://github.com/scottcampbelldata/Cellwright"],"author":{"@type":"Person","name":"Scott Campbell","url":"https://scottcampbell.io/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
   <script defer src="/engagement.js"></script>
   <script defer src="/screenshot.js"></script>
 </head>
@@ -28,7 +33,7 @@
 <header class="wrap"><a class="brand" href="/" aria-label="Cellwright home"><img src="/icon.svg" width="34" height="34" alt="">Cellwright</a><nav aria-label="Main navigation"><a href="#start">How it works</a><a href="/guides/excel-vba-to-libreoffice/">Migration guide</a><a href="https://github.com/scottcampbelldata/Cellwright">GitHub <span aria-hidden="true">↗</span></a></nav></header>
 <main id="main">
 <section class="hero wrap">
-  <div class="hero-copy"><p class="eyebrow"><span class="marker" aria-hidden="true"></span> Excel VBA → LibreOffice</p><h1>Move beyond Excel.<br><span>Keep what works.</span></h1><p class="lead">Your workbooks have years of work in them. Cellwright helps you inspect the VBA, rebuild supported code and understand what comes next.</p><p class="hero-note">Local processing. Original source retained. Every unresolved item explained.</p></div>
+  <div class="hero-copy"><p class="eyebrow"><span class="marker" aria-hidden="true"></span> Excel VBA → LibreOffice</p><h1>Move beyond Excel.<br><span>Keep what works.</span></h1><p class="lead">Migrate Excel VBA macros to LibreOffice and Python.</p><p class="lead">Your workbooks have years of work in them. Cellwright helps you inspect the VBA, rebuild supported code and understand what comes next.</p><p class="hero-note">Local processing. Original source retained. Every unresolved item explained.</p></div>
   <aside class="download-panel" id="download" aria-labelledby="download-heading"><div class="download-heading"><p class="eyebrow">Get Cellwright</p><span class="release">0.1.1 preview</span></div><h2 id="download-heading">Your first migration<br> starts here.</h2><div class="downloads"><a class="button" href="https://github.com/scottcampbelldata/Cellwright/releases/download/v0.1.1/cellwright-0.1.1-windows-x86_64.zip">Download for Windows <span aria-hidden="true">↓</span></a><a class="button secondary" href="https://github.com/scottcampbelldata/Cellwright/releases/download/v0.1.1/cellwright-0.1.1-linux-x86_64.zip">Download for Linux <span aria-hidden="true">↓</span></a></div><p class="download-note">Free &amp; open source · x64 · unsigned archives<br>Includes the dashboard and a sample workbook.</p><a class="release-link" href="https://github.com/scottcampbelldata/Cellwright/releases/tag/v0.1.1">Release notes &amp; checksums <span aria-hidden="true">↗</span></a></aside>
 </section>
 <div class="principles wrap" aria-label="Product principles"><p><span>01</span> Your files stay on your machine</p><p><span>02</span> Rules you can inspect</p><p><span>03</span> Scan without running macros</p></div>
