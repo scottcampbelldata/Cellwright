@@ -390,7 +390,23 @@ fn rejects_archive_bombs_and_missing_inputs() {
     zip.finish().unwrap();
     let out = temp.path().join("reports");
     assert_eq!(cli(&["scan"], &input, &out).status.code(), Some(1));
-    assert_eq!(json(&out)["workbooks"][0]["status"], "error");
+    let scan = json(&out);
+    let book = &scan["workbooks"][0];
+    assert_eq!(book["status"], "error");
+    assert_eq!(book["verdict"], "unknown");
+    assert!(book["modules"].as_array().unwrap().is_empty());
+    let error = book["error"].as_str().unwrap();
+    assert!(error.contains("xl/workbook.xml"));
+    assert!(error.contains(&oversized.len().to_string()));
+    assert!(error.contains("16 MiB per-part scan limit"));
+    assert!(error.contains("archive too large to inspect"));
+    assert_eq!(scan["estimated_hours_low"], 0.0);
+    assert_eq!(scan["estimated_hours_high"], 0.0);
+    assert!(
+        fs::read_to_string(out.join("report.html"))
+            .unwrap()
+            .contains("archive too large to inspect")
+    );
     let out = temp.path().join("missing");
     assert_eq!(
         cli(&["scan"], &temp.path().join("missing.xlsm"), &out)

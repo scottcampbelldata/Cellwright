@@ -425,7 +425,7 @@
       "declared_license": "GPL-3.0",
       "use": "local_testing_only",
       "status": "error",
-      "error": "ZIP entry exceeds 16 MiB limit",
+      "error": "ZIP part xl/worksheets/sheet5.xml expands to 59740611 bytes, exceeding the 16 MiB per-part scan limit; archive too large to inspect",
       "reference_modules_including_empty": 13,
       "reference_nonempty_modules": 6,
       "reference_nonblank_lines_excluding_attributes": 436,
@@ -602,7 +602,7 @@
       "declared_license": "MIT",
       "use": "local_testing_only",
       "status": "error",
-      "error": "ZIP entry exceeds 16 MiB limit",
+      "error": "ZIP part xl/worksheets/sheet8.xml expands to 23478017 bytes, exceeding the 16 MiB per-part scan limit; archive too large to inspect",
       "reference_modules_including_empty": 303,
       "reference_nonempty_modules": 165,
       "reference_nonblank_lines_excluding_attributes": 18426,
@@ -1119,5 +1119,6 @@
   "distribution": "All 30 workbook binaries and extracted source remain local and excluded from source control/release archives; includes Finance Tracker, CosMoS and Macquarie course material.",
   "native_unknown_control_sites": 10,
   "workbooks_with_ooxml_activex_parts": 4,
-  "activex_scope": "OOXML ActiveX binary parts only; legacy XLS/XLA and XLSB worksheet feature coverage remains partial."
+  "activex_scope": "OOXML ActiveX binary parts only; legacy XLS/XLA and XLSB worksheet feature coverage remains partial.",
+  "size_policy": "Retain the 16 MiB expanded ZIP part and 256 MiB aggregate limits for all scans; oversized archives stay uninspected, without a trusted-size override."
 }

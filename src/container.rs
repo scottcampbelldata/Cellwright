@@ -44,13 +44,21 @@ fn check_zip<R: Read + Seek>(zip: &mut ZipArchive<R>) -> Result<()> {
             !entry.encrypted(),
             "Encrypted ZIP entry cannot be inspected"
         );
-        ensure!(entry.size() <= MAX_PART, "ZIP entry exceeds 16 MiB limit");
+        ensure!(
+            entry.size() <= MAX_PART,
+            "ZIP part {} expands to {} bytes, exceeding the {} MiB per-part scan limit; archive too large to inspect",
+            entry.name(),
+            entry.size(),
+            MAX_PART / 1024 / 1024
+        );
         total = total
             .checked_add(entry.size())
             .context("ZIP size overflow")?;
         ensure!(
             total <= MAX_TOTAL,
-            "ZIP exceeds total uncompressed size limit"
+            "ZIP declared expansion reaches {} bytes, exceeding the {} MiB aggregate scan limit; archive too large to inspect",
+            total,
+            MAX_TOTAL / 1024 / 1024
         );
     }
     Ok(())

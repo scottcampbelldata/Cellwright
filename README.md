@@ -35,6 +35,8 @@ Custom TOML rules replace/add IDs, with kinds `tokens`, `com`, `path`, `referenc
 
 Scan exits: `0` all discovered workbooks inspected, even with blockers; `1` discovery/encryption/skip/timeout/parse failure with reports retained; `2` CLI/configuration/output error. An inspected workbook can still have an unknown verdict.
 
+Archive limits apply to expanded data: 16 MiB per ZIP part and 256 MiB across parts, with a 128 MiB on-disk workbook limit. Oversized archives stay uninspected with an unknown verdict; the error names the offending part and its declared expanded size. This round retains those limits for local scans too; no trusted-scan size override is provided. Failed files contribute no effort estimate.
+
 ## Conversion and evidence
 
 Targets: `basic`, `basic-uno`, `python-uno` and standalone `python`/openpyxl. Conversions keep originals, diffs, TODOs and candidate reports, creating new ODS files where applicable. Extracted M becomes pandas sidecars; unsupported features/providers fail explicitly. See the [conversion guide](docs/migration.md) for supported subsets and case examples.

@@ -19,6 +19,8 @@ Two files remain explicitly uninspected:
 
 The archive limits remain intact. A scan exits 1 and retains the partial reports for these failures; an inspected file with incomplete feature coverage still has an unknown verdict. Windows and Linux inventories match after normalizing paths, owner IDs and generation time.
 
+The size-policy decision for this round is to retain the limits, including for trusted local scans, and report these two archives as too large. Limits measure expanded ZIP parts, not the on-disk workbook: CosMoS is only 2,890,788 bytes on disk but has a roughly 57 MiB worksheet; the scheduler is 44,518,656 bytes on disk but expands to roughly 378 MiB overall. Raising the 16 MiB part ceiling alone would still leave the scheduler beyond the aggregate ceiling. Size errors now name the offending part, its declared expanded bytes and the active limit. A trusted-size mode would need a separate resource-budget design and validation before it could support these workbooks; none is introduced here.
+
 ```powershell
 macroferry.exe scan .\calibration-corpus --out .\reports\real-corpus --no-source
 ```
