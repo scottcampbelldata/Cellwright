@@ -12,7 +12,7 @@ Le dossier de destination doit être nouveau ou vide. Le rapport HTML fonctionne
 
 `--no-source` omet les sources VBA et M ; chemins, noms, références et constats restent visibles. `--skip-protected` ignore le VBA protégé ou de protection inconnue. Les fichiers chiffrés ne sont pas déchiffrés. La sortie `1` signale une inspection incomplète ; la sortie `2` une erreur de configuration ou de destination.
 
-Les estimations sont des hypothèses non calibrées. Aucun obstacle connu ne garantit la compatibilité LibreOffice. La couverture XLS/XLSB reste partielle ; les contrôles UserForm sont inventoriés quand ils sont lisibles, sans conversion du concepteur. Les écarts source/cache sont des indices, pas une détection complète du VBA stomping.
+Les estimations sont des hypothèses non calibrées. La mention « Aucun obstacle connu » ne garantit pas la compatibilité avec LibreOffice. La couverture XLS/XLSB reste partielle ; les contrôles UserForm sont inventoriés quand ils sont lisibles, sans conversion du concepteur. Les écarts source/cache sont des indices, pas une détection complète du VBA stomping.
 
 ```powershell
 cellwright.exe serve --port 8768
@@ -21,5 +21,9 @@ cellwright.exe migrate verify .\cas.json --out .\preuve --allow-execution
 ```
 
 Le tableau de bord local est disponible sur http://127.0.0.1:8768 : historique, affectations, états et scans planifiés tant que le serveur fonctionne. La conversion conserve les originaux, différences et TODO. L’exécution est volontaire et réservée au code de confiance ; elle n’est pas isolée du système. Un cas réussi ne prouve que les entrées et cellules comparées. Les cibles Python et les requêtes M/pandas prennent en charge un sous-ensemble documenté dans `docs/migration.md`.
+
+Le sélecteur de langue propose **English, Français et Deutsch** pour l’interface, les constats et l’affichage des dates et nombres. Au premier accès, une langue prise en charge du navigateur est utilisée ; sinon, l’anglais est choisi. Le navigateur mémorise votre préférence et les traductions fonctionnent hors ligne. Les nouveaux scans et scans planifiés proposent cette langue pour le rapport, avec la possibilité d’en choisir une autre. Chaque planification conserve sa langue de rapport ; les planifications existantes restent en anglais. Les rapports déjà exportés ne changent pas de langue.
+
+Cette fonction est disponible dans le code source actuel ; les archives publiées doivent être reconstruites pour l’inclure. La langue de l’interface ne modifie pas les règles de conversion des feuilles de calcul : les cultures M autres que `en-US` et `en-GB` nécessitent un travail manuel, et les formats de nombres UNO utilisent `en-US`. Des diagnostics techniques peuvent rester en anglais. Voir [la couverture des traductions](../localization.md).
 
 Pour compiler : Rust 1.99.0, puis `cargo build --locked --release`. Les règles et pondérations TOML sont illustrées dans `data/`. Voir le README anglais pour les limites et options complètes. Cette traduction n’a pas été relue par un locuteur natif.

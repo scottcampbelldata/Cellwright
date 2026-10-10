@@ -1,5 +1,15 @@
 # Validation (10 October 2026)
 
+## Language support checks (Windows, 10 October 2026)
+
+The English/French/German dashboard change passed 15 Node tests, 38 Python tests and 27 native tests (17 unit and 10 integration). Python discovery used the bundled Python 3.12.14 runtime with openpyxl 3.1.5 and pandas 3.0.1; it did not use the system Python installation or establish behavior for other dependency versions. Formatting, clippy with warnings denied, the locked Windows release build and full archive creation passed.
+
+Browser checks exercised all three languages, saved preference across reloads, demonstration scans, localized findings and feature labels, preservation of entered form values, and French report language retained when a schedule was paused/resumed in the German interface. French/German layouts fit at 1440, 768 and 375 CSS pixels without horizontal page overflow; the final browser console had no errors. Tests also cover legacy schedule database migration, English fallback, blocked browser storage, placeholder consistency, plurals, translated dependency search, and language changes while an API response body is pending. Read requests retry in the current language; mutations are never replayed.
+
+Agents independently reviewed translation accuracy and corrected compatibility warnings and terminology. This does not replace native-speaker review. No macro execution, regional spreadsheet coercion validation, Linux build, public deployment or published release was performed for this change. The earlier validation below retains its original scope.
+
+## Earlier application validation
+
 The current static checks run on Windows x64 and Ubuntu in WSL with Rust/Cargo 1.99.0, Windows Python 3.15 and Linux Python 3.14. pandas 3.0.6/openpyxl 3.1.5 are optional dependencies. Earlier engine comparisons used LibreOffice 26.8.1.1 on Windows and 26.2.6.3 on Linux. Excel captures were made on Windows with Excel 16.0.20430.20092 x64; Linux reused the saved captures. Reference tools and test runtimes are kept in ignored local cache directories.
 
 | Current check | Windows | Ubuntu |

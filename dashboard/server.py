@@ -16,6 +16,7 @@ import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit, quote
+from dashboard.localization import LANGUAGES, conversion_response, handoff_response, setup_response, translate, validate_language
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,9 +32,11 @@ class Store:
             db.executescript("""
                 CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, kind TEXT, label TEXT, state TEXT, created INTEGER, finished INTEGER, input TEXT, options TEXT, result TEXT, error TEXT);
                 CREATE TABLE IF NOT EXISTS assignments (path TEXT PRIMARY KEY, owner TEXT NOT NULL DEFAULT '', state TEXT NOT NULL DEFAULT 'pending', notes TEXT NOT NULL DEFAULT '', updated INTEGER);
-                CREATE TABLE IF NOT EXISTS schedules (id TEXT PRIMARY KEY, label TEXT, paths TEXT, interval_hours INTEGER, next_run INTEGER, enabled INTEGER);
+                CREATE TABLE IF NOT EXISTS schedules (id TEXT PRIMARY KEY, label TEXT, paths TEXT, interval_hours INTEGER, next_run INTEGER, enabled INTEGER, lang TEXT NOT NULL DEFAULT 'en');
                 UPDATE jobs SET state='failed', error='Dashboard stopped before this job completed', finished=strftime('%s','now') WHERE state IN ('queued','running');
             """)
+            if "lang" not in {row["name"] for row in db.execute("PRAGMA table_info(schedules)")}:
+                db.execute("ALTER TABLE schedules ADD COLUMN lang TEXT NOT NULL DEFAULT 'en'")
 
     @contextlib.contextmanager
     def connect(self):
@@ -56,6 +59,7 @@ class Store:
 
     def submit(self, kind, label, input_value, options):
         if kind not in ("scan", "convert", "verify"): raise ValueError("Unsupported job kind")
+        if kind == "scan": validate_language(options.get("lang", "en"))
         if kind == "verify" and not self.allow_execution: raise PermissionError("Restart the dashboard with --allow-execution to enable macro verification")
         identifier = uuid.uuid4().hex
         with self.connect() as db:
@@ -116,7 +120,9 @@ class Store:
         identifier = value.get("id") or uuid.uuid4().hex
         label, enabled = str(value.get("label", "Scheduled scan"))[:120], bool(value.get("enabled", True))
         with self.connect() as db:
-            db.execute("INSERT INTO schedules VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET label=excluded.label,paths=excluded.paths,interval_hours=excluded.interval_hours,enabled=excluded.enabled", (identifier, label, json.dumps(paths), interval, int(time.time()) + interval * 3600, enabled))
+            existing = db.execute("SELECT lang FROM schedules WHERE id=?", (identifier,)).fetchone()
+            language = validate_language(value.get("lang", existing["lang"] if existing else "en"))
+            db.execute("INSERT INTO schedules (id,label,paths,interval_hours,next_run,enabled,lang) VALUES (?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET label=excluded.label,paths=excluded.paths,interval_hours=excluded.interval_hours,enabled=excluded.enabled,lang=excluded.lang", (identifier, label, json.dumps(paths), interval, int(time.time()) + interval * 3600, enabled, language))
         return identifier
 
     def due(self, now=None):
@@ -126,7 +132,7 @@ class Store:
             for row in due:
                 db.execute("UPDATE schedules SET next_run=? WHERE id=?", (now + row["interval_hours"] * 3600, row["id"]))
         for row in due:
-            self.submit("scan", row["label"], json.loads(row["paths"]), {"source": False, "lang": "en"})
+            self.submit("scan", row["label"], json.loads(row["paths"]), {"source": False, "lang": row["lang"]})
         return len(due)
 
 
@@ -150,6 +156,14 @@ class Server(ThreadingHTTPServer):
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, format, *args): pass
+
+    def language(self):
+        value = self.headers.get("X-Cellwright-Language", "en")
+        return value if value in LANGUAGES else "en"
+
+    def error(self, error):
+        message = str(error.args[0]) if isinstance(error, KeyError) and error.args else str(error)
+        return {"error": translate(message, self.language())}
 
     def allowed_host(self):
         host = self.headers.get("Host")
@@ -189,16 +203,19 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/":
                 html = (ROOT / "dashboard/index.html").read_bytes().replace(b"SESSION_TOKEN", self.server.token.encode())
                 self.reply(html, content_type="text/html; charset=utf-8", cookie=True)
-            elif path in ("/app.js", "/style.css"):
+            elif path in ("/app.js", "/locales.js", "/style.css"):
                 self.reply((ROOT / "dashboard" / path[1:]).read_bytes(), content_type="text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8")
             elif path == "/api/state":
                 self.authorize()
-                self.reply({"jobs": self.server.store.list("jobs"), "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.1", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden, "setup":self.server.setup})
+                jobs = self.server.store.list("jobs")
+                for job in jobs:
+                    if job["error"]: job["error"] = translate(job["error"], self.language())
+                self.reply({"jobs": jobs, "assignments": self.server.store.list("assignments"), "schedules": self.server.store.list("schedules"), "version": "0.1.2", "offline": True, "allow_execution": self.server.store.allow_execution, "requires_golden": self.server.requires_golden, "setup":setup_response(self.server.setup, self.language())})
             elif path == "/api/setup":
                 self.authorize()
                 from dashboard.setup import check
                 self.server.setup=check(self.server.store.binary)
-                self.reply(self.server.setup)
+                self.reply(setup_response(self.server.setup, self.language()))
             elif path == "/recipes":
                 self.authorize(cookie=True)
                 self.reply((ROOT/'docs/recipes.md').read_bytes(),content_type='text/plain; charset=utf-8')
@@ -216,6 +233,12 @@ class Handler(BaseHTTPRequestHandler):
                         if not module.get('procedures') or isinstance(module['procedures'][0],str):
                             source=(self.server.store.directory/identifier/module['original']).read_text(encoding='utf-8')
                             module['procedures']=[{'name':node['name'],'parameters':node['parameters'],'kind':node['procedure_kind']} for node in vba.syntax(source) if node['kind']=='procedure']
+                    inventory = None
+                    inventory_path = self.server.store.directory / identifier / "inventory/scan.json"
+                    if self.language() != "en" and inventory_path.is_file():
+                        with contextlib.suppress(OSError, json.JSONDecodeError):
+                            inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+                    report = conversion_response(report, self.language(), inventory)
                 self.reply(report)
             elif path.startswith("/files/"):
                 self.authorize(cookie=True)
@@ -228,9 +251,9 @@ class Handler(BaseHTTPRequestHandler):
                 if filename.stat().st_size > 128 * 1024 * 1024: raise ValueError("Artifact too large")
                 self.reply(filename.read_bytes(), content_type="application/octet-stream", attachment=filename.name)
             else:
-                self.reply({"error": "Not found"}, 404)
+                self.reply(self.error(ValueError("Not found")), 404)
         except Exception as error:
-            self.reply({"error": str(error)}, 403 if isinstance(error, PermissionError) else 404 if isinstance(error, (FileNotFoundError, KeyError)) else 400)
+            self.reply(self.error(error), 403 if isinstance(error, PermissionError) else 404 if isinstance(error, (FileNotFoundError, KeyError)) else 400)
 
     def do_POST(self):
         try:
@@ -243,7 +266,7 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(value, dict): raise ValueError("JSON object required")
             if self.path == "/api/scans":
                 validate_paths(value.get("paths"))
-                if value.get("lang", "en") not in ("en", "fr", "de"): raise ValueError("Invalid language")
+                validate_language(value.get("lang", "en"))
                 result = {"id": self.server.store.submit("scan", value.get("label", "Estate scan"), value["paths"], {"lang": value.get("lang", "en"), "source": bool(value.get("source", False))})}
             elif self.path == "/api/conversions":
                 if value.get("target") not in ("basic", "basic-uno", "python-uno", "python"): raise ValueError("Invalid target")
@@ -261,6 +284,7 @@ class Handler(BaseHTTPRequestHandler):
                 for case in self.server.store.list('jobs'):
                     if case['kind']=='verify' and case['result'] and json.loads(case['options']).get('conversion_id')==job['id']:evidence.append(json.loads(case['result']))
                 result=handoff(report,evidence,value.get('include_identifiers') is True)
+                result=handoff_response(result,self.language(),value.get('include_identifiers') is True)
             elif self.path == "/api/assignments":
                 self.server.store.assignment(value)
                 result = {"saved": True}
@@ -296,11 +320,11 @@ class Handler(BaseHTTPRequestHandler):
                 with self.server.store.connect() as db: db.execute("DELETE FROM schedules WHERE id=?", (value.get("id"),))
                 result = {"deleted": True}
             else:
-                self.reply({"error": "Not found"}, 404)
+                self.reply(self.error(ValueError("Not found")), 404)
                 return
             self.reply(result, 200)
         except Exception as error:
-            self.reply({"error": str(error)}, 403 if isinstance(error, PermissionError) else 400)
+            self.reply(self.error(error), 403 if isinstance(error, PermissionError) else 400)
 
 
 def main():

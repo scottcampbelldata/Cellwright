@@ -153,8 +153,8 @@ pub fn html(scan: &Scan) -> String {
             index,
             [
                 "Estimates use uncalibrated planning defaults, exclude unknown work, and are not a migration quote. No known blockers does not prove LibreOffice compatibility.",
-                "Les estimations utilisent des valeurs non calibrées, excluent le travail inconnu et ne constituent pas un devis. Aucun obstacle connu ne prouve pas la compatibilité LibreOffice.",
-                "Schätzungen verwenden unkalibrierte Standardwerte, schließen unbekannte Arbeit aus und sind kein Angebot. Keine bekannten Hindernisse beweist keine LibreOffice-Kompatibilität."
+                "Les estimations utilisent des valeurs non calibrées, excluent le travail inconnu et ne constituent pas un devis. La mention « Aucun obstacle connu » ne prouve pas la compatibilité avec LibreOffice.",
+                "Schätzungen verwenden unkalibrierte Standardwerte, schließen unbekannte Arbeit aus und sind kein Angebot. Die Bewertung „Keine bekannten Hindernisse“ belegt keine LibreOffice-Kompatibilität."
             ]
         ),
         t(

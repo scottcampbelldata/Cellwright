@@ -2,6 +2,8 @@
 
 Rust 1.99.0 and Cargo.lock pin the native build. Full archives include the native scanner, Python tools, dashboard assets, documentation, TOML rules, dependency notices, a CycloneDX 1.6 SBOM and per-file SHA-256 manifest. Python and LibreOffice are installed separately; no Office runtime or private workbook is distributed. The owned formatting/button demonstration is bundled with both launchers.
 
+The v0.1.2 preview adds an English/French/German local dashboard with bundled translation catalogs, a remembered language choice and regional date/number display. New scan and schedule forms support a separate report language; existing schedules retain English. The packager includes these assets and [language documentation](localization.md) through its existing dashboard/docs allowlist. Windows and Linux release archives include the change; older preview downloads remain available separately.
+
 ```powershell
 cargo build --locked --release
 python scripts/package.py --binary target/release/cellwright.exe --platform windows-x86_64 --out dist
@@ -22,7 +24,7 @@ For reproducibility use the same Rust toolchain, target triple, lockfile, linker
 
 CI checks Windows/Linux formatting, clippy, native and Python tests, and creates downloadable full archives. The fuzz job uses nightly/libFuzzer and has a short budget; longer campaigns belong on dedicated hosts. The [implementation CI run](https://github.com/scottcampbelldata/Cellwright/actions/runs/38038290143) passed for commit `4de3c24`; [validation](validation.md) records the current checks.
 
-The v0.1.1 preview archives are **unsigned** and available on [GitHub releases](https://github.com/scottcampbelldata/Cellwright/releases/tag/v0.1.1). Production Authenticode signing and Linux detached signatures require the owner's signing credentials. [Source is public on GitHub](https://github.com/scottcampbelldata/Cellwright), and [private vulnerability reporting](../SECURITY.md) is enabled. Public-code metadata, publishing a mirror and governance remain owner decisions. Native-language review, representative estate pilots and measured effort calibration remain release gates. Simulated workbook checks exercise scenarios without establishing production effort estimates.
+The v0.1.2 preview archives are **unsigned** and available on [GitHub releases](https://github.com/scottcampbelldata/Cellwright/releases/tag/v0.1.2). Production Authenticode signing and Linux detached signatures require the owner's signing credentials. [Source is public on GitHub](https://github.com/scottcampbelldata/Cellwright), and [private vulnerability reporting](../SECURITY.md) is enabled. Public-code metadata, publishing a mirror and governance remain owner decisions. Native-language review, representative estate pilots and measured effort calibration remain release gates. Simulated workbook checks exercise scenarios without establishing production effort estimates.
 
 The public project page is a static Cloudflare Pages site at `https://cellwright.scottcampbell.io`. Pages uses this repository's `main` branch, no framework or build command, and `site` as the output directory. Workbook processing remains in the loopback-only local dashboard; the public page has no upload or execution endpoint.
 

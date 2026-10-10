@@ -2,6 +2,8 @@
 
 Cellwright is published at [cellwright.scottcampbell.io](https://cellwright.scottcampbell.io/). Cloudflare Pages builds the `site/` directory from this repository's `main` branch. Workbook scanning and conversion remain in the local application.
 
+The public website remains in English. The current source checkout supports English, French and German in the local dashboard; see [language support](localization.md). Update download wording when archives containing that change are published, so the website does not advertise a capability absent from its linked release.
+
 The site includes crawlable migration guides, descriptive titles, canonical URLs, structured SoftwareApplication/Article data, `robots.txt`, a four-page sitemap and a plain-text crawler overview. Search placement depends on indexing, relevance and outside links; these files do not guarantee a ranking. The site is verified in [Google Search Console](https://search.google.com/search-console?resource_id=https%3A%2F%2Fcellwright.scottcampbell.io%2F), which tracks indexing and search queries separately from website visits.
 
 ## Owner's reports
@@ -31,4 +33,4 @@ Pages production binds the dedicated D1 database `cellwright-traffic` as `TRAFFI
 
 Web Analytics is enabled in Pages Metrics and is injected on deployment. `site/_headers` allows the Cloudflare beacon and the local engagement script. The database and Functions use the existing free plan; daily quotas can stop collection. The website continues serving static pages independently.
 
-Validation: `node --test tests/test_site.mjs` runs three checks covering the site/dashboard/report palette restriction, counter bounds, private-field rejection, cross-origin rejection, foreground time and opt-outs. CI runs them on Windows and Ubuntu alongside the existing application tests.
+Validation: `node --test tests/test_*.mjs` runs the website and dashboard language checks. Website checks cover the site/dashboard/report palette restriction, counter bounds, private-field rejection, cross-origin rejection, foreground time and opt-outs. CI runs them on Windows and Ubuntu alongside the existing application tests.

@@ -36,7 +36,7 @@ def main():
     args=parser.parse_args()
     if not args.binary.is_file():raise FileNotFoundError(args.binary)
     args.out.mkdir(parents=True,exist_ok=True)
-    name='cellwright-0.1.1-'+args.platform
+    name='cellwright-0.1.2-'+args.platform
     archive=args.out/(name+'.zip')
     files={}
     for directory in ('.cargo','migration','harness','dashboard','docs','data','LICENSES','third-party-licenses'):

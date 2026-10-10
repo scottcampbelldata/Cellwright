@@ -22,6 +22,8 @@ cellwright.exe scan C:\Finance --out .\reports\finance --no-source
 
 Everything runs on your machine. Nothing is uploaded, and macros never run unless you turn that on for files you trust.
 
+The local dashboard supports **English, Français and Deutsch**. Use its language selector to change the interface and regional date/number display; your browser remembers the choice. The first visit uses a supported browser language, with English as the fallback. All translations are bundled and work offline. This support is included in the [v0.1.2 preview](https://github.com/scottcampbelldata/Cellwright/releases/tag/v0.1.2) and later builds.
+
 ## Details
 
 Offline Excel VBA inventory, assisted conversion to LibreOffice Basic/Python, Power Query migration to pandas, and a local migration dashboard. The scanner is one Rust executable and needs neither Office nor Python. The full archive includes optional Python tools; UNO targets also need LibreOffice. Desktop Excel is needed only to capture new Excel goldens.
@@ -57,6 +59,8 @@ cellwright.exe rules list --lang fr
 
 `--lang en|fr|de` selects report/finding text. `--jobs` sets isolated workers (default 2); `--timeout` sets seconds per workbook (default 15). `--skip-protected` omits protected or unknown-protection VBA. `--no-source` excludes VBA, M and designer data and conflicts with `extract`; paths, names, owner IDs, references, hashes and findings remain visible. Dashboard scans default to source-free output.
 
+In the dashboard, new scan and schedule forms default to the interface language and let you choose a different report language. A schedule keeps its chosen report language; existing schedules default to English. Findings shown in the workspace follow the interface language, while exported reports retain the scan's report language. See [language support](docs/localization.md) for coverage, translation contributions and the separate limits on regional spreadsheet conversion.
+
 Custom TOML rules replace/add IDs, with kinds `tokens`, `com`, `path`, `reference`, `feature` and English/French/German messages. Loaded configuration is frozen for workers and recorded in JSON. Examples are in `data/`.
 
 Scan exits: `0` all discovered workbooks inspected, even with blockers; `1` discovery/encryption/skip/timeout/parse failure with reports retained; `2` CLI/configuration/output error. An inspected workbook can still have an unknown verdict.
@@ -86,6 +90,7 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo test --locked
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests -p "test_*.py"
+node --test tests/test_*.mjs
 ```
 
 [Validation](docs/validation.md) records Windows/Linux checks, controlled engine comparisons and fuzzing. [Corpus origins](corpus/README.md) distinguish public extraction data from owned executable fixtures. `scripts/crosscheck.py` compares extraction with olevba. `scripts/verify_corpus.py` and `scripts/verify_query.py` retain controlled-case evidence.
