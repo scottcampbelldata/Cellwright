@@ -12,8 +12,8 @@ Python sidecars reuse scanner JSON. A tolerant handwritten VBA statement/express
 | M3 | Offline reports/estimates/privacy, Windows/Linux full archives, SBOM/hashes, three-language guides, reproducibility procedure | Signing, publication/mirror, language review and calibration |
 | M4 | Pinned IDL snapshot, partial member/type checks, integrated tolerant tree/parser | Full name/type resolution; declared is not tested |
 | M5 | Excel COM capture, private UNO worker, formula/numeric comparison, controlled suites | Workload-specific cases, dates/locales/errors/formats/side effects |
-| M6 | Basic compatibility/native cell candidates, TODOs/diffs, 40 named qualified-intrinsic rules and cell rewrites | General object model/forms/events/APIs; namespace rules are not 40 object-model ports |
-| M7 | Python UNO and standalone openpyxl generators/helper | Advanced VBA semantics/classes/coercions and engine-native formula copies/formatting |
+| M6 | Basic compatibility/native cell candidates, TODOs/diffs, 40 named qualified-intrinsic rules, cell/formatting rewrites and eligible worksheet-button rebinding | General object model/UserForms/events/APIs; namespace rules are not 40 object-model ports |
+| M7 | Python UNO and standalone openpyxl generators/helper, bounded range formatting | Advanced VBA semantics/classes/coercions, button installation and engine-native formula copies |
 | M8 | M parser/metadata, common pandas table operations, extracted-query comparison | General M/comparers/null coercion/network/SQL providers |
 | M9 | Dashboard scans/history, assignment/status/notes, schedules, candidates/downloads and opt-in comparisons | Multi-user/remote deployment; schedules need a running server |
 

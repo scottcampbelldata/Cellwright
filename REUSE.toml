@@ -19,7 +19,7 @@ SPDX-FileCopyrightText = "2026 Scott Campbell"
 SPDX-License-Identifier = "EUPL-1.2"
 
 [[annotations]]
-path = ["corpus/generated/arithmetic-source-only.xlsm"]
+path = ["corpus/generated/arithmetic-source-only.xlsm", "corpus/generated/formatting-button.xlsm"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = ["2026 Scott Campbell", "2016-2026 calamine contributors (type-library reference metadata)"]
 SPDX-License-Identifier = "EUPL-1.2 AND MIT"

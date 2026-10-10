@@ -7,6 +7,9 @@ import builtins
 import datetime
 import math
 import re
+from migration import formatting
+
+rgb = formatting.rgb
 
 
 def concat(left, right):
@@ -292,6 +295,49 @@ class Sheet:
         self.book.active = self
         if self.book.uno:
             self.book.native.CurrentController.setActiveSheet(self.native)
+
+
+def format_range(target, prop, value):
+    if not isinstance(target, Range):
+        raise NotImplementedError("Formatting requires a workbook range")
+    value = formatting.validate(prop, value)
+    r1, c1, r2, c2 = target.bounds
+    if target.count > 100_000:
+        raise ValueError("Formatting exceeds 100,000 cells")
+    if target.sheet.book.uno:
+        native = target.sheet.native.getCellRangeByPosition(c1 - 1, r1 - 1, c2 - 1, r2 - 1)
+        if prop == "font.bold": value = 150.0 if value else 100.0
+        elif prop == "font.italic":
+            import uno
+            value = uno.Enum("com.sun.star.awt.FontSlant", "ITALIC" if value else "NONE")
+        elif prop == "horizontalalignment":
+            import uno
+            value = uno.Enum("com.sun.star.table.CellHoriJustify", formatting.HORIZONTAL[value][0])
+        elif prop == "verticalalignment": value = formatting.VERTICAL[value][0]
+        elif prop == "numberformat":
+            import uno
+            locale = uno.createUnoStruct("com.sun.star.lang.Locale")
+            locale.Language, locale.Country = "en", "US"
+            formats = target.sheet.book.native.NumberFormats
+            key = formats.queryKey(value, locale, True)
+            value = formats.addNew(value, locale) if key < 0 else key
+        native.setPropertyValue(formatting.PROPERTIES[prop], value)
+    else:
+        from copy import copy
+        from openpyxl.styles import PatternFill
+        for row in target.sheet.native.iter_rows(min_row=r1, max_row=r2, min_col=c1, max_col=c2):
+            for cell in row:
+                if prop.startswith("font."):
+                    font = copy(cell.font)
+                    setattr(font, {"font.bold": "bold", "font.italic": "italic", "font.name": "name", "font.size": "size", "font.color": "color"}[prop], f"FF{value:06X}" if prop.endswith("color") else value)
+                    cell.font = font
+                elif prop == "interior.color": cell.fill = PatternFill("solid", fgColor=f"FF{value:06X}")
+                elif prop == "numberformat": cell.number_format = value
+                else:
+                    alignment = copy(cell.alignment)
+                    attr = {"wraptext": "wrap_text", "horizontalalignment": "horizontal", "verticalalignment": "vertical"}[prop]
+                    setattr(alignment, attr, formatting.HORIZONTAL[value][1] if prop == "horizontalalignment" else formatting.VERTICAL[value][1] if prop == "verticalalignment" else value)
+                    cell.alignment = alignment
 
 
 class WorksheetFunction:

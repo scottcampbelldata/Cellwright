@@ -81,9 +81,9 @@ class Store:
                 state = "completed" if result.returncode == 0 else "partial"
                 data = {"workbooks": len(summary["workbooks"]), "unique_modules": summary["unique_modules"], "hours_low": summary["estimated_hours_low"], "hours_high": summary["estimated_hours_high"], "source_included": summary["source_included"]}
             elif job["kind"] == "convert":
-                from migration.convert import convert
+                from migration.convert import convert, todo_count
                 summary = convert(inputs, directory, self.binary, options["target"])
-                data = {"modules": len(summary["modules"]), "queries":len(summary.get('power_queries',[])), "todos": sum(len(module["todos"]) for module in summary["modules"])+sum(len(query['todos']) for query in summary.get('power_queries',[])), "target": summary["target"], "verified": False}
+                data = {"modules": len(summary["modules"]), "queries":len(summary.get('power_queries',[])), "todos": todo_count(summary), "buttons": sum(record['status']=='rewritten' for record in summary.get('buttons',{}).get('records',[])), "target": summary["target"], "verified": False}
                 with zipfile.ZipFile(directory/'candidate.zip','x',zipfile.ZIP_DEFLATED) as archive:
                     for filename in sorted(directory.rglob('*')):
                         if filename.is_file() and filename!=directory/'candidate.zip':archive.write(filename,filename.relative_to(directory).as_posix())

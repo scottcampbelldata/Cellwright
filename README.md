@@ -39,7 +39,7 @@ Archive limits apply to expanded data: 16 MiB per ZIP part and 256 MiB across re
 
 ## Conversion and evidence
 
-Targets: `basic`, `basic-uno`, `python-uno` and standalone `python`/openpyxl. Conversions keep originals, diffs, TODOs and candidate reports, creating new ODS files where applicable. Extracted M becomes pandas sidecars; unsupported features/providers fail explicitly. See the [conversion guide](docs/migration.md) for supported subsets and case examples.
+Targets: `basic`, `basic-uno`, `python-uno` and standalone `python`/openpyxl. Local deterministic rules rewrite supported font/fill/alignment/wrapping/number-format assignments; Basic targets also reconnect eligible imported worksheet buttons. Conversions keep originals, diffs, TODOs and candidate reports, creating new ODS files where applicable without running macros. Extracted M becomes pandas sidecars; unsupported features/providers fail explicitly. See the [conversion guide](docs/migration.md) for supported subsets and case examples.
 
 ```powershell
 macroferry.exe migrate verify .\case.json --out .\proof --allow-execution

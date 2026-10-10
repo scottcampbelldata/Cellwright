@@ -55,5 +55,26 @@
     "file": "encrypted.xlsb",
     "sha256": "f790bbce8ccad2a6f3d58f85b830d625a46924d49e356ac51d862bc18d3a938d",
     "status": "encrypted"
+  },
+  {
+    "file": "generated/formatting-button.xlsm",
+    "sha256": "4b4b108df8e867b7b2e62847bcdfce14dea1692532cffb094ecdacff117fe16c",
+    "modules": [
+      {
+        "name": "Arithmetic",
+        "lines": 10,
+        "source_sha256": "5186658b8185e298267d9baf2aa39d3fc150de54e5da09d32fcf4a0abd5310ca"
+      },
+      {
+        "name": "ThisWorkbook",
+        "lines": 4,
+        "source_sha256": "a1e87f72ba95659253f3c5f4978e3257028ceb275a192f63b3e0284ffb594e38"
+      },
+      {
+        "name": "Sheet1",
+        "lines": 4,
+        "source_sha256": "b5fcc1a990f5745075351037f19b6fa9b1edffa7f1fef1ad12ae742ff972bb0f"
+      }
+    ]
   }
 ]

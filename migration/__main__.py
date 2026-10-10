@@ -9,7 +9,7 @@ from pathlib import Path
 
 from harness.compare import compare
 from migration import office
-from migration.convert import convert
+from migration.convert import convert, todo_count
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -60,7 +60,7 @@ def main():
     args = parser.parse_args()
     if args.command == "convert":
         result = convert(args.input, args.out, args.binary, args.target, args.libreoffice)
-        count=sum(len(m['todos']) for m in result['modules'])+sum(len(q['todos']) for q in result.get('power_queries',[]))
+        count=todo_count(result)
         print(f"Candidate created: {args.out}; {count} TODO(s); verify before use")
     elif args.command == "verify":
         from migration.verify import verify

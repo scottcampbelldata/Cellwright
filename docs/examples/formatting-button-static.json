@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-10",
+  "scope": "Static conversion, saved button bindings and direct formatting properties; no macro or button handler execution",
+  "fixture": "corpus/generated/formatting-button.xlsm",
+  "fixture_sha256": "4b4b108df8e867b7b2e62847bcdfce14dea1692532cffb094ecdacff117fe16c",
+  "source_only_vba": true,
+  "independent_olevba_source_match_modules": 3,
+  "macros_executed": false,
+  "runtime_equivalence_verified": false,
+  "platforms": {
+    "windows": {
+      "libreoffice": "26.8.1.1",
+      "target": "basic",
+      "modules": 3,
+      "format_assignment_rewrites": 3,
+      "todos": 0,
+      "saved_button_rebindings": 1,
+      "button_name": "Button 1",
+      "saved_binding": "vnd.sun.star.script:Standard.MacroFerryButtons.Button1?language=Basic&location=document",
+      "retained_shapes": 1,
+      "imported_library_removed": true,
+      "original_cell_colour_unchanged": true,
+      "direct_uno_formatting_properties_passed": true
+    },
+    "linux": {
+      "libreoffice": "26.2.6.3",
+      "target": "basic-uno",
+      "modules": 3,
+      "format_assignment_rewrites": 3,
+      "todos": 0,
+      "saved_button_rebindings": 1,
+      "button_name": "Button 1",
+      "saved_binding": "vnd.sun.star.script:Standard.MacroFerryButtons.Button1?language=Basic&location=document",
+      "retained_shapes": 1,
+      "imported_library_removed": true,
+      "original_cell_colour_unchanged": true,
+      "direct_uno_formatting_properties_passed": true
+    }
+  },
+  "standalone_python": {
+    "candidate_syntax_compiles": true,
+    "formatting_helper_packaged": true,
+    "button_wiring_todos": 1,
+    "macros_executed": false
+  },
+  "limitations": [
+    "Basic helpers and rebound handlers were not executed",
+    "No claim of Excel/Calc rendering or runtime equivalence",
+    "UserForms, ActiveX, complex events and unsupported formatting remain manual"
+  ]
+}

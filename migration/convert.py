@@ -8,7 +8,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from migration import office, vba
+from migration import controls, formatting, office, vba
 
 # Qualified language intrinsics; object model calls are handled separately.
 BASIC_INTRINSICS = ('Abs Asc Chr CInt CLng CDbl CStr Date DateAdd Day Fix Hex IIf InStr Int IsNumeric Join LBound LCase Left Len LTrim Mid Month Now Replace Right Round RTrim Sgn Space Split Sqr Str Trim UBound UCase Val Weekday Year').split()
@@ -29,13 +29,16 @@ def basic_intrinsics(line):
 UNO_HELPERS = '''
 Function MFRange(sheetName As String, address As String) As Object
     Dim range As Object
-    Dim bounds
     range = ThisComponent.Sheets.getByName(sheetName).getCellRangeByName(address)
+    MFRange = MFOnlyCell(range)
+End Function
+Function MFOnlyCell(range As Object) As Object
+    Dim bounds
     bounds = range.getRangeAddress()
     If bounds.StartRow <> bounds.EndRow Or bounds.StartColumn <> bounds.EndColumn Then
         Err.Raise 5, "MacroFerry", "Native UNO multi-cell values require manual migration"
     End If
-    MFRange = range.getCellByPosition(0, 0)
+    MFOnlyCell = range.getCellByPosition(0, 0)
 End Function
 Function MFCells(sheetName As String, row As Long, column As Long) As Object
     MFCells = ThisComponent.Sheets.getByName(sheetName).getCellByPosition(column - 1, row - 1)
@@ -63,23 +66,30 @@ End Sub
 '''
 
 
-def basic_expression(node):
+def basic_expression(node, ranges=()):
     kind = node["kind"]
     if kind == "literal": return '"' + node["value"].replace('"', '""') + '"'
     if kind == "number": return node["value"]
-    if kind == "identifier": return node["name"]
-    if kind == "unary": return "(" + node["op"] + " " + basic_expression(node["value"]) + ")"
-    if kind == "binary": return "(" + basic_expression(node["left"]) + " " + node["op"] + " " + basic_expression(node["right"]) + ")"
-    if kind == "call": return basic_expression(node["object"]) + "(" + ", ".join(basic_expression(a) for a in node["args"]) + ")"
+    if kind == "identifier": return str(formatting.CONSTANTS[node["name"]]) if node["name"] in formatting.CONSTANTS else node["name"]
+    if kind == "unary": return "(" + node["op"] + " " + basic_expression(node["value"], ranges) + ")"
+    if kind == "binary": return "(" + basic_expression(node["left"], ranges) + " " + node["op"] + " " + basic_expression(node["right"], ranges) + ")"
+    if kind == "call":
+        obj = node["object"]
+        rgb = obj.get("name") == "rgb" and (obj["kind"] == "identifier" or obj["kind"] == "member" and obj["object"].get("name") == "vba")
+        callee = "MFVbaRGB" if rgb else basic_expression(obj, ranges)
+        return callee + "(" + ", ".join(basic_expression(a, ranges) for a in node["args"]) + ")"
     if kind == "member":
+        if formatting.target(node): raise vba.Unsupported("Reading formatting properties requires manual migration")
         if node["name"] in ("value", "value2", "formula"):
-            cell=uno_cell(node["object"])
+            cell=uno_cell(node["object"], ranges=ranges)
             return cell+".Formula" if node["name"]=="formula" else "MFGet("+cell+")"
-        return basic_expression(node["object"]) + "." + node["name"]
+        return basic_expression(node["object"], ranges) + "." + node["name"]
     raise vba.Unsupported("Unknown expression")
 
 
-def uno_cell(node):
+def uno_cell(node, format_range=False, ranges=()):
+    if node["kind"] == "identifier" and node["name"] in ranges:
+        return node["name"] if format_range else "MFOnlyCell(" + node["name"] + ")"
     if node["kind"] != "call" or node["object"]["kind"] != "member":
         raise vba.Unsupported("Native UNO requires an explicit worksheet and cell")
     member = node["object"]
@@ -87,7 +97,7 @@ def uno_cell(node):
     if sheet["kind"] != "call" or sheet["object"].get("name") not in ("worksheets", "sheets") or len(sheet["args"]) != 1:
         raise vba.Unsupported("Native UNO requires Worksheets(name)")
     if member["name"] == "range" and len(node["args"]) == 1:
-        return "MFRange(" + basic_expression(sheet["args"][0]) + ", " + basic_expression(node["args"][0]) + ")"
+        return ("MFFormatRange(" if format_range else "MFRange(") + basic_expression(sheet["args"][0]) + ", " + basic_expression(node["args"][0]) + ")"
     if member["name"] == "cells" and len(node["args"]) == 2:
         return "MFCells(" + ", ".join(basic_expression(a) for a in sheet["args"] + node["args"]) + ")"
     raise vba.Unsupported("Native UNO supports Range and Cells assignments")
@@ -96,6 +106,13 @@ def uno_cell(node):
 def basic(source, findings, native=False):
     output = ["Option VBASupport 1"]
     todos, rewrites = [], []
+    has_formatting = False
+    contexts, ranges = [], set()
+    nodes, source_tokens = vba.syntax(source), set(vba.tokens(source))
+    reserved = set(formatting.CONSTANTS) | {"rgb", "mfformat", "mfformatrange", "mfvbargb", "mfrange", "mfonlycell", "mfget", "mfset", "mfcells"}
+    formatting_shadowed = any(set(vba.tokens(node["source"])) & reserved for node in nodes
+                              if node["kind"] == "procedure" or re.match(r"(?i)^(dim|static|const)\b", node["source"]))
+    uses_formatting = any(formatting.has_property(vba.tokens(node["source"])) for node in nodes)
     by_line = {}
     shadowed=bool(re.search(r'(?im)\b(?:Dim|Static|Sub|Function)\s+VBA\b|^Attribute\s+VB_Name\s*=\s*"VBA"',source))
     for finding in findings:
@@ -115,31 +132,89 @@ def basic(source, findings, native=False):
         elif ids and shadowed:
             output.append("' MACROFERRY TODO: VBA identifier is shadowed; review qualified intrinsics")
             todos.append({"line":number,"reason":"VBA identifier is shadowed"})
-        if native and re.search(r"(?i)\b(range|cells)\s*\(", line):
+        parts = list(vba.split_statements(line))
+        statement = " : ".join(part for _, part in parts)
+        context = contexts[-1] if contexts else None
+        if statement.lower().startswith("with "):
             try:
-                parts = list(vba.split_statements(line))
+                if not native and not uses_formatting: raise vba.Unsupported("Keep compatibility With unchanged")
+                if formatting_shadowed: raise vba.Unsupported("Formatting names are shadowed")
+                value = statement[5:]
+                if value.startswith("."):
+                    if not context: raise vba.Unsupported("Member outside a supported With range")
+                    value = context + value
+                root = vba.expression(value)
+                if root["kind"] == "member" and root["name"] in ("font", "interior"):
+                    uno_cell(root["object"], True, ranges)
+                    contexts.append(value)
+                    replacement = "If True Then"
+                else:
+                    cell = uno_cell(root, True, ranges)
+                    alias = "mfwith" + str(number)
+                    while alias in source_tokens: alias += "x"
+                    ranges.add(alias)
+                    contexts.append(alias)
+                    replacement = "Dim " + alias + " As Object\nSet " + alias + " = " + cell + "\nIf True Then"
+                output.append(replacement)
+                has_formatting = True
+                rewrites.append({"line": number, "rule_id": "FORMAT-WITH", "before": line, "after": replacement})
+                continue
+            except vba.Unsupported as error:
+                contexts.append(None)
+                if uses_formatting or context:
+                    output.append("' MACROFERRY TODO(UNO-MANUAL): " + str(error))
+                    todos.append({"line": number, "rule_id": "UNO-MANUAL", "reason": str(error)})
+        elif statement.lower() == "end with" and contexts:
+            if contexts.pop():
+                output.append("End If")
+                rewrites.append({"line": number, "rule_id": "FORMAT-WITH", "before": line, "after": "End If"})
+                continue
+        if statement.startswith(".") and context: statement = context + statement
+        token_list = vba.tokens(statement)
+        words = set(token_list)
+        is_formatting = formatting.has_property(token_list)
+        if is_formatting or ("with" not in words and (native and bool(words & {"range", "cells"}) or bool(words.intersection(ranges)) or context and "." in words)):
+            try:
+                if not parts:
+                    output.append(line)
+                    continue
                 if len(parts) != 1 or "=" not in parts[0][1]:
-                    raise vba.Unsupported("Native UNO rewrite requires a single assignment")
-                statement = parts[0][1]
-                left, right = statement.split("=", 1)
-                node = vba.expression(left.strip())
+                    raise vba.Unsupported("UNO rewrite requires a single assignment; compound/continued statements need review")
+                pair = vba.assignment(statement)
+                if pair is None: raise vba.Unsupported("UNO rewrite requires an assignment")
+                node, rhs = pair
+                formatted = formatting.target(node)
+                if formatted:
+                    if formatting_shadowed or shadowed: raise vba.Unsupported("Formatting constants, RGB or helper names are shadowed")
+                    root, prop = formatted
+                    formatting.check_expression(prop, rhs)
+                    replacement = 'MFFormat ' + uno_cell(root, True, ranges) + ', "' + prop + '", ' + basic_expression(rhs, ranges)
+                    output.append(replacement)
+                    rewrites.append({"line": number, "rule_id": "FORMAT-" + prop.upper().replace(".", "-"), "before": line, "after": replacement})
+                    has_formatting = True
+                    continue
+                if not native and not words.intersection(ranges):
+                    output.append(line)
+                    continue
                 if node["kind"] != "member" or node["name"] not in ("value", "value2", "formula"):
                     raise vba.Unsupported("Native UNO rewrite supports Value and Formula")
-                cell = uno_cell(node["object"])
-                rhs = vba.expression(right.strip())
+                cell = uno_cell(node["object"], ranges=ranges)
                 if node["name"] == "formula":
-                    replacement = cell + ".Formula = " + basic_expression(rhs)
+                    replacement = cell + ".Formula = " + basic_expression(rhs, ranges)
                 else:
-                    replacement = "MFSet " + cell + ", " + basic_expression(rhs)
+                    replacement = "MFSet " + cell + ", " + basic_expression(rhs, ranges)
                 output.append(replacement)
                 rewrites.append({"line": number, "rule_id": "UNO-RANGE-SET", "before": line, "after": replacement})
                 continue
-            except vba.Unsupported as error:
+            except (vba.Unsupported, NotImplementedError) as error:
                 output.append("' MACROFERRY TODO(UNO-MANUAL): " + str(error))
                 todos.append({"line": number, "rule_id": "UNO-MANUAL", "reason": str(error)})
         output.append(line)
-    if native:
+    if contexts:
+        todos.append({"reason": "Unclosed With block requires manual migration"})
+    if native or has_formatting:
         output.append(UNO_HELPERS)
+    if has_formatting or 'MFVbaRGB(' in '\n'.join(output): output.append(formatting.basic_helpers())
     return {"source": "\n".join(output) + "\n", "todos": todos, "rewrites": rewrites}
 
 
@@ -179,17 +254,38 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
         diff = candidate.with_suffix(candidate.suffix + ".diff")
         diff.write_text("".join(difflib.unified_diff(module["source"].splitlines(True), result["source"].splitlines(True), fromfile=name + ".original", tofile=candidate.name)), encoding="utf-8")
         records.append({"name": name, "kind": module["kind"], "original": original.relative_to(destination).as_posix(), "candidate": candidate.relative_to(destination).as_posix(), "diff": diff.relative_to(destination).as_posix(), "todos": result["todos"], "rewrites": result.get("rewrites", []), "procedures": result.get("procedures", [])})
+    buttons = {"records": [], "wrapper_source": ""}
     if target in ("basic", "basic-uno"):
-        office.run({"mode": "convert", "input": str(input_path), "output": str(destination / "converted.ods"), "modules": modules}, libreoffice)
+        eligible = controls.handlers(workbook["modules"], records)
+        features = set(workbook.get("features", []))
+        if features & {"activex", "legacy_features_uninspected", "binary_features_uninspected", "vml_uninspected", "oversized_parts_uninspected"}:
+            for handler in eligible: handler["reason"] = "ActiveX or incomplete control coverage requires manual migration"
+        converted = office.run({"mode": "convert", "input": str(input_path), "output": str(destination / "converted.ods"), "modules": modules, "button_handlers": eligible}, libreoffice)
+        buttons = converted["buttons"]
     else:
         package = destination / "migration"
         package.mkdir()
-        for filename in ("__init__.py", "runtime.py"):
+        for filename in ("__init__.py", "runtime.py", "formatting.py"):
             shutil.copyfile(Path(__file__).parent / filename, package / filename)
         if target == "python":
             (destination / "requirements.txt").write_text("openpyxl==3.1.5\n", encoding="utf-8")
         else:
-            office.run({"mode": "convert", "input": str(input_path), "output": str(destination / "converted.ods"), "modules": {}}, libreoffice)
+            buttons = office.run({"mode": "convert", "input": str(input_path), "output": str(destination / "converted.ods"), "modules": {}}, libreoffice)["buttons"]
+    if buttons["wrapper_source"]:
+        candidate = source_dir / "button-wrappers.bas"
+        candidate.write_text(buttons["wrapper_source"], encoding="utf-8")
+        buttons["candidate"] = candidate.relative_to(destination).as_posix()
+    del buttons["wrapper_source"]
+    handled = {record["before"] for record in buttons["records"] if record["status"] == "rewritten"}
+    for assignment in workbook.get("macro_assignments", []):
+        try:
+            handler = controls.resolve(assignment, "StarBasic", controls.handlers(workbook["modules"], records), input_path.name)
+            matched = any(record.get("handler", "").lower() == (handler["module"] + "." + handler["procedure"]).lower() for record in buttons["records"])
+        except ValueError: matched = assignment in handled
+        if not matched:
+            buttons["records"].append({"status": "manual", "before": assignment, "reason": "Source assignment has no matching imported button; recreate and wire manually"})
+    if "macro_assignment" in workbook.get("features", []) and not buttons["records"]:
+        buttons["records"].append({"status": "manual", "before": "Button/shape assignments", "reason": "No readable imported button binding in this target; wire manually"})
     queries=[]
     if workbook['queries']:
         from migration.m_runtime import convert as convert_m
@@ -203,6 +299,12 @@ def convert(input_path, destination, binary, target="basic", libreoffice=None):
                 item.update(candidate=(directory/'query.py').relative_to(destination).as_posix(),queries=summary['queries'],todos=summary['todos'])
             except ValueError as error:item['todos']=[{'reason':str(error)}]
             queries.append(item)
-    report = {"schema_version": "1", "status": "candidate", "verified": False, "input": str(input_path), "input_sha256": hashlib.sha256(input_path.read_bytes()).hexdigest(), "target": target, "modules": records, "power_queries":queries, "workbook_findings": workbook["findings"], "automatic_execution": False, "limitations": ["Review every TODO and supply a golden case before adopting a candidate", "Events, UserForms, external links and embedded controls need manual migration", "Power Query scripts require pandas and a separate table comparison; ODS does not refresh M queries"]}
+    report = {"schema_version": "1", "status": "candidate", "verified": False, "input": str(input_path), "input_sha256": hashlib.sha256(input_path.read_bytes()).hexdigest(), "target": target, "modules": records, "buttons": buttons, "power_queries":queries, "workbook_findings": workbook["findings"], "automatic_execution": False, "limitations": ["Review every TODO and supply a golden case before adopting a candidate", "Only imported push buttons with eligible Basic handlers are rebound; other events, UserForms, ActiveX and missing controls need manual migration", "Power Query scripts require pandas and a separate table comparison; ODS does not refresh M queries"]}
     (destination / "conversion.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return report
+
+
+def todo_count(report):
+    return (sum(len(module["todos"]) for module in report["modules"])
+            + sum(len(query["todos"]) for query in report.get("power_queries", []))
+            + sum(record["status"] == "manual" for record in report.get("buttons", {}).get("records", [])))
