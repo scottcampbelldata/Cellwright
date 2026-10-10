@@ -21,6 +21,8 @@ ORDER BY day DESC, path;
 
 Active time includes only visible, focused pages and pauses after one minute without interaction. It is an estimate, not total session duration. Views do not identify unique people; blocked scripts, failed beacons and automated traffic affect counts. Initial totals include deployment checks.
 
+A production browser check on 10 October 2026 confirmed that page views, foreground active seconds and scrolling reach the private database. Download clicks are covered by the client test; a recorded click does not prove that an archive finished downloading.
+
 The first-party collector stores only UTC day, allowlisted public page path and numeric totals, with no cookies or visitor identifiers. Global Privacy Control and Do Not Track disable this collector. See the [public privacy explanation](https://cellwright.scottcampbell.io/privacy/) for the distinction between engagement storage and hosting request metadata.
 
 ## Deployment configuration

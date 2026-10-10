@@ -6,7 +6,7 @@ import vm from 'node:vm';
 test('site, dashboard and report palettes exclude green and teal hues',()=>{
   for(const path of ['site/style.css','site/icon.svg','dashboard/style.css','dashboard/app.js','src/report.rs']) {
     const text=readFileSync(new URL('../'+path,import.meta.url),'utf8');
-    assert.doesNotMatch(text,/\b(?:darkgreen|lightgreen|limegreen|seagreen|springgreen|forestgreen|olive|olivedrab|chartreuse|aquamarine|yellowgreen|teal)\b/i);
+    assert.doesNotMatch(text,/\b(?:green|darkgreen|lightgreen|limegreen|seagreen|springgreen|forestgreen|olive|olivedrab|chartreuse|aquamarine|yellowgreen|teal)\b/i);
     for(const [color] of text.matchAll(/#(?:[\da-f]{8}|[\da-f]{6}|[\da-f]{4}|[\da-f]{3})\b/gi)) {
       const hex=color.length<=5?'#'+[...color.slice(1,4)].map(x=>x+x).join(''):color;
       const [r,g,b]=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255);
