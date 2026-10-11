@@ -20,7 +20,7 @@ h2{font-size:28px;letter-spacing:-.6px;line-height:1.25;font-weight:750;margin:0
 .button:hover{color:var(--on-accent);background:var(--accent-ink);border-color:var(--accent-ink);text-decoration:none}
 .button.secondary{background:transparent;color:var(--ink);border-color:var(--muted)}.button.secondary:hover{background:var(--surface);border-color:var(--ink);color:var(--ink)}
 /* home */
-.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px 64px;align-items:end;padding-block:56px 0}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px 64px;align-items:center;padding-block:56px 0}
 .hero h1{font-size:clamp(36px,3.3vw,48px);margin:0}
 .downloads{display:flex;flex-wrap:wrap;gap:12px}
 .download-note{font-size:16px;line-height:1.6;color:var(--muted);margin:14px 0 0}.download-note a{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--ink)}
