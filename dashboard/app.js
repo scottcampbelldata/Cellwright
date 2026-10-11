@@ -186,7 +186,7 @@ async function guidedVerification(job){
 }
 let handoffJob=null,handoffValue=null,handoffRevision=0;
 async function updateHandoff(){const revision=++handoffRevision;$('save-handoff').disabled=true;try{const value=await api('/api/handoff',{conversion_id:handoffJob.id,include_identifiers:$('handoff-identifiers').checked});if(revision===handoffRevision){handoffValue=value;$('handoff-preview').textContent=JSON.stringify(value,null,2);$('save-handoff').disabled=false;}}catch(error){if(revision===handoffRevision){handoffValue=null;$('handoff-preview').textContent=t('Preview unavailable. Please try again.');}throw error;}}
-async function previewHandoff(job){handoffJob=job;$('handoff-identifiers').checked=false;await updateHandoff();const link=$('consulting-link'),url=state.setup?.consulting_url;link.hidden=true;if(url){try{const parsed=new URL(url);if(parsed.protocol==='https:'){link.href=parsed.href;link.hidden=false;}}catch{}}$('handoff-dialog').showModal();}
+async function previewHandoff(job){handoffJob=job;$('handoff-identifiers').checked=false;await updateHandoff();$('handoff-dialog').showModal();}
 $('handoff-identifiers').onchange=()=>updateHandoff().catch(error=>notify(error.message,true));
 $('save-handoff').onclick=()=>{if(!handoffValue)return;const link=element('a');link.href=URL.createObjectURL(new Blob([JSON.stringify(handoffValue,null,2)+'\n'],{type:'application/json'}));link.download='cellwright-review-summary.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);};
 i18n.apply();$('language').value=i18n.language;

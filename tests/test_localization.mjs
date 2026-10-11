@@ -130,6 +130,7 @@ test('French and German catalogs cover marked HTML and app text and preserve eve
     for(const [,,key]of app.matchAll(/\bt\((['"])([^'"\r\n]*)\1/g))assert.ok(Object.hasOwn(catalogs[language],key),`${language} is missing app text ${key}`);
   }
   assert.ok(html.indexOf('src="/locales.js"')<html.indexOf('src="/app.js"'),'load translations before app');
+  assert.doesNotMatch(html+source,/consulting|scottcampbellconsulting/i,'no consulting link in the dashboard');
 });
 
 test('existing finding arrays display the chosen report message with English fallback',()=>{

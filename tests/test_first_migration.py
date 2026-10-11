@@ -151,3 +151,4 @@ class FirstMigrationTests(unittest.TestCase):
             result=check(binary)
             self.assertTrue(result['first_scan_ready']);self.assertFalse(next(c for c in result['checks'] if c['id']=='libreoffice')['available'])
             worker.assert_not_called()
+            self.assertNotIn('consulting_url',result)

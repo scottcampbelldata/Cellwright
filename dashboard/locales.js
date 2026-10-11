@@ -130,7 +130,6 @@ for (const [key, fr, de] of [
  ['Paths, source code, captured values, hashes and owner notes are always removed. Review this preview before saving or sharing it. Nothing is sent automatically.','Les chemins, le code source, les valeurs capturées, les empreintes et les notes des responsables sont toujours supprimés. Examinez cet aperçu avant de l’enregistrer ou de le partager. Rien n’est envoyé automatiquement.','Pfade, Quellcode, erfasste Werte, Hashes und Notizen der Verantwortlichen werden immer entfernt. Prüfen Sie diese Vorschau vor dem Speichern oder Teilen. Es wird nichts automatisch versendet.'],
  ['Include module and routine names','Inclure les noms de modules et de routines','Modul- und Routinenamen aufnehmen'],
  ['Save reviewed summary','Enregistrer le résumé examiné','Geprüfte Zusammenfassung speichern'],
- ['Optional migration consulting ↗','Conseil en migration facultatif ↗','Optionale Migrationsberatung ↗'],
  ['Request failed','La requête a échoué','Anfrage fehlgeschlagen'],
  ['Workbook inventory','Inventaire des classeurs','Arbeitsmappeninventar'],
  ['Know what needs to move.','Identifiez ce qui doit être migré.','Erkennen Sie, was migriert werden muss.'],

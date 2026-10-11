@@ -56,7 +56,7 @@ Each conversion card opens an actionable checklist with a location, reason and n
 
 The guided comparison form lets users choose an ordinary routine, enter typed scalar inputs, add worksheet/cell ranges and supply a saved Excel capture on Linux. No configuration file is needed. Execution remains disabled unless the server started with `--allow-execution` and the user consents to the individual case; the UI never enables it automatically.
 
-The optional review summary previews a JSON export before saving. Paths, source, captured cells/formulas, hashes, owner details and free-text notes are excluded; module/routine names are removed by default. Users choose whether to include those identifiers and whether to share the saved file. The discreet consulting link opens Scott Campbell Consulting; no workbook data is transmitted by it. `CELLWRIGHT_CONSULTING_URL` can change or hide that link.
+The optional review summary previews a JSON export before saving. Paths, source, captured cells/formulas, hashes, owner details and free-text notes are excluded; module/routine names are removed by default. Users choose whether to include those identifiers and whether to share the saved file.
 
 For command-line verification, provide a JSON case:
 

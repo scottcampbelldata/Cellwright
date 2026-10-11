@@ -36,4 +36,4 @@ def check(binary):
     add('excel','Desktop Excel',excel,'New reference captures','Use a saved Excel capture on Linux, or a Windows machine with Excel for new captures. Inventory and conversion do not need Excel.')
     demo=office.ROOT/'corpus/generated/formatting-button.xlsm'
     if not demo.exists():demo=office.ROOT/'demo/formatting-button.xlsm'
-    return {'checks':checks,'first_scan_ready':all(c['available'] for c in checks if c['id'] in ('scanner','python')),'demo':str(demo) if demo.exists() else None,'consulting_url':os.environ.get('CELLWRIGHT_CONSULTING_URL','https://scottcampbellconsulting.com/')}
+    return {'checks':checks,'first_scan_ready':all(c['available'] for c in checks if c['id'] in ('scanner','python')),'demo':str(demo) if demo.exists() else None}

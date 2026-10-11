@@ -47,4 +47,4 @@ For Power Query, inspect the original M and generated pandas script, configure s
 
 ## Review handoff
 
-The conversion card's review summary previews an allowlisted JSON export. Paths, source/diffs, captured values/formulas, hashes, owner notes and free-text reasons never enter this export. Module/routine names are excluded by default and can be included after reviewing the preview. Save it locally, inspect it again and choose whether to share it. The dashboard sends nothing to consulting services.
+The conversion card's review summary previews an allowlisted JSON export. Paths, source/diffs, captured values/formulas, hashes, owner notes and free-text reasons never enter this export. Module/routine names are excluded by default and can be included after reviewing the preview. Save it locally, inspect it again and choose whether to share it.
